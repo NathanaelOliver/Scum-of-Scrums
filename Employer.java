@@ -23,10 +23,12 @@ public class Employer extends User {
 
     /**
      * Creates and adds a Listing to listings
+     * TODO -  Similar to work experience adding a reference, do
+     * we want to ask for input in this method? or do we want to send
+     * in all the required data?
+     *   - Nathanael
      */
-    public void addListing() {
-        // TO DO
-    }
+    public void addListing() { }
 
     /**
      * Gets the Employer's Job Listings

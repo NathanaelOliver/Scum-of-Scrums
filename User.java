@@ -6,7 +6,7 @@
  */
 public abstract class User {
     private String password;
-    private String id;
+    private final String id;
     public UserType userType;
     public boolean isVerified = false;
 

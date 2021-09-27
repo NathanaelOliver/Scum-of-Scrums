@@ -38,7 +38,7 @@ public class Admin extends User {
 
     /**
      * verifies the user
-     * TO DO - Im not entirely sure if this method should be in here
+     * TODO - Im not entirely sure if this method should be in here
      * or in the database method; I may move it later
      *   - Nathanael
      * @param id the id of the user to be verified
