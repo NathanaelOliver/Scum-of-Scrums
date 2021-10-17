@@ -4,7 +4,7 @@ import java.util.Date;
 /**
  * CourseExperience Class
  * Contains the information related to a course experience
- * @author Naah MacBride
+ * @author Noah MacBride
  */
 public class CourseExperience extends Experience {
     private double grade;
@@ -45,8 +45,8 @@ public class CourseExperience extends Experience {
     }
 
     /**
-     * Gets the references for the Course Experience
-     * @return the references for the course experience
+     * Gets the student's grade in the course
+     * @return the student's grade in the course
      */
     public double getGrade() {
         return grade;
