@@ -20,7 +20,7 @@ public class Employer extends User {
     public Employer(String title) {
         super(UserType.employer);
         this.title = title;
-        listings = new ArrayList<Listing>();
+        this.listings = new ArrayList<Listing>();
     }
 
     /**
