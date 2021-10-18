@@ -31,7 +31,7 @@ public class Rating {
      * @return the rating
      */
     public int getRating() {
-        return rating;
+        return this.rating;
     }
 
     /**
@@ -39,7 +39,7 @@ public class Rating {
      * @return the comment of the rating
      */
     public String getComment() {
-        return comment;
+        return this.comment;
     }
 
     /**
@@ -47,7 +47,7 @@ public class Rating {
      * @return the id of the user who created the rating
      */
     public UUID getWriterId() {
-        return writerId;
+        return this.writerId;
     }
 
     /**
@@ -71,7 +71,7 @@ public class Rating {
      * @return the user receiving the rating
      */
     public UUID getReceiverId() {
-        return receiverId;
+        return this.receiverId;
     }
 
     /**
