@@ -1,8 +1,10 @@
+package src;
+
 import java.util.ArrayList;
 
 /**
- * Employer Class
- * The profile for the Employer
+ * Employer Class The profile for the Employer
+ * 
  * @author Nathanael Oliver
  */
 public class Employer extends User {
@@ -12,26 +14,26 @@ public class Employer extends User {
 
     /**
      * Creates an employer
-     * @param id the id for the employer
+     * 
      * @param title the company title
      */
-    public Employer(String id, String title) {
-        super(id, UserType.employer);
+    public Employer(String title) {
+        super(UserType.employer);
         this.title = title;
         listings = new ArrayList<Listing>();
     }
 
     /**
-     * Creates and adds a Listing to listings
-     * TODO -  Similar to work experience adding a reference, do
-     * we want to ask for input in this method? or do we want to send
-     * in all the required data?
-     *   - Nathanael
+     * Creates and adds a Listing to listings TODO - Similar to work experience
+     * adding a reference, do we want to ask for input in this method? or do we want
+     * to send in all the required data? - Nathanael
      */
-    public void addListing() { }
+    public void addListing() {
+    }
 
     /**
      * Gets the Employer's Job Listings
+     * 
      * @return the Employer's job Listings
      */
     public ArrayList<Listing> getListings() {
@@ -40,11 +42,12 @@ public class Employer extends User {
 
     /**
      * Gets the Listing with the specified ID
+     * 
      * @param id the ID to search for
      * @return The listing with the specified ID, if none, null
      */
     public Listing getListingById(int id) {
-        for (Listing e: listings) {
+        for (Listing e : listings) {
             if (e.getID() == id) {
                 return e;
             }
@@ -54,6 +57,7 @@ public class Employer extends User {
 
     /**
      * Gets the employer title
+     * 
      * @return the employer title
      */
     public String getTitle() {
@@ -62,6 +66,7 @@ public class Employer extends User {
 
     /**
      * Sets the company title
+     * 
      * @param title the new title of the company
      */
     public void setTitle(String title) {
@@ -70,6 +75,7 @@ public class Employer extends User {
 
     /**
      * Gets the description for the employer
+     * 
      * @return the employer description
      */
     public String getDescription() {
@@ -78,6 +84,7 @@ public class Employer extends User {
 
     /**
      * Sets the employer's description
+     * 
      * @param description the new description for the employer
      */
     public void setDescription(String description) {
@@ -86,6 +93,7 @@ public class Employer extends User {
 
     /**
      * Deletes a listing
+     * 
      * @param listing the listing to get deleted
      */
     public void deleteListing(Listing listing) {
@@ -94,6 +102,7 @@ public class Employer extends User {
 
     /**
      * Gets a JSON representation of an Employer
+     * 
      * @return JSON representation of an Employer
      */
     public String toJSON() {

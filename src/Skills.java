@@ -1,12 +1,5 @@
+package src;
+
 enum Skills {
-    java,
-    php,
-    sql,
-    python,
-    scikit-learn,
-    pytorch.
-    tensorflow,
-    pandas,
-    matplotlib,
-    matlab
+    java, php, sql, python, scikitlearn, pytorch, tensorflow, pandas, matplotlib, matlab
 }

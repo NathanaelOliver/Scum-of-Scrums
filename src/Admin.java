@@ -1,7 +1,8 @@
+package src;
 
 /**
- * Admin Class
- * A User with Administrator rights
+ * Admin Class A User with Administrator rights
+ * 
  * @author Nathanael Oliver
  */
 public class Admin extends User {
@@ -10,18 +11,19 @@ public class Admin extends User {
 
     /**
      * Constructor for the admin class
-     * @param id the id of the admin
+     * 
      * @param firstName the first name of the admin
-     * @param lastName the last name of the admin
+     * @param lastName  the last name of the admin
      */
     public Admin(String id, String firstName, String lastName) {
-        super(id, UserType.admin);
+        super(UserType.admin);
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     /**
      * Gets the first name of the admin
+     * 
      * @return the first name of the admin
      */
     public String getFirstName() {
@@ -30,6 +32,7 @@ public class Admin extends User {
 
     /**
      * Gets the last name of the admin
+     * 
      * @return the last name of the admin
      */
     public String getLastName() {
@@ -37,11 +40,10 @@ public class Admin extends User {
     }
 
     /**
-     * verifies the user
-     * TODO - Im not entirely sure if this method should be in here
-     * or in the database method; I may move it later
-     *   - Nathanael
-     * @param id the id of the user to be verified
+     * verifies the user TODO - Im not entirely sure if this method should be in
+     * here or in the database method; I may move it later - Nathanael
+     * 
+     * @param id                 the id of the user to be verified
      * @param verificationStatus the verification status of the user
      */
     public void verifyUser(String id, boolean verificationStatus) {
@@ -50,6 +52,7 @@ public class Admin extends User {
 
     /**
      * Gets JSON representation of the admin
+     * 
      * @return the JSON representation of the admin
      */
     public String toJSON() {
