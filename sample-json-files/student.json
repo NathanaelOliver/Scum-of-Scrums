@@ -1,0 +1,46 @@
+[
+    {
+        "username": "wihobbs",
+        "password": "pass1234",
+        "isVerified": true,
+        "ID": "Z1234354",
+        "UserType": "Student",
+        "firstName": "William",
+        "lastName": "Hobbs",
+        "phoneNumber": 5555555,
+        "email": "williamhobbs@acm.org",
+        "year": 3,
+        "Resume": {
+            "GPA": 3.63,
+            "education": "Bachelor of Science in Computer Science and Mathematics",
+            "skills": {
+                "Skill": "Python",
+                "Skill": "C++"
+            },
+            "workExperiences": [
+                {
+                    "title": "Intern",
+                    "details": [],
+                    "startDate": "06/01/2021",
+                    "endDate": "08/06/2021"
+                }
+            ],
+            "courseExperiences": [
+                {
+                    "title": "CSCE 240",
+                    "grade": "4.00"
+                },
+                {
+                    "title": "CSCE 146",
+                    "grade": "4.00"
+                }
+            ]
+        }
+    },{
+        "firstName": "Jack",
+        "lastName": "Oberman",
+        "phoneNumber": 4444444,
+        "email": "some.email@acm.org",
+        "year": 2
+    }
+]

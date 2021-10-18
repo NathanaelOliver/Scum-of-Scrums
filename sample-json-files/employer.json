@@ -1,0 +1,28 @@
+[
+    {
+        "username": "lbnl",
+        "password": "pass1234",
+        "isVerified": true,
+        "ID": "",
+        "UserType": "Employer",
+        "title": "Lawrence Berkeley National Laboratory",
+        "description": "",
+        "listings": {
+            "payrate": "paid",
+            "location": "Berkeley, CA",
+            "description": "Research Internship",
+            "startDate": "06-01-2022",
+            "endDate": "08-06-2022",
+            "siteLink": "education.lbl.gov",
+            "skills": [
+                "python", "C++"
+            ],
+            "employer": "Lawrence Berkeley National Laboratory",
+            "applicants": [
+                "William Hobbs"
+            ],
+            "id": 001
+        }
+        
+    }
+]

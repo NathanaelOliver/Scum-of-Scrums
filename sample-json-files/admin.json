@@ -1,0 +1,10 @@
+[
+    {
+        "firstName": "Harris",
+        "lastName": "Pastides",
+        "phoneNumber": 5555555,
+        "email": "president@sc.edu",
+        "type": "Admin",
+        "isVerified": true
+    }
+]
