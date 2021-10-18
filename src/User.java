@@ -3,7 +3,7 @@ package src;
 import java.util.UUID;
 
 /**
- * User class Stores an ID and password to login to the system
+ * User class Stores an ID and password to log in to the system
  * 
  * @author Nathanael Oliver
  */
@@ -48,7 +48,7 @@ public abstract class User {
      * @return the id
      */
     public UUID getID() {
-        return id;
+        return this.id;
     }
 
     /**

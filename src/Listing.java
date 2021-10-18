@@ -32,7 +32,7 @@ public class Listing {
      * 
      * @return the listing ID
      */
-    public int getID() {
+    public int getId() {
         return id;
     }
 

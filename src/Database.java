@@ -103,11 +103,11 @@ public class Database {
     /**
      * Searches for job listings with a minimum pay rate
      * 
-     * @param payrate  the minimum pay rate
+     * @param payRate  the minimum pay rate
      * @param listings the listings to look through
      * @return the listings with the specified minimum pay rate
      */
-    private ArrayList<Listing> searchPayRate(String payrate, ArrayList<Listing> listings) {
+    private ArrayList<Listing> searchPayRate(String payRate, ArrayList<Listing> listings) {
         return new ArrayList<Listing>();
     }
 
