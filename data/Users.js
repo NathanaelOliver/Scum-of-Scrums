@@ -4,7 +4,7 @@ let students = [
         "id": "B8710298",
         "username": "wihobbs",
         "password": "hobbsman1",
-        "userType": UserType.Student,
+        "userType": "student",
         "isVerified": true,
         "firstName": "Bill",
         "lastName": "Hobbs",
@@ -81,7 +81,7 @@ let students = [
         "id": "J78522814",
         "username": "joberman",
         "password": "G@meCok7",
-        "userType": UserType.Student,
+        "userType": "student",
         "isVerified": true,
         "firstName": "Jack",
         "lastName": "Oberman",
@@ -100,7 +100,7 @@ let students = [
         "id": "L8327109",
         "username": "natoliver",
         "password": "gamerBoi2",
-        "userType": UserType.Student,
+        "userType": "student",
         "isVerified": true,
         "firstName": "Nathanael",
         "lastName": "Oliver",
@@ -130,7 +130,7 @@ let students = [
         "id": "P1289123",
         "username": "brideguy9",
         "password": "tacoB3llH$ll",
-        "userType": UserType.Student,
+        "userType": "student",
         "isVerified": false,
         "firstName": "Macbride",
         "lastName": "Noah",
@@ -152,7 +152,7 @@ let admins = [
         "id": "37e75b8c-532d-40fe-b23c-a8d8a68b9c78",
         "username": "qwertyui",
         "password": "u93@2u4q98",
-        "userType": UserType.Admin,
+        "userType": "admin",
         "isVerified": true,
         "firstName": "Jasper",
         "lastName": "Johns"
@@ -161,7 +161,7 @@ let admins = [
         "id": "90d50390-d2b9-460c-aed4-1a606ca80ccf",
         "username": "aqsdfgh",
         "password": "5679hf45!2",
-        "userType": UserType.Admin,
+        "userType": "admin",
         "isVerified": false,
         "firstName": "Gustav",
         "lastName": "Klimt"
@@ -173,7 +173,7 @@ let employers = [
         "id": "6dd197f1-c14d-4a22-9bf3-6435f78df24e",
         "username": "uofscITdept",
         "password": "@d@f@gplmz",
-        "userType": UserType.Employer,
+        "userType": "employer",
         "isVerified": true,
         "title": "UofSC IT Dept.",
         "description": "University of South Carolina IT Department",
@@ -218,7 +218,7 @@ let employers = [
         "id": "01f78a8e-21a0-40cc-8b03-6155cb92986f",
         "username": "publix",
         "password": "p9o08h80n",
-        "userType": UserType.Employer,
+        "userType": "employer",
         "isVerified": true,
         "title": "Publix Supermarkets Inc",
         "description": "Publix Super Markets, Inc., commonly known as Publix, is an employee-owned American supermarket chain headquartered in Lakeland, Florida. Founded in 1930 by George W. Jenkins, Publix is a private corporation that is wholly owned by present and past employees and members of the Jenkins family.",
@@ -233,7 +233,7 @@ let employers = [
                 "endDate": "08/20/2022",
                 "siteLink": "https://www.publix.com/",
                 "skills": [
-                    Skill.cPlusPlus, Skill.java, Skill.css
+                    "java", "linux", "css"
                 ],
                 "applicants": []
             }
