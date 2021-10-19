@@ -1,4 +1,4 @@
-let ratings = [
+[
     {
         "id": "1005fe40-dcd8-4e84-b0fc-810f25768c5c",
         "receiverId": "P1289123",
@@ -13,4 +13,4 @@ let ratings = [
         "comment": "This genius could get help me master the dougie AND the nay-nay",
         "writerId": "01f78a8e-21a0-40cc-8b03-6155cb92986f"
     }  
-];
+]
