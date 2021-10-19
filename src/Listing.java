@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.ArrayList;
 
-public class Listing {
+public class Listing implements JSONable {
     private double payRate;
     private String location;
     private ArrayList<String> description;
@@ -12,7 +12,7 @@ public class Listing {
     private Date endDate;
     private String siteLink;
     private ArrayList<Skills> skills;
-    private ArrayList<Student> applicants;
+    private ArrayList<Resume> applicants;
     private final UUID id;
 
     /**
@@ -46,11 +46,12 @@ public class Listing {
     }
 
     /**
-     * Converts a job listing to JSON TODO - complete toJSON method
+     * Converts a job listing to JSON
      * 
      * @return the JSON representation of a job listing
      */
     public String toJSON() {
+        // TODO - complete toJSON method
         return null;
     }
 
@@ -194,7 +195,7 @@ public class Listing {
      * 
      * @return the students who have applied for the job
      */
-    public ArrayList<Student> getApplicants() {
+    public ArrayList<Resume> getApplicants() {
         return this.applicants;
     }
 
@@ -203,20 +204,7 @@ public class Listing {
      * 
      * @param student the student to be added to the list of applicants
      */
-    public void apply(Student student) {
-        this.applicants.add(student);
-        /**
-         * TODO - We may want to consider passing a resume here as opposed to a student
-         */
-    }
-
-    /**
-     * Displays a listing
-     * 
-     * @return the listing as a string
-     */
-    public String toString() {
-        // TODO create a string representation of a listing
-        return "";
+    public void apply(Resume resume) {
+        this.applicants.add(resume);
     }
 }
