@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Employer Class The profile for the Employer
@@ -15,12 +16,13 @@ public class Employer extends User {
     /**
      * Creates an employer
      * 
+     * @param id    the id for the employer
      * @param title the company title
      */
     public Employer(String title) {
         super(UserType.employer);
         this.title = title;
-        this.listings = new ArrayList<Listing>();
+        listings = new ArrayList<Listing>();
     }
 
     /**
@@ -37,7 +39,7 @@ public class Employer extends User {
      * @return the Employer's job Listings
      */
     public ArrayList<Listing> getListings() {
-        return this.listings;
+        return listings;
     }
 
     /**
@@ -46,7 +48,7 @@ public class Employer extends User {
      * @param id the ID to search for
      * @return The listing with the specified ID, if none, null
      */
-    public Listing getListingById(int id) {
+    public Listing getListingById(UUID id) {
         for (Listing e : listings) {
             if (e.getId() == id) {
                 return e;
@@ -61,7 +63,7 @@ public class Employer extends User {
      * @return the employer title
      */
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     /**
@@ -79,7 +81,7 @@ public class Employer extends User {
      * @return the employer description
      */
     public ArrayList<String> getDescription() {
-        return this.description;
+        return description;
     }
 
     /**
@@ -92,12 +94,12 @@ public class Employer extends User {
     }
 
     /**
-     * Adds an item to the description
+     * Adds an element to the employer's description
      * 
-     * @param descript the string to be added to the description
+     * @param description
      */
-    public void addDescription(String descript) {
-        this.description.add(descript);
+    public void addDescription(String description) {
+        this.description.add(description);
     }
 
     /**
@@ -106,7 +108,7 @@ public class Employer extends User {
      * @param listing the listing to get deleted
      */
     public void deleteListing(Listing listing) {
-        this.listings.remove(listing);
+        listings.remove(listing);
     }
 
     /**

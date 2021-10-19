@@ -1,6 +1,7 @@
 package src;
 
 import java.util.Date;
+import java.util.UUID;
 import java.util.ArrayList;
 
 public class Listing {
@@ -12,10 +13,36 @@ public class Listing {
     private String siteLink;
     private ArrayList<Skills> skills;
     private ArrayList<Student> applicants;
-    private final int id;
+    private final UUID id;
 
-    public Listing(int id) {
-        this.id = id;
+    /**
+     * Creates an empty Listing with only an id
+     */
+    public Listing() {
+        this.id = UUID.randomUUID();
+    }
+
+    /**
+     * Creates a listing with all propeerties
+     * 
+     * @param payRate     the pay rate of the job listing
+     * @param location    the location of the job
+     * @param description a description of the job
+     * @param startDate   the start date of the job
+     * @param endDate     the end date of the job
+     * @param siteLink    a link to the company website
+     * @param skills      the skills recommended for this job
+     */
+    Listing(double payRate, String location, ArrayList<String> description, Date startDate, Date endDate,
+            String siteLink, ArrayList<Skills> skills) {
+        this.id = UUID.randomUUID();
+        this.payRate = payRate;
+        this.location = location;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.siteLink = siteLink;
+        this.skills = skills;
     }
 
     /**
@@ -32,7 +59,7 @@ public class Listing {
      * 
      * @return the listing ID
      */
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -169,5 +196,27 @@ public class Listing {
      */
     public ArrayList<Student> getApplicants() {
         return this.applicants;
+    }
+
+    /**
+     * Adds a student to the list of applicants
+     * 
+     * @param student the student to be added to the list of applicants
+     */
+    public void apply(Student student) {
+        this.applicants.add(student);
+        /**
+         * TODO - We may want to consider passing a resume here as opposed to a student
+         */
+    }
+
+    /**
+     * Displays a listing
+     * 
+     * @return the listing as a string
+     */
+    public String toString() {
+        // TODO create a string representation of a listing
+        return "";
     }
 }
