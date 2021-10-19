@@ -10,7 +10,7 @@ import java.util.UUID;
  */
 public class Employer extends User {
     private String title;
-    private String description;
+    private ArrayList<String> description;
     private ArrayList<Listing> listings;
 
     /**
@@ -80,7 +80,7 @@ public class Employer extends User {
      * 
      * @return the employer description
      */
-    public String getDescription() {
+    public ArrayList<String> getDescription() {
         return description;
     }
 
@@ -89,8 +89,17 @@ public class Employer extends User {
      * 
      * @param description the new description for the employer
      */
-    public void setDescription(String description) {
+    public void setDescription(ArrayList<String> description) {
         this.description = description;
+    }
+
+    /**
+     * Adds an element to the employer's description
+     * 
+     * @param description
+     */
+    public void addDescription(String description) {
+        this.description.add(description);
     }
 
     /**
