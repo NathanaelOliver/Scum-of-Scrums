@@ -2,5 +2,11 @@ enum Skills {
     java,
     php,
     sql,
-    python
+    python,
+    scikit-learn,
+    pytorch.
+    tensorflow,
+    pandas,
+    matplotlib,
+    matlab
 }
