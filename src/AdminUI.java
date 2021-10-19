@@ -1,6 +1,8 @@
+package src;
+
 /**
- * Admin User Interface
- * Front-facing commands for Administrator users
+ * Admin User Interface Front-facing commands for Administrator users
+ * 
  * @author William Hobbs
  */
 public class AdminUI {
@@ -19,8 +21,8 @@ public class AdminUI {
     }
 
     /**
-     * Moves a user from unverifiedUsers into their respective group
-     * Allows user to perform user-y tasks
+     * Moves a user from unverifiedUsers into their respective group Allows user to
+     * perform user-y tasks
      */
     private void validateUser() {
 

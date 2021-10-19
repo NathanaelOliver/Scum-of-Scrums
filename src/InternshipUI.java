@@ -1,3 +1,5 @@
+package src;
+
 /**
  * Intership User Interface
  * This user interface runs the front-end of the Internship system.
