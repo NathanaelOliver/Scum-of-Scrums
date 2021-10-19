@@ -1,5 +1,7 @@
 package src;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -32,13 +34,24 @@ public abstract class User {
         this.password = password;
     }
 
+    public static boolean isValidPassword(String password) {
+        // ensure password has a length between 8 and 16, has a number,
+        // a lowercase letter, a capital letter, and a symbol
+        // with no spaces
+        return password.matches(".*[a-z].*") &&
+               password.matches(".*[A-Z].*") &&
+               password.matches(".*[0-9].*") &&
+               password.matches(".*[!-&].*") &&
+               !password.matches(".*/\s/g.*");
+    }
+
     /**
      * verifies the password
      * 
      * @param password the password to verify
      * @return true if it is the users password, otherwise false
      */
-    public boolean verfiyPassword(String password) {
+    public boolean checkPassword(String password) {
         return this.password.equals(password);
     }
 
@@ -52,12 +65,12 @@ public abstract class User {
     }
 
     /**
-     * TODO - IM NOT ENTIRELY SURE WHAT THIS METHOD IS FOR
+     * Sets isVerified to true
      * 
-     * @param user
-     * @return
      */
-    // public abstract void verifyUser(User user);
+    public void verifyUser() {
+        this.isVerified = true;
+    }
 
     /**
      * Converts a user into JSON to be stored in the database
@@ -65,8 +78,4 @@ public abstract class User {
      * @return a JSON representation of the USER
      */
     public abstract String toJSON();
-}
-
-enum UserType {
-    student, employer, admin
 }
