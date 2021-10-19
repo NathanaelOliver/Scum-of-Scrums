@@ -5,7 +5,7 @@ import java.util.uuid;
  * @author Nathanael Oliver
  */
 public class Rating {
-    private UUID id;
+    private final UUID id;
     private int rating;
     private String comment;
     private UUID receiverId;
@@ -31,7 +31,7 @@ public class Rating {
      * @return the rating
      */
     public int getRating() {
-        return rating;
+        return this.rating;
     }
 
     /**
@@ -39,7 +39,7 @@ public class Rating {
      * @return the comment of the rating
      */
     public String getComment() {
-        return comment;
+        return this.comment;
     }
 
     /**
@@ -47,7 +47,7 @@ public class Rating {
      * @return the id of the user who created the rating
      */
     public UUID getWriterId() {
-        return writerId;
+        return this.writerId;
     }
 
     /**
@@ -71,7 +71,7 @@ public class Rating {
      * @return the user receiving the rating
      */
     public UUID getReceiverId() {
-        return receiverId;
+        return this.receiverId;
     }
 
     /**
@@ -86,7 +86,7 @@ public class Rating {
      * Displays the rating
      * @return the rating as a string
      */
-    public String displayRating() {
+    public String toString() {
         /**
          * TODO - display rating method
          * We are going to run into a problem displaying the title/name 

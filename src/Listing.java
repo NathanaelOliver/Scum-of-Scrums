@@ -1,3 +1,5 @@
+package src;
+
 import java.util.Date;
 import java.util.UUID;
 import java.util.ArrayList;
@@ -57,7 +59,7 @@ public class Listing {
      * 
      * @return the listing ID
      */
-    public UUID getID() {
+    public UUID getId() {
         return id;
     }
 
