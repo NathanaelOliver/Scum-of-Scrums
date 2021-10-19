@@ -1,7 +1,8 @@
+package src;
 
 /**
- * Reference Class
- * Stores the data for a work reference
+ * Reference Class Stores the data for a work reference
+ * 
  * @author Nathanael Oliver
  */
 public class Reference {
@@ -12,10 +13,11 @@ public class Reference {
 
     /**
      * Constructor for the Reference class
-     * @param firstName first name of the reference
-     * @param lastName last name of the reference
-     * @param phoneNumber phone number of the reference 
-     * @param email email of the reference
+     * 
+     * @param firstName   first name of the reference
+     * @param lastName    last name of the reference
+     * @param phoneNumber phone number of the reference
+     * @param email       email of the reference
      */
     public Reference(String firstName, String lastName, int phoneNumber, String email) {
         this.firstName = firstName;
@@ -26,6 +28,7 @@ public class Reference {
 
     /**
      * Gets the first name of the reference
+     * 
      * @return the first name of the reference
      */
     public String getFirstName() {
@@ -34,6 +37,7 @@ public class Reference {
 
     /**
      * Sets the first name of the reference
+     * 
      * @param firstName the first name of the reference
      */
     public void setFirstName(String firstName) {
@@ -42,6 +46,7 @@ public class Reference {
 
     /**
      * Gets the last name of the reference
+     * 
      * @return the last name of the reference
      */
     public String getLastName() {
@@ -50,6 +55,7 @@ public class Reference {
 
     /**
      * Sets the last name of the reference
+     * 
      * @param lastName the last name of the reference
      */
     public void setLastName(String lastName) {
@@ -58,6 +64,7 @@ public class Reference {
 
     /**
      * Gets the phone number of the reference
+     * 
      * @return the phone number of the reference
      */
     public int getPhoneNumber() {
@@ -66,6 +73,7 @@ public class Reference {
 
     /**
      * Sets the phone number of the reference
+     * 
      * @param phoneNumber the phone number of the reference
      */
     public void setPhoneNumber(int phoneNumber) {
@@ -74,6 +82,7 @@ public class Reference {
 
     /**
      * Gets the email address of the reference
+     * 
      * @return the email address of the reference
      */
     public String getEmail() {
@@ -82,6 +91,7 @@ public class Reference {
 
     /**
      * Sets the email address of the reference
+     * 
      * @param email the email address of the reference
      */
     public void setEmail(String email) {

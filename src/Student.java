@@ -1,3 +1,5 @@
+package src;
+
 import java.util.ArrayList;
 
 public class Student extends User {
@@ -10,22 +12,21 @@ public class Student extends User {
     private ArrayList<Skills> skills;
     private ArrayList<Experience> experiences;
 
-
-    
     /**
      * Constructor for a student
-     * @param id the id for the student
+     * 
      * @param firstName the first name of the student
-     * @param lastName the last name of the student
+     * @param lastName  the last name of the student
      */
-    public Student (String id, String firstName, String lastName) {
-        super(id, UserType.student);
+    public Student(String firstName, String lastName) {
+        super(UserType.student);
         this.firstName = firstName;
         this.lastName = lastName;
     }
-    
+
     /**
      * Converts Student to JSON to be stored in database
+     * 
      * @return a JSON representation of Student
      */
     public String toJSON() {
@@ -35,6 +36,7 @@ public class Student extends User {
 
     /**
      * Gets the student's first name
+     * 
      * @return the student's first name
      */
     public String getFirstName() {
@@ -43,6 +45,7 @@ public class Student extends User {
 
     /**
      * sets the students first name
+     * 
      * @param firstName the new first name of the student
      */
     public void setFirstName(String firstName) {
@@ -51,6 +54,7 @@ public class Student extends User {
 
     /**
      * Gets the last name of the student
+     * 
      * @return the last name of the student
      */
     public String getLastName() {
@@ -59,6 +63,7 @@ public class Student extends User {
 
     /**
      * Sets the last name of the student
+     * 
      * @param lastName the student's new last name
      */
     public void setLastName(String lastName) {
@@ -67,6 +72,7 @@ public class Student extends User {
 
     /**
      * Gets the student's phone number
+     * 
      * @return the phone number of the student
      */
     public int getPhoneNumber() {
@@ -75,6 +81,7 @@ public class Student extends User {
 
     /**
      * Sets the phone number of the student
+     * 
      * @param phoneNumber the new phone number of the student
      */
     public void setPhoneNumber(int phoneNumber) {
@@ -83,6 +90,7 @@ public class Student extends User {
 
     /**
      * Gets the student's email address
+     * 
      * @return the student's email address
      */
     public String getEmail() {
@@ -91,6 +99,7 @@ public class Student extends User {
 
     /**
      * Sets the student's email address
+     * 
      * @param email the student's email address
      */
     public void setEmail(String email) {
@@ -99,6 +108,7 @@ public class Student extends User {
 
     /**
      * Gets the student's GPA
+     * 
      * @return the student's GPA
      */
     public double getGpa() {
@@ -107,6 +117,7 @@ public class Student extends User {
 
     /**
      * Sets the student's GPA
+     * 
      * @param gpa the new GPA of the student
      */
     public void setGpa(double gpa) {
@@ -115,6 +126,7 @@ public class Student extends User {
 
     /**
      * Gets the year that the student is graduating from school
+     * 
      * @return the student's graduation year
      */
     public int getYear() {
@@ -123,6 +135,7 @@ public class Student extends User {
 
     /**
      * Sets the year that the student graduates
+     * 
      * @param year the year that the student graduates
      */
     public void setYear(int year) {
@@ -131,6 +144,7 @@ public class Student extends User {
 
     /**
      * Gets the Student's Skills
+     * 
      * @return the student's skills
      */
     public ArrayList<Skills> getSkills() {
@@ -139,6 +153,7 @@ public class Student extends User {
 
     /**
      * sets the students skills
+     * 
      * @param skills the students new skills
      */
     public void setSkills(ArrayList<Skills> skills) {
@@ -147,6 +162,7 @@ public class Student extends User {
 
     /**
      * Gets the student's Experiences
+     * 
      * @return the student's experiences
      */
     public ArrayList<Experience> getExperiences() {
@@ -155,6 +171,7 @@ public class Student extends User {
 
     /**
      * Sets the students experiences
+     * 
      * @param experiences the student's new experiences.
      */
     public void setExperiences(ArrayList<Experience> experiences) {

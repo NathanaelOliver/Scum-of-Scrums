@@ -1,6 +1,7 @@
+package src;
+
 import java.util.ArrayList;
 import java.util.Date;
-
 
 public abstract class Experience {
     protected String title;
@@ -10,6 +11,7 @@ public abstract class Experience {
 
     /**
      * Constructor for Experience with only title
+     * 
      * @param title the title of the experience
      */
     public Experience(String title) {
@@ -19,10 +21,11 @@ public abstract class Experience {
 
     /**
      * Constructor for Experience with all fields
-     * @param title the title of the experience
-     * @param details details of the experience
+     * 
+     * @param title     the title of the experience
+     * @param details   details of the experience
      * @param startDate start date of the experience
-     * @param endDate end date of the experience
+     * @param endDate   end date of the experience
      */
     public Experience(String title, ArrayList<String> details, Date startDate, Date endDate) {
         this.title = title;
@@ -33,6 +36,7 @@ public abstract class Experience {
 
     /**
      * Gets the title of the experience
+     * 
      * @return the title of the experience
      */
     public String getTitle() {
@@ -41,6 +45,7 @@ public abstract class Experience {
 
     /**
      * sets the title of the experience
+     * 
      * @param title the new title of the experience
      */
     public void setTitle(String title) {
@@ -49,6 +54,7 @@ public abstract class Experience {
 
     /**
      * Gets the details of the Experience
+     * 
      * @return the details of the experience
      */
     public ArrayList<String> getDetails() {
@@ -57,6 +63,7 @@ public abstract class Experience {
 
     /**
      * Sets the details of the experience
+     * 
      * @param details the new details of the experience
      */
     public void setDetails(ArrayList<String> details) {
@@ -65,6 +72,7 @@ public abstract class Experience {
 
     /**
      * Gets the start date for the experience
+     * 
      * @return the start date for the experience
      */
     public Date getStartDate() {
@@ -73,6 +81,7 @@ public abstract class Experience {
 
     /**
      * Sets the start date of the experience
+     * 
      * @param startDate the new start date of the experience
      */
     public void setStartDate(Date startDate) {
@@ -81,6 +90,7 @@ public abstract class Experience {
 
     /**
      * Gets the end date of the experience
+     * 
      * @return the end date of the experience
      */
     public Date getEndDate() {
@@ -89,6 +99,7 @@ public abstract class Experience {
 
     /**
      * Sets the end date of the experience
+     * 
      * @param endDate the end date of the experience
      */
     public void setEndDate(Date endDate) {
