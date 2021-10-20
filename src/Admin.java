@@ -5,7 +5,7 @@ package src;
  * 
  * @author Jack Oberman
  */
-public class Admin extends User implements JSONable {
+public class Admin extends User {
     private String firstName;
     private String lastName;
 
