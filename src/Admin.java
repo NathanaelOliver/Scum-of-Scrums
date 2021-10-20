@@ -3,7 +3,7 @@ package src;
 /**
  * Admin Class A User with Administrator rights
  * 
- * @author Nathanael Oliver
+ * @author Jack Oberman
  */
 public class Admin extends User implements JSONable {
     private String firstName;
