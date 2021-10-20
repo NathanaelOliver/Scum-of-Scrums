@@ -42,8 +42,8 @@ public class Student extends User {
         ret += ",\"email\":\"" + this.email;
         ret += "\",\"GPA\":" + this.gpa;
         ret += ",\"year\":" + this.year;
-        ret += ",\"skills\":" + JSONHelper.toJson(this.skills);
-        ret += ",\"experiences\":" + JSONHelper.toJson(this.experiences);
+        ret += ",\"skills\":" + JSONhelper.skillsToJSON(this.skills);
+        ret += ",\"experiences\":" + JSONhelper.toJson(this.experiences);
         ret += ",\"resume\":" + this.resume.toJSON();
         ret += "}";
         return ret;

@@ -3,7 +3,7 @@ package src;
 /**
  * Admin Class A User with Administrator rights
  * 
- * @author Nathanael Oliver
+ * @author Jack Oberman
  */
 public class Admin extends User {
     private String firstName;
@@ -15,7 +15,7 @@ public class Admin extends User {
      * @param firstName the first name of the admin
      * @param lastName  the last name of the admin
      */
-    public Admin(String id, String firstName, String lastName) {
+    public Admin(String firstName, String lastName) {
         super(UserType.admin);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,22 +40,13 @@ public class Admin extends User {
     }
 
     /**
-     * verifies the user TODO - Im not entirely sure if this method should be in
-     * here or in the database method; I may move it later - Nathanael
-     * 
-     * @param id                 the id of the user to be verified
-     * @param verificationStatus the verification status of the user
-     */
-    public void verifyUser(String id, boolean verificationStatus) {
-        Database.getUserByID(id).isVerified = verificationStatus;
-    }
-
-    /**
      * Gets JSON representation of the admin
      * 
      * @return the JSON representation of the admin
      */
     public String toJSON() {
-        return "";
+        return "{\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"userType\":\""
+        + userType.toString() + "\",\"id\":\"" + ID.toString() + "\",\"username\":\"" + getUsername() + "\",\"password\":\""
+        + password + "\",\"isVerified\":" + isVerified + "}";
     }
 }
