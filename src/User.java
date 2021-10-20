@@ -7,7 +7,7 @@ import java.util.UUID;
  * 
  * @author Jack Oberman
  */
-public abstract class User {
+public abstract class User implements JSONable{
     private String username;
     protected String password;
     public final UUID ID;
@@ -90,5 +90,8 @@ public abstract class User {
      * 
      * @return a JSON representation of the USER
      */
-    public abstract String toJSON();
+    public String toJSON() {
+        return "{\"username\":" + username + "\",password\": " + password + ",\"id\": \"" + ID + "\",\"userType\": ["
+                + userType + "],\"isVerified\": [" + isVerified + "]}";
+    };
 }
