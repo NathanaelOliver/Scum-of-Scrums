@@ -24,6 +24,12 @@ public abstract class User {
         this.userType = userType;
     }
 
+    /**
+     * Constructor for the User Class with username, password, and userType
+     * @param username the user's username
+     * @param password the user's password
+     * @param userType enum of user's type: admin, employer, or student
+     */
     public User(String username, String password, UserType userType) {
         this.ID = UUID.randomUUID();
         this.username = username;
@@ -31,6 +37,10 @@ public abstract class User {
         this.userType = userType;
     }
 
+    /**
+     * Get user's username
+     * @return username of user
+     */
     public String getUsername() {
         return this.username;
     }
@@ -50,7 +60,7 @@ public abstract class User {
      * @param password the password to verify
      * @return true if it is the users password, otherwise false
      */
-    public boolean verifyPassword(String password) {
+    public boolean checkPassword(String password) {
         return this.password.equals(password);
     }
 
