@@ -45,6 +45,8 @@ public class Admin extends User implements JSONable {
      * @return the JSON representation of the admin
      */
     public String toJSON() {
-        return "";
+        return "{\"firstName\":" + firstName + "\",lastName\": " + lastName + ",\"userType\": \"" + userType +
+        "\",\"id\": [" + ID + "],\"username\": [" + getUsername() + "],\"password\": [" + password +
+        "],\"isVerified\": [" + isVerified + "]}";
     }
 }
