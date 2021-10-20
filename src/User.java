@@ -84,6 +84,7 @@ public abstract class User implements JSONable{
         this.isVerified = true;
     }
 
+
     /**
      * Converts a user into JSON to be stored in the database
      * 
