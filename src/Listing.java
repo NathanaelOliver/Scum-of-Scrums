@@ -21,10 +21,12 @@ public class Listing implements JSONable {
 
     /**
      * Creates an empty Listing with only an id
+     *
+     * @param employerName the name of the employer offering the job
      */
-    public Listing(String EMPLOYER_NAME) {
+    public Listing(String employerName) {
         this.ID = UUID.randomUUID();
-        this.EMPLOYER_NAME = EMPLOYER_NAME;
+        this.EMPLOYER_NAME = employerName;
     }
 
     /**
@@ -37,9 +39,10 @@ public class Listing implements JSONable {
      * @param endDate     the end date of the job
      * @param siteLink    a link to the company website
      * @param skills      the skills recommended for this job
+     * @param employerName the name of the employer offering the job
      */
     Listing(double payRate, String location, ArrayList<String> description, Date startDate, Date endDate,
-            String siteLink, ArrayList<Skills> skills, String EMPLOYER_NAME) {
+            String siteLink, ArrayList<Skills> skills, String employerName) {
         this.ID = UUID.randomUUID();
         this.payRate = payRate;
         this.location = location;
@@ -48,7 +51,7 @@ public class Listing implements JSONable {
         this.endDate = endDate;
         this.siteLink = siteLink;
         this.skills = skills;
-        this.EMPLOYER_NAME = EMPLOYER_NAME;
+        this.EMPLOYER_NAME = employerName;
     }
 
     /**
