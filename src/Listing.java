@@ -64,10 +64,10 @@ public class Listing implements JSONable {
      * @return the JSON representation of a job listing
      */
     public String toJSON() {
-        return "{\"id\": \"" + ID.toString() + "\",\"payRate\": " + payRate + ",\"location\": \"" + location
-        + "\",\"title\": \"" + title + "\",\"description\":" + JSONhelper.stringsToJSON(description)
-        + ",\"startDate\": \"" + startDate.toString() + "\",\"endDate\": \"" + endDate.toString()
-        + "\",\"siteLink\": \"" + siteLink + "\",\"skills\":" + JSONhelper.skillsToJSON(skills) + "\",\"applicants\":"
+        return "{\"id\":\"" + ID.toString() + "\",\"payRate\":" + payRate + ",\"location\":\"" + location
+        + "\",\"title\":\"" + title + "\",\"description\":" + JSONhelper.stringsToJSON(description)
+        + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\"" + endDate.toString()
+        + "\",\"siteLink\":\"" + siteLink + "\",\"skills\":" + JSONhelper.skillsToJSON(skills) + "\",\"applicants\":"
         + JSONhelper.toJson(applicants) + "}";
     }
 

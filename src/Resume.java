@@ -120,9 +120,9 @@ public class Resume implements JSONable {
     }
 
     public String toJSON() {
-        return "{\"name\": \"" + name + "\",\"gpa\": " + gpa + ",\"education\": \"" + education + "\",\"skills\":"
-                + JSONhelper.skillsToJSON(skills) + ",\"workExperiences\":" + JSONhelper.toJson(workExperiences)
-                + ",\"courseExperiences\":" + JSONhelper.toJson(courseExperiences) + ",\"clubExperiences\":"
-                + JSONhelper.toJson(clubExperiences) + "}";
+        return "{\"gpa\":" + gpa + ",\"education\":\"" + education + "\",\"skills\":"
+        + JSONhelper.skillsToJSON(skills) + ",\"workExperiences\":" + JSONhelper.toJson(workExperiences)
+        + ",\"courseExperiences\":" + JSONhelper.toJson(courseExperiences) + ",\"clubExperiences\":"
+        + JSONhelper.toJson(clubExperiences) + "}";
     }
 }

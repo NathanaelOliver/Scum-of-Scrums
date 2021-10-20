@@ -104,7 +104,7 @@ public class Reference implements JSONable {
      * @return JSON representation of a reference
      */
     public String toJSON() {
-        return "{\"firstName\": \"" + firstName + "\",\"lastName\": \"" + lastName + "\",\"phoneNumber\": "
-                + phoneNumber + ",\"email\": \"" + email + "\"}";
+        return "{\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"phoneNumber\":"
+                + phoneNumber + ",\"email\":\"" + email + "\"}";
     }
 }

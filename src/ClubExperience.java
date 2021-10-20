@@ -61,8 +61,8 @@ public class ClubExperience extends Experience {
      * @return Club Experience as a JSON object
      */
     public String toJSON() {
-        return "{\"id\": " + this.ID + ",\"title\": \"" + this.title + "\",\"details\":"
-                + JSONhelper.stringsToJSON(details) + ",\"startDate\": \"" + startDate.toString()
-                + "\",\"endDate\": \"" + endDate.toString() + "\",\"role\": \"" + role + "\"}";
+        return "{\"id\":" + ID.toString() + "\",\"title\":\"" + title + "\",\"details\":"
+                + JSONhelper.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString()
+                + "\",\"endDate\":\"" + endDate.toString() + "\",\"role\":\"" + role + "\"}";
     }
 }

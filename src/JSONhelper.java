@@ -17,7 +17,7 @@ public class JSONhelper {
      * @return the concatenated list as JSON objects
      */
     public static String toJson(ArrayList<? extends JSONable> list) {
-        String str = " [";
+        String str = "[";
         for (JSONable j : list)
             str += j.toJSON() + ",";
         return str.substring(0, str.length() - 1) + "]";
@@ -31,7 +31,7 @@ public class JSONhelper {
      * @return the concatenated list as JSON objects
      */
     public static String skillsToJSON(ArrayList<Skills> skills) {
-        String str = " [";
+        String str = "[";
         for (Skills s : skills)
             str += "\"" + s.toString() + "\",";
         return str.substring(0, str.length() - 1) + "]";
@@ -45,6 +45,6 @@ public class JSONhelper {
      * @return the concatenated list as JSON objects
      */
     public static String stringsToJSON(ArrayList<String> strings) {
-        return " [\"" + String.join("\",\"", strings) + "\"]";
+        return "[\"" + String.join("\",\"", strings) + "\"]";
     }
 }

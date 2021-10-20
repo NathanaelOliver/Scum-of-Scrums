@@ -8,12 +8,11 @@ import java.util.UUID;
  * @author Jack Oberman
  */
 public abstract class User implements JSONable{
-    private String username;
-    protected String password;
     public final UUID ID;
     public UserType userType;
     public boolean isVerified = false;
-
+    protected String password;
+    private String username;
     /**
      * Constructor for the User Class
      * 
@@ -63,7 +62,7 @@ public abstract class User implements JSONable{
                password.matches(".*[A-Z].*") &&
                password.matches(".*[0-9].*") &&
                password.matches(".*[!-&].*") &&
-               !password.matches(".*/\s/g.*");
+               !password.matches(".*/\\s/g.*");
     }
 
     /**

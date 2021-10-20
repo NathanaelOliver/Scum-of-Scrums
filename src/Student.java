@@ -36,17 +36,10 @@ public class Student extends User {
      * @return String, a JSON representation of Student
      */
     public String toJSON() {
-        String ret = "{\"firstName\":\"" + this.firstName;
-        ret += "\",\"lastName\":\"" + this.lastName;
-        ret += "\",\"phoneNumber\":" + this.phoneNumber;
-        ret += ",\"email\":\"" + this.email;
-        ret += "\",\"GPA\":" + this.gpa;
-        ret += ",\"year\":" + this.year;
-        ret += ",\"skills\":" + JSONhelper.skillsToJSON(this.skills);
-        ret += ",\"experiences\":" + JSONhelper.toJson(this.experiences);
-        ret += ",\"resume\":" + this.resume.toJSON();
-        ret += "}";
-        return ret;
+        return "{\"id\":\"" + ID.toString() + "\",\"username\":\"" + getUsername() + "\",\"password\":\"" + password
+        + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified + ",\"firstName\":\""
+        + firstName + "\",\"lastName\":\"" + lastName + "\",\"phoneNumber\":" + phoneNumber + ",\"email\":\"" + email
+        + "\",\"resume\":" + resume.toJSON() + "}";
     }
 
     /**

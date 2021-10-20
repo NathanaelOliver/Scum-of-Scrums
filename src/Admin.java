@@ -45,8 +45,8 @@ public class Admin extends User {
      * @return the JSON representation of the admin
      */
     public String toJSON() {
-        return "{\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"userType\":\""
-        + userType.toString() + "\",\"id\":\"" + ID.toString() + "\",\"username\":\"" + getUsername() + "\",\"password\":\""
-        + password + "\",\"isVerified\":" + isVerified + "}";
+        return "\"id\":\"" + ID.toString() + "\",\"username\":\"" + getUsername() + "\",\"password\":\"" + password
+        + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified + ",\"firstName\":\""
+        + firstName + "\",\"lastName\":\"" + lastName + "\"}";
     }
 }

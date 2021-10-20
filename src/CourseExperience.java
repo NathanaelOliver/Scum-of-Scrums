@@ -62,9 +62,9 @@ public class CourseExperience extends Experience {
      * @return Course Experience as a JSON object
      */
     public String toJSON() {
-        return "{\"id\": " + this.ID.toString() + ",\"title\": \"" + this.title + "\",\"details\":"
-                + JSONhelper.stringsToJSON(details) + ",\"startDate\": \"" + startDate.toString()
-                + "\",\"endDate\": \"" + endDate.toString() + "\",\"grade\": " + grade + "}";
+        return "{\"id\":" + ID.toString() + "\",\"title\":\"" + title + "\",\"details\":"
+                + JSONhelper.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString()
+                + "\",\"endDate\":\"" + endDate.toString() + "\",\"grade\":" + grade + "}";
     }
 
 }
