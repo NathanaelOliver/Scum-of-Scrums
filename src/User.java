@@ -89,8 +89,5 @@ public abstract class User implements JSONable{
      * 
      * @return a JSON representation of the USER
      */
-    public String toJSON() {
-        return "{\"username\":" + username + "\",password\": " + password + ",\"id\": \"" + ID + "\",\"userType\": ["
-                + userType + "],\"isVerified\": [" + isVerified + "]}";
-    };
+    public abstract String toJSON();
 }
