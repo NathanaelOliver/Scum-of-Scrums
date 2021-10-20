@@ -28,7 +28,7 @@ public class Resume implements JSONable {
     }
 
     /**
-     * Gets the name of the student who's resume this belongs to
+     * Gets the name of the student whose resume this belongs to
      * 
      * @return the name of the student
      */
