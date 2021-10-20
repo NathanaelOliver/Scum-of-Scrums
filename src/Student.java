@@ -1,3 +1,6 @@
+/**
+ * @author Nathanael Oliver, William Hobbs
+ */
 package src;
 
 import java.util.ArrayList;
@@ -11,6 +14,7 @@ public class Student extends User {
     private int year;
     private ArrayList<Skills> skills;
     private ArrayList<Experience> experiences;
+    private Resume resume;
 
     /**
      * Constructor for a student
@@ -48,7 +52,7 @@ public class Student extends User {
      * 
      * @param firstName the new first name of the student
      */
-    public void setFirstName(String firstName) {
+    private void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -57,7 +61,7 @@ public class Student extends User {
      * 
      * @return the last name of the student
      */
-    public String getLastName() {
+    private String getLastName() {
         return this.lastName;
     }
 
@@ -66,7 +70,7 @@ public class Student extends User {
      * 
      * @param lastName the student's new last name
      */
-    public void setLastName(String lastName) {
+    private void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -84,7 +88,7 @@ public class Student extends User {
      * 
      * @param phoneNumber the new phone number of the student
      */
-    public void setPhoneNumber(int phoneNumber) {
+    private void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -102,7 +106,7 @@ public class Student extends User {
      * 
      * @param email the student's email address
      */
-    public void setEmail(String email) {
+    private void setEmail(String email) {
         this.email = email;
     }
 
@@ -120,7 +124,7 @@ public class Student extends User {
      * 
      * @param gpa the new GPA of the student
      */
-    public void setGpa(double gpa) {
+    private void setGpa(double gpa) {
         this.gpa = gpa;
     }
 
@@ -138,7 +142,7 @@ public class Student extends User {
      * 
      * @param year the year that the student graduates
      */
-    public void setYear(int year) {
+    private void setYear(int year) {
         this.year = year;
     }
 
@@ -156,7 +160,7 @@ public class Student extends User {
      * 
      * @param skills the students new skills
      */
-    public void setSkills(ArrayList<Skills> skills) {
+    private void setSkills(ArrayList<Skills> skills) {
         this.skills = skills;
     }
 
@@ -165,7 +169,7 @@ public class Student extends User {
      * 
      * @return the student's experiences
      */
-    public ArrayList<Experience> getExperiences() {
+    private ArrayList<Experience> getExperiences() {
         return this.experiences;
     }
 
@@ -174,7 +178,7 @@ public class Student extends User {
      * 
      * @param experiences the student's new experiences.
      */
-    public void setExperiences(ArrayList<Experience> experiences) {
+    private void setExperiences(ArrayList<Experience> experiences) {
         this.experiences = experiences;
     }
 }
