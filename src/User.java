@@ -8,7 +8,8 @@ import java.util.UUID;
  * @author Jack Oberman
  */
 public abstract class User {
-    private String password;
+    private String username;
+    protected String password;
     public final UUID ID;
     public UserType userType;
     public boolean isVerified = false;
@@ -21,6 +22,27 @@ public abstract class User {
     public User(UserType userType) {
         this.ID = UUID.randomUUID();
         this.userType = userType;
+    }
+
+    /**
+     * Constructor for the User Class with username, password, and userType
+     * @param username the user's username
+     * @param password the user's password
+     * @param userType enum of user's type: admin, employer, or student
+     */
+    public User(String username, String password, UserType userType) {
+        this.ID = UUID.randomUUID();
+        this.username = username;
+        this.password = password;
+        this.userType = userType;
+    }
+
+    /**
+     * Get user's username
+     * @return username of user
+     */
+    public String getUsername() {
+        return this.username;
     }
 
     /**
