@@ -106,6 +106,5 @@ public class Reference implements JSONable {
     public String toJSON() {
         return "{\"firstName\": \"" + firstName + "\",\"lastName\": \"" + lastName + "\",\"phoneNumber\": "
                 + phoneNumber + ",\"email\": \"" + email + "\"}";
-
     }
 }
