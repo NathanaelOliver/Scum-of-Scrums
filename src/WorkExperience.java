@@ -72,9 +72,10 @@ public class WorkExperience extends Experience {
      * @return Work Experience as a JSON object
      */
     public String toJSON() {
-        return "{\"id\": " + this.id + ",\"title\": \"" + this.title + "\",\"details\": [" + String.join(",", details)
-                + "],\"startDate\": \"" + startDate.toString() + "\",\"endDate\": \"" + endDate.toString()
-                + "\",\"references\": [" + JSONhelper.toJson(references) + "]}";
+        return "{\"id\": \"" + ID.toString() + "\",\"title\": \"" + title + "\",\"details\":"
+                + JSONhelper.stringsToJSON(details) + ",\"startDate\": \"" + startDate.toString()
+                + "\",\"endDate\": \"" + endDate.toString() + "\",\"references\":" + JSONhelper.toJson(references)
+                + "}";
     }
 
 }

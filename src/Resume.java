@@ -28,6 +28,15 @@ public class Resume implements JSONable {
     }
 
     /**
+     * Gets the name of the student whose resume this belongs to
+     * 
+     * @return the name of the student
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
      * Adds a work experience to the work experience list
      * 
      * @param experience the experience to be added
@@ -56,19 +65,19 @@ public class Resume implements JSONable {
 
     public void deleteExperience(UUID id) {
         for (Experience e : workExperiences) {
-            if (e.id.equals(id)) {
+            if (e.ID.equals(id)) {
                 workExperiences.remove(e);
                 return;
             }
         }
         for (Experience e : courseExperiences) {
-            if (e.id.equals(id)) {
+            if (e.ID.equals(id)) {
                 workExperiences.remove(e);
                 return;
             }
         }
         for (Experience e : clubExperiences) {
-            if (e.id.equals(id)) {
+            if (e.ID.equals(id)) {
                 workExperiences.remove(e);
                 return;
             }
@@ -77,17 +86,17 @@ public class Resume implements JSONable {
 
     public Experience getExperience(UUID id) {
         for (Experience e : workExperiences) {
-            if (e.id.equals(id)) {
+            if (e.ID.equals(id)) {
                 return e;
             }
         }
         for (Experience e : courseExperiences) {
-            if (e.id.equals(id)) {
+            if (e.ID.equals(id)) {
                 return e;
             }
         }
         for (Experience e : clubExperiences) {
-            if (e.id.equals(id)) {
+            if (e.ID.equals(id)) {
                 return e;
             }
         }
@@ -111,9 +120,9 @@ public class Resume implements JSONable {
     }
 
     public String toJSON() {
-        return "{\"name\":" + name + "\",gpa\": " + gpa + ",\"education\": \"" + education + "\",\"skills\": ["
-                + JSONhelper.skillsToJSON(skills) + "],\"workExperiences\": [" + JSONhelper.toJson(workExperiences)
-                + "],\"courseExperiences\": [" + JSONhelper.toJson(courseExperiences) + "],\"clubExperiences\": ["
-                + JSONhelper.toJson(clubExperiences) + "]}";
+        return "{\"name\": \"" + name + "\",\"gpa\": " + gpa + ",\"education\": \"" + education + "\",\"skills\":"
+                + JSONhelper.skillsToJSON(skills) + ",\"workExperiences\":" + JSONhelper.toJson(workExperiences)
+                + ",\"courseExperiences\":" + JSONhelper.toJson(courseExperiences) + ",\"clubExperiences\":"
+                + JSONhelper.toJson(clubExperiences) + "}";
     }
 }

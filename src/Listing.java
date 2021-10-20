@@ -4,22 +4,29 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.ArrayList;
 
+/**
+ * Listing class stores a posted job listing
+ * 
+ * @author Noah MacBride
+ */
 public class Listing implements JSONable {
+    public final UUID ID;
+    private final String EMPLOYER_NAME;
     private double payRate;
-    private String location;
     private ArrayList<String> description;
-    private Date startDate;
-    private Date endDate;
-    private String siteLink;
+    private Date startDate, endDate;
+    private String siteLink, title, location;
     private ArrayList<Skills> skills;
     private ArrayList<Resume> applicants;
-    private final UUID id;
 
     /**
      * Creates an empty Listing with only an id
+     *
+     * @param employerName the name of the employer offering the job
      */
-    public Listing() {
-        this.id = UUID.randomUUID();
+    public Listing(String employerName) {
+        this.ID = UUID.randomUUID();
+        this.EMPLOYER_NAME = employerName;
     }
 
     /**
@@ -32,10 +39,11 @@ public class Listing implements JSONable {
      * @param endDate     the end date of the job
      * @param siteLink    a link to the company website
      * @param skills      the skills recommended for this job
+     * @param employerName the name of the employer offering the job
      */
     Listing(double payRate, String location, ArrayList<String> description, Date startDate, Date endDate,
-            String siteLink, ArrayList<Skills> skills) {
-        this.id = UUID.randomUUID();
+            String siteLink, ArrayList<Skills> skills, String employerName) {
+        this.ID = UUID.randomUUID();
         this.payRate = payRate;
         this.location = location;
         this.description = description;
@@ -43,25 +51,24 @@ public class Listing implements JSONable {
         this.endDate = endDate;
         this.siteLink = siteLink;
         this.skills = skills;
+        this.EMPLOYER_NAME = employerName;
     }
 
     /**
      * Converts a job listing to JSON
      * 
+     * note: The EMPLOYER_NAME variable is not included, I assume it can be
+     * retrieved when parsing JSON from the employer to avoid storing duplicate
+     * values in the JSON
+     * 
      * @return the JSON representation of a job listing
      */
     public String toJSON() {
-        // TODO - complete toJSON method
-        return null;
-    }
-
-    /**
-     * Gets the ID for the listing
-     * 
-     * @return the listing ID
-     */
-    public UUID getId() {
-        return id;
+        return "{\"id\": \"" + ID.toString() + "\",\"payRate\": " + payRate + ",\"location\": \"" + location
+        + "\",\"title\": \"" + title + "\",\"description\":" + JSONhelper.stringsToJSON(description)
+        + ",\"startDate\": \"" + startDate.toString() + "\",\"endDate\": \"" + endDate.toString()
+        + "\",\"siteLink\": \"" + siteLink + "\",\"skills\":" + JSONhelper.skillsToJSON(skills) + "\",\"applicants\":"
+        + JSONhelper.toJson(applicants) + "}";
     }
 
     /**
@@ -98,6 +105,24 @@ public class Listing implements JSONable {
      */
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    /**
+     * Gets the title of the job listing
+     * 
+     * @return the title of the job listing
+     */
+    public String getTitle() {
+        return this.title;
+    }
+
+    /**
+     * Sets the title of the job listing
+     * 
+     * @param title the title of the job listing
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**
@@ -206,5 +231,46 @@ public class Listing implements JSONable {
      */
     public void apply(Resume resume) {
         this.applicants.add(resume);
+    }
+
+    /**
+     * Displays a listing
+     * 
+     * @param isEmployer boolean to determine whether the information is being
+     *                   shown to a student or an employer - we would show
+     *                   different types of users different things
+     * @return a displayed listing
+     */
+    public String toString(boolean isEmployer) {
+        String result = EMPLOYER_NAME;
+        if (!title.isEmpty()) result += " - " + title;
+        result += "\n********************";
+
+        if (isEmployer && applicants.size() > 0) {
+            result += "\nApplicants:";
+            for (Resume r : applicants)
+                result += "\n" + r.getName();
+            result += "\n";
+        }
+
+        for (String d : description)
+            result += "\n" + d;
+        result += "\n";
+
+        if (!location.isEmpty()) result += "\nLocation: " + location;
+        if (payRate != 0) result += "\nPay Rate: " + payRate;
+
+        if (startDate != null) result += "\nStart Date: " + startDate;
+        if (endDate != null) result += "\nEnd Date: " + endDate;
+
+        if (skills.size() > 0) {
+            result += "\n\nRequired Skills:";
+            for (Skills s : skills)
+                result += "\n" + s.toString();
+        }
+
+        if (!siteLink.isEmpty()) result += "\n\n" + siteLink;
+
+        return result;
     }
 }
