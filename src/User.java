@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * User class Stores an ID and password to log in to the system
  * 
- * @author Nathanael Oliver
+ * @author Jack Oberman
  */
 public abstract class User {
     private String password;
