@@ -1,15 +1,17 @@
-import java.util.uuid;
+package src;
+
+import java.util.UUID;
 /**
  * Rating Class
  * Stores a Rating for a User
  * @author Nathanael Oliver
  */
 public class Rating {
-    private final UUID id;
+    public final UUID ID;
+    private final UUID RECEIVER_ID;
+    private final UUID WRITER_ID;
     private int rating;
     private String comment;
-    private UUID receiverId;
-    private UUID writerId;
 
     /**
      * Constructor for the Rating class
@@ -19,11 +21,11 @@ public class Rating {
      * @param receiverId the id of the user receiving the Rating
      */
     public Rating(String comment, int rating, UUID writerId, UUID receiverId) {
-        this.id = UUID.randomUUID()
+        this.ID = UUID.randomUUID();
         this.comment = comment;
         this.rating = rating;
-        this.writerId = writerId;
-        this.receiverId = receiverId;
+        this.WRITER_ID = writerId;
+        this.RECEIVER_ID = receiverId;
     }
 
     /**
@@ -47,7 +49,7 @@ public class Rating {
      * @return the id of the user who created the rating
      */
     public UUID getWriterId() {
-        return this.writerId;
+        return this.WRITER_ID;
     }
 
     /**
@@ -71,15 +73,7 @@ public class Rating {
      * @return the user receiving the rating
      */
     public UUID getReceiverId() {
-        return this.receiverId;
-    }
-
-    /**
-     * Gets the id of the rating
-     * @return the id of the rating
-     */
-    public UUID getId() {
-        return this.id;
+        return this.RECEIVER_ID;
     }
 
     /**

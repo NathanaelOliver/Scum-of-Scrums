@@ -26,11 +26,12 @@ public class Employer extends User {
     }
 
     /**
-     * Creates and adds a Listing to listings TODO - Similar to work experience
-     * adding a reference, do we want to ask for input in this method? or do we want
-     * to send in all the required data? - Nathanael
+     * Creates and adds a Listing to listings
+     * 
+     * @param listing adds listing to listings
      */
-    public void addListing() {
+    public void addListing(Listing listing) {
+        this.listings.add(listing);
     }
 
     /**
@@ -50,7 +51,7 @@ public class Employer extends User {
      */
     public Listing getListingById(UUID id) {
         for (Listing e : listings) {
-            if (e.getId() == id) {
+            if (e.ID == id) {
                 return e;
             }
         }

@@ -49,12 +49,12 @@ public class WorkExperience extends Experience {
     }
 
     /**
-     * Adds a reference to the work experience references TODO - Do we want to ask
-     * for user input in here? Or do we want to send all the required information
-     * for the reference into the method?
+     * Adds a reference to the references
+     * 
+     * @param reference the reference to be added to the reference list
      */
-    public void addReference() {
-
+    public void addReference(Reference reference) {
+        this.references.add(reference);
     }
 
     /**
@@ -65,4 +65,17 @@ public class WorkExperience extends Experience {
     public ArrayList<Reference> getReferences() {
         return references;
     }
+
+    /**
+     * Converts a Work Experience to a JSON object
+     * 
+     * @return Work Experience as a JSON object
+     */
+    public String toJSON() {
+        return "{\"id\": \"" + ID.toString() + "\",\"title\": \"" + title + "\",\"details\":"
+                + JSONhelper.stringsToJSON(details) + ",\"startDate\": \"" + startDate.toString()
+                + "\",\"endDate\": \"" + endDate.toString() + "\",\"references\":" + JSONhelper.toJson(references)
+                + "}";
+    }
+
 }
