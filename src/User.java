@@ -9,7 +9,7 @@ import java.util.UUID;
  */
 public abstract class User {
     private String password;
-    private final UUID id;
+    public final UUID id;
     public UserType userType;
     public boolean isVerified = false;
 
