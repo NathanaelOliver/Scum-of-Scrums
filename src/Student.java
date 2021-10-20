@@ -37,14 +37,14 @@ public class Student extends User {
      */
     public String toJSON() {
         String ret = "{\"firstName\": \"" + this.firstName;
-        ret += "\",\"lastName\":\"" + this.lastName;
-        ret += "\",\"phoneNumber\":\"" + this.phoneNumber;
-        ret += "\",\"email\":\"" + this.email;
-        ret += "\",\"GPA\":\"" + this.gpa;
-        ret += "\",\"year\":\"" + this.year;
-        ret += JSONHelper.toJson(this.skills);
-        ret += JSONHelper.toJson(this.experiences);
-        ret += this.resume.toJSON();
+        ret += "\",\"lastName\": \"" + this.lastName;
+        ret += "\",\"phoneNumber\": " + this.phoneNumber;
+        ret += ",\"email\": \"" + this.email;
+        ret += "\",\"GPA\": " + this.gpa;
+        ret += ",\"year\": " + this.year;
+        ret += ",\"skills\":" + JSONHelper.toJson(this.skills);
+        ret += ",\"experiences\":" + JSONHelper.toJson(this.experiences);
+        ret += ",\"resume\": " + this.resume.toJSON();
         ret += "}";
         return ret;
     }
