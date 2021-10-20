@@ -2,12 +2,14 @@ package src;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
-public abstract class Experience {
+public abstract class Experience implements JSONable {
     protected String title;
     protected ArrayList<String> details;
     protected Date startDate;
     protected Date endDate;
+    public final UUID id;
 
     /**
      * Constructor for Experience with only title
@@ -15,6 +17,7 @@ public abstract class Experience {
      * @param title the title of the experience
      */
     public Experience(String title) {
+        this.id = UUID.randomUUID();
         this.title = title;
         details = new ArrayList<String>();
     }
@@ -28,6 +31,7 @@ public abstract class Experience {
      * @param endDate   end date of the experience
      */
     public Experience(String title, ArrayList<String> details, Date startDate, Date endDate) {
+        this.id = UUID.randomUUID();
         this.title = title;
         this.details = details;
         this.startDate = startDate;
@@ -105,5 +109,4 @@ public abstract class Experience {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-
 }

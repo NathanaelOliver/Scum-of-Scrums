@@ -5,7 +5,7 @@ package src;
  * 
  * @author Nathanael Oliver
  */
-public class Reference {
+public class Reference implements JSONable {
     private String firstName;
     private String lastName;
     private int phoneNumber;
@@ -96,5 +96,16 @@ public class Reference {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * Converts a Reference to a JSON object
+     * 
+     * @return JSON representation of a reference
+     */
+    public String toJSON() {
+        return "{\"firstName\": \"" + firstName + "\",\"lastName\": \"" + lastName + "\",\"phoneNumber\": "
+                + phoneNumber + ",\"email\": \"" + email + "\"}";
+
     }
 }

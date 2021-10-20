@@ -55,4 +55,14 @@ public class ClubExperience extends Experience {
         return this.role;
     }
 
+    /**
+     * Converts a Club Experience to a JSON object
+     * 
+     * @return Club Experience as a JSON object
+     */
+    public String toJSON() {
+        return "{\"id\": " + this.id + ",\"title\": \"" + this.title + "\",\"details\": [" + String.join(",", details)
+                + "],\"startDate\": \"" + startDate.toString() + "\",\"endDate\": \"" + endDate.toString()
+                + "\",\"role\": \"" + role + "\"}";
+    }
 }
