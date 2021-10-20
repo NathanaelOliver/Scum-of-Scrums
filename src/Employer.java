@@ -51,7 +51,7 @@ public class Employer extends User {
      */
     public Listing getListingById(UUID id) {
         for (Listing e : listings) {
-            if (e.getId() == id) {
+            if (e.ID == id) {
                 return e;
             }
         }

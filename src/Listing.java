@@ -10,14 +10,14 @@ import java.util.ArrayList;
  * @author Noah MacBride
  */
 public class Listing implements JSONable {
+    public final UUID ID;
+    private final String EMPLOYER_NAME;
     private double payRate;
     private ArrayList<String> description;
     private Date startDate, endDate;
     private String siteLink, title, location;
     private ArrayList<Skills> skills;
     private ArrayList<Resume> applicants;
-    private final String EMPLOYER_NAME;
-    public final UUID ID;
 
     /**
      * Creates an empty Listing with only an id
@@ -57,24 +57,18 @@ public class Listing implements JSONable {
     /**
      * Converts a job listing to JSON
      * 
+     * note: The EMPLOYER_NAME variable is not included, I assume it can be
+     * retrieved when parsing JSON from the employer to avoid storing duplicate
+     * values in the JSON
+     * 
      * @return the JSON representation of a job listing
      */
     public String toJSON() {
-        String result =  "{\"id\": \"" + ID.toString() + "\",\"payRate\": "
-        + payRate + ",\"location\": \"" + location + "\",\"title\": \"" + title
-        + "\",\"description\": [";
-
-        for (String s : description)
-            result += "\"" + s + "\",";
-        if (description.size() > 0)
-            result = result.substring(0,result.length()-1);
-        result += "],";
-
-        result += "\"startDate\": " + startDate.toString() + "\",\"endDate\": "
-        + endDate.toString() + "\",\"siteLink\": " + siteLink + "\"," +
-        JSONhelper.skillsToJSON(skills) + JSONhelper.toJson(applicants);
-        
-        return result;
+        return "{\"id\": \"" + ID.toString() + "\",\"payRate\": " + payRate + ",\"location\": \"" + location
+        + "\",\"title\": \"" + title + "\",\"description\":" + JSONhelper.stringsToJSON(description)
+        + ",\"startDate\": \"" + startDate.toString() + "\",\"endDate\": \"" + endDate.toString()
+        + "\",\"siteLink\": \"" + siteLink + "\",\"skills\":" + JSONhelper.skillsToJSON(skills) + "\",\"applicants\":"
+        + JSONhelper.toJson(applicants) + "}";
     }
 
     /**
