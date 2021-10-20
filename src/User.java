@@ -9,7 +9,7 @@ import java.util.UUID;
  */
 public abstract class User {
     private String password;
-    private final UUID id;
+    private final UUID ID;
     public UserType userType;
     public boolean isVerified = false;
 
@@ -19,7 +19,7 @@ public abstract class User {
      * @param userType the user type
      */
     public User(UserType userType) {
-        this.id = UUID.randomUUID();
+        this.ID = UUID.randomUUID();
         this.userType = userType;
     }
 
@@ -59,7 +59,7 @@ public abstract class User {
      * @return the id
      */
     public UUID getID() {
-        return this.id;
+        return this.ID;
     }
 
     /**
