@@ -180,7 +180,7 @@ public class Student extends User {
      * 
      * @return the student's experiences
      */
-    private ArrayList<Experience> getExperiences() {
+    public ArrayList<Experience> getExperiences() {
         return this.experiences;
     }
 
