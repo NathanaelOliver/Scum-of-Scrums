@@ -5,7 +5,7 @@ package src;
  * 
  * @author Nathanael Oliver
  */
-public class Admin extends User {
+public class Admin extends User implements JSONable {
     private String firstName;
     private String lastName;
 
@@ -15,7 +15,7 @@ public class Admin extends User {
      * @param firstName the first name of the admin
      * @param lastName  the last name of the admin
      */
-    public Admin(String id, String firstName, String lastName) {
+    public Admin(String firstName, String lastName) {
         super(UserType.admin);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,17 +37,6 @@ public class Admin extends User {
      */
     public String getLastName() {
         return lastName;
-    }
-
-    /**
-     * verifies the user TODO - Im not entirely sure if this method should be in
-     * here or in the database method; I may move it later - Nathanael
-     * 
-     * @param id                 the id of the user to be verified
-     * @param verificationStatus the verification status of the user
-     */
-    public void verifyUser(String id, boolean verificationStatus) {
-        Database.getUserByID(id).isVerified = verificationStatus;
     }
 
     /**
