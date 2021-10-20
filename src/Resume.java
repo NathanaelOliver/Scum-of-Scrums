@@ -28,6 +28,15 @@ public class Resume implements JSONable {
     }
 
     /**
+     * Gets the name of the student who's resume this belongs to
+     * 
+     * @return the name of the student
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
      * Adds a work experience to the work experience list
      * 
      * @param experience the experience to be added
