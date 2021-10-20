@@ -9,7 +9,7 @@ import java.util.UUID;
  */
 public abstract class User {
     private String password;
-    private final UUID ID;
+    public final UUID ID;
     public UserType userType;
     public boolean isVerified = false;
 
@@ -36,7 +36,8 @@ public abstract class User {
         // ensure password has a length between 8 and 16, has a number,
         // a lowercase letter, a capital letter, and a symbol
         // with no spaces
-        return password.matches(".*[a-z].*") &&
+        return password.length() > 8 && password.length() <= 16 &&
+               password.matches(".*[a-z].*") &&
                password.matches(".*[A-Z].*") &&
                password.matches(".*[0-9].*") &&
                password.matches(".*[!-&].*") &&
@@ -51,15 +52,6 @@ public abstract class User {
      */
     public boolean checkPassword(String password) {
         return this.password.equals(password);
-    }
-
-    /**
-     * Gets the user id
-     * 
-     * @return the id
-     */
-    public UUID getID() {
-        return this.ID;
     }
 
     /**
