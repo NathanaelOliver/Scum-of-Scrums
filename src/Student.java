@@ -1,4 +1,6 @@
 /**
+ * Student
+ * User Type for Student Users with job app. features
  * @author Nathanael Oliver, William Hobbs
  */
 package src;
@@ -30,12 +32,21 @@ public class Student extends User {
 
     /**
      * Converts Student to JSON to be stored in database
-     * 
-     * @return a JSON representation of Student
+     * TODO - run this through a JSON validator; not sure if the helper methods are used correctly
+     * @return String, a JSON representation of Student
      */
     public String toJSON() {
-        // TODO
-        return null;
+        String ret = "{\"firstName\": \"" + this.firstName;
+        ret += "\",\"lastName\":\"" + this.lastName;
+        ret += "\",\"phoneNumber\":\"" + this.phoneNumber;
+        ret += "\",\"email\":\"" + this.email;
+        ret += "\",\"GPA\":\"" + this.gpa;
+        ret += "\",\"year\":\"" + this.year;
+        ret += JSONHelper.toJson(this.skills);
+        ret += JSONHelper.toJson(this.experiences);
+        ret += this.resume.toJSON();
+        ret += "}";
+        return ret;
     }
 
     /**
@@ -52,7 +63,7 @@ public class Student extends User {
      * 
      * @param firstName the new first name of the student
      */
-    private void setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -61,7 +72,7 @@ public class Student extends User {
      * 
      * @return the last name of the student
      */
-    private String getLastName() {
+    public String getLastName() {
         return this.lastName;
     }
 
@@ -70,7 +81,7 @@ public class Student extends User {
      * 
      * @param lastName the student's new last name
      */
-    private void setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -88,7 +99,7 @@ public class Student extends User {
      * 
      * @param phoneNumber the new phone number of the student
      */
-    private void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -106,7 +117,7 @@ public class Student extends User {
      * 
      * @param email the student's email address
      */
-    private void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -124,7 +135,7 @@ public class Student extends User {
      * 
      * @param gpa the new GPA of the student
      */
-    private void setGpa(double gpa) {
+    public void setGpa(double gpa) {
         this.gpa = gpa;
     }
 
@@ -142,7 +153,7 @@ public class Student extends User {
      * 
      * @param year the year that the student graduates
      */
-    private void setYear(int year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
@@ -160,7 +171,7 @@ public class Student extends User {
      * 
      * @param skills the students new skills
      */
-    private void setSkills(ArrayList<Skills> skills) {
+    public void setSkills(ArrayList<Skills> skills) {
         this.skills = skills;
     }
 
@@ -178,7 +189,25 @@ public class Student extends User {
      * 
      * @param experiences the student's new experiences.
      */
-    private void setExperiences(ArrayList<Experience> experiences) {
+    public void setExperiences(ArrayList<Experience> experiences) {
         this.experiences = experiences;
+    }
+
+    /**
+     * Get the student's resume
+     * 
+     * @return Resume, a copy of the student's resume
+     */
+    public Resume getResume() {
+        return this.resume;
+    }
+
+    /**
+     * Sets up the student's resume. Student only has one.
+     * 
+     * @param resume is the student's resume
+     */
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 }
