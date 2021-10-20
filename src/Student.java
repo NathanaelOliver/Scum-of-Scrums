@@ -1,3 +1,8 @@
+/**
+ * Student
+ * User Type for Student Users with job app. features
+ * @author Nathanael Oliver, William Hobbs
+ */
 package src;
 
 import java.util.ArrayList;
@@ -11,6 +16,7 @@ public class Student extends User {
     private int year;
     private ArrayList<Skills> skills;
     private ArrayList<Experience> experiences;
+    private Resume resume;
 
     /**
      * Constructor for a student
@@ -26,12 +32,21 @@ public class Student extends User {
 
     /**
      * Converts Student to JSON to be stored in database
-     * 
-     * @return a JSON representation of Student
+     * TODO - run this through a JSON validator; not sure if the helper methods are used correctly
+     * @return String, a JSON representation of Student
      */
     public String toJSON() {
-        // TODO
-        return null;
+        String ret = "{\"firstName\":\"" + this.firstName;
+        ret += "\",\"lastName\":\"" + this.lastName;
+        ret += "\",\"phoneNumber\":" + this.phoneNumber;
+        ret += ",\"email\":\"" + this.email;
+        ret += "\",\"GPA\":" + this.gpa;
+        ret += ",\"year\":" + this.year;
+        ret += ",\"skills\":" + JSONHelper.toJson(this.skills);
+        ret += ",\"experiences\":" + JSONHelper.toJson(this.experiences);
+        ret += ",\"resume\":" + this.resume.toJSON();
+        ret += "}";
+        return ret;
     }
 
     /**
@@ -176,5 +191,23 @@ public class Student extends User {
      */
     public void setExperiences(ArrayList<Experience> experiences) {
         this.experiences = experiences;
+    }
+
+    /**
+     * Get the student's resume
+     * 
+     * @return Resume, a copy of the student's resume
+     */
+    public Resume getResume() {
+        return this.resume;
+    }
+
+    /**
+     * Sets up the student's resume. Student only has one.
+     * 
+     * @param resume is the student's resume
+     */
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 }
