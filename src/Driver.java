@@ -15,7 +15,8 @@ public class Driver {
      * 
      * @param userInterface is the assigned UI to the user
      */
-    private InternshipUI userInterface;
+    private static InternshipUI userInterface;
+    private static Scanner scanner;
 
     /**
      * login accepts a user credentials and assigns an interface
@@ -28,18 +29,31 @@ public class Driver {
      * Signup accepts a user credentials assigns an interface
      */
     private static void signup() {
+        boolean signingUp;
+        do {
+            signingUp = false;
+            System.out.println("Are you a:\n1) Student\n2) Employer\n3) Administrator");
+            int input = Integer.parseInt(scanner.nextLine());
+            switch(input) {
+                case 1: userInterface = new StudentUI();
+                case 2: userInterface = new EmployerUI();
+                case 3: userInterface = new AdminUI();
+                default: signingUp = true;
 
+                userInterface.createUser();
+            }
+        } while (signingUp);
     }
 
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+        scanner = new Scanner(System.in);
 
         // DataLoader.loadDatabase();
         boolean loggingIn;
         do {
             loggingIn = false;
             System.out.println("Hello. Do you have an account? (y/n) ");
-            String input = scan.nextLine();
+            String input = scanner.nextLine();
 
             // If user has account, calls log-in function, if user wants account,
             // calls sign-up function, otherwise repeats for valid input.
