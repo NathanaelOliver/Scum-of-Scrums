@@ -22,7 +22,7 @@ public class AdminUI extends InternshipUI {
 
     public void run() {
         while (loggedIn) {
-
+            
         }
     }
 

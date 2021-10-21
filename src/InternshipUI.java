@@ -29,14 +29,26 @@ public abstract class InternshipUI {
         //TO-DO: DataWriter.save();
     }
 
-    /**
-     * Displays main menu options for the user
-     */
-    protected void displayMainMenu() {
+    protected String displayMainMenu() {
+        String display = "";
         for (int i = 0; i < this.mainMenuOptions.length; ++i) {
-            System.out.println((i+1) + ") " + this.mainMenuOptions[i]);
+            display += (i+1) + ") " + this.mainMenuOptions[i] + "\n";
         }
-        System.out.println("Pick 1 through " + this.mainMenuOptions.length);
+        return display + "Pick 1 through " + this.mainMenuOptions.length;
+    }
+
+    protected int readMainMenu() {
+        boolean reading;
+        int option;
+        do {
+            reading = false;
+            System.out.println(displayMainMenu());
+            option = Integer.parseInt(scanner.nextLine());
+            if (option < 1 || option > this.mainMenuOptions.length)
+                reading = !error("Please enter a valid number from 1 through " + this.mainMenuOptions.length);
+        } while (reading);
+
+        return option;
     }
 
     protected String readString(String message) {
