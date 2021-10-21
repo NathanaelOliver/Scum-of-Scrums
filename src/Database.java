@@ -7,10 +7,10 @@ import java.util.UUID;
  * Database class stores all users
  */
 public class Database {
-    public static ArrayList<User> unverifiedUsers;
-    public static ArrayList<Employer> employers;
-    public static ArrayList<Student> students;
-    public static ArrayList<Admin> admins;
+    public static ArrayList<User> unverifiedUsers = new ArrayList<>();
+    public static ArrayList<Employer> verifiedEmployers = new ArrayList<>();
+    public static ArrayList<Student> verifiedStudents = new ArrayList<>();
+    public static ArrayList<Admin> verifiedAdmins = new ArrayList<>();
 
     /**
      * Filters through the users
@@ -194,6 +194,11 @@ public class Database {
     }
 
     public static InternshipUI verifyLoginCredentials(String username, String password) {
+        // erase dialog up to this point
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+        // find user in system
         for (User unverified: unverifiedUsers) {
             if (unverified.getUsername().equals(username)) {
                 if (isCorrectPassword(unverified, password)) {
@@ -202,7 +207,7 @@ public class Database {
                 return null;
             }
         }
-        for (Employer employer: employers) {
+        for (Employer employer: verifiedEmployers) {
             if (employer.getUsername().equals(username)) {
                 if (isCorrectPassword(employer, password)) {
                     return new EmployerUI(employer);
@@ -210,7 +215,7 @@ public class Database {
                 return null;
             }
         }
-        for (Student student: students) {
+        for (Student student: verifiedStudents) {
             if (student.getUsername().equals(username)) {
                 if (isCorrectPassword(student, password)) {
                     return new StudentUI(student);
@@ -218,7 +223,7 @@ public class Database {
                 return null;
             }
         }
-        for (Admin admin: admins) {
+        for (Admin admin: verifiedAdmins) {
             if (admin.getUsername().equals(username)) {
                 if (isCorrectPassword(admin, password)) {
                     return new AdminUI(admin);
@@ -228,7 +233,7 @@ public class Database {
         }
 
         // username does not correspond with a user
-        System.out.println("Username does not exist");
+        System.out.println("The username \"" + username + "\" does not exist.");
         return null;
     }
 }

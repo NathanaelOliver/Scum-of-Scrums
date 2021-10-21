@@ -24,13 +24,13 @@ public class Driver {
         String username, password;
         do {
             loggingIn = false;
-            System.out.println("Please enter your Username:");
+            System.out.println("Please enter your username:");
             username = scanner.nextLine();
             System.out.println("Please enter your password:");
             password = scanner.nextLine();
 
             userInterface = Database.verifyLoginCredentials(username, password);
-            loggingIn = userInterface == null;
+            loggingIn = (userInterface == null);
         } while (loggingIn);
     }
 
@@ -48,10 +48,9 @@ public class Driver {
                 case 2: userInterface = new EmployerUI();
                 case 3: userInterface = new AdminUI();
                 default: signingUp = true;
-
-                userInterface.createUser();
             }
         } while (signingUp);
+        userInterface.createUser();
     }
 
     public static void main(String[] args) {

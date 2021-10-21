@@ -9,7 +9,7 @@ public class StudentUI extends InternshipUI {
     public Student student;
 
     public StudentUI() {
-        
+
     }
 
     public StudentUI(Student student) {
@@ -48,6 +48,7 @@ public class StudentUI extends InternshipUI {
     }
 
     public void createUser() {
-
+        //student = new Student(username,password,UserType.student);
+        //Database.addStudent(student);
     }
 }
