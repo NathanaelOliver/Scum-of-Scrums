@@ -6,6 +6,16 @@ package src;
  * @author William Hobbs
  */
 public class AdminUI extends InternshipUI {
+    public Admin admin;
+
+    public AdminUI() {
+        
+    }
+
+    public AdminUI(Admin admin) {
+        this.admin = admin;
+    }
+
     public void run() {
 
     }

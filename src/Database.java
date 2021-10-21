@@ -7,10 +7,10 @@ import java.util.UUID;
  * Database class stores all users
  */
 public class Database {
-    public ArrayList<User> unverifiedUsers;
-    public ArrayList<Employer> employers;
-    public ArrayList<Student> students;
-    public ArrayList<Admin> admins;
+    public static ArrayList<User> unverifiedUsers = new ArrayList<>();
+    public static ArrayList<Employer> verifiedEmployers = new ArrayList<>();
+    public static ArrayList<Student> verifiedStudents = new ArrayList<>();
+    public static ArrayList<Admin> verifiedAdmins = new ArrayList<>();
 
     /**
      * Filters through the users
@@ -185,7 +185,55 @@ public class Database {
         return new Admin("", "");
     }
 
+    private static boolean isCorrectPassword(User user, String password) {
+        if (!user.checkPassword(password)) {
+            System.out.println("Incorrect password");
+            return false;
+        }
+        return true;
+    }
+
     public static InternshipUI verifyLoginCredentials(String username, String password) {
+        // erase dialog up to this point
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+        // find user in system
+        for (User unverified: unverifiedUsers) {
+            if (unverified.getUsername().equals(username)) {
+                if (isCorrectPassword(unverified, password)) {
+                    System.out.println("User verification is still pending.");
+                }
+                return null;
+            }
+        }
+        for (Employer employer: verifiedEmployers) {
+            if (employer.getUsername().equals(username)) {
+                if (isCorrectPassword(employer, password)) {
+                    return new EmployerUI(employer);
+                }
+                return null;
+            }
+        }
+        for (Student student: verifiedStudents) {
+            if (student.getUsername().equals(username)) {
+                if (isCorrectPassword(student, password)) {
+                    return new StudentUI(student);
+                }
+                return null;
+            }
+        }
+        for (Admin admin: verifiedAdmins) {
+            if (admin.getUsername().equals(username)) {
+                if (isCorrectPassword(admin, password)) {
+                    return new AdminUI(admin);
+                }
+                return null;
+            }
+        }
+
+        // username does not correspond with a user
+        System.out.println("The username \"" + username + "\" does not exist.");
         return null;
     }
 }
