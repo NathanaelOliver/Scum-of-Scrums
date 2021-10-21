@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Driver runs the internship program for all users and commands
  * 
- * @author William Hobbs, Noah Macbride, and Jack Oberman
+ * @author William Hobbs, Noah MacBride, and Jack Oberman
  */
 public class Driver {
     /**

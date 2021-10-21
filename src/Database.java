@@ -186,7 +186,7 @@ public class Database {
     }
 
     private static boolean isCorrectPassword(User user, String password) {
-        if (!user.password.equals(password)) {
+        if (!user.checkPassword(password)) {
             System.out.println("Incorrect password");
             return false;
         }
