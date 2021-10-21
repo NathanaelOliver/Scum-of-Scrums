@@ -29,7 +29,7 @@ public class Driver {
             System.out.println("Please enter your password:");
             password = scanner.nextLine();
 
-            userInterface = Database.verifyLoginCredentials(username, password);
+            userInterface = Database.verifyLoginCredentials(scanner, username, password);
             loggingIn = (userInterface == null);
         } while (loggingIn);
     }
@@ -44,9 +44,9 @@ public class Driver {
             System.out.println("Are you a:\n1) Student\n2) Employer\n3) Administrator");
             int input = Integer.parseInt(scanner.nextLine());
             switch(input) {
-                case 1: userInterface = new StudentUI();
-                case 2: userInterface = new EmployerUI();
-                case 3: userInterface = new AdminUI();
+                case 1: userInterface = new StudentUI(scanner);
+                case 2: userInterface = new EmployerUI(scanner);
+                case 3: userInterface = new AdminUI(scanner);
                 default: signingUp = true;
             }
         } while (signingUp);

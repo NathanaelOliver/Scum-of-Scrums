@@ -1,5 +1,7 @@
 package src;
 
+import java.util.Scanner;
+
 /**
  * Admin User Interface Front-facing commands for Administrator users
  * 
@@ -8,11 +10,12 @@ package src;
 public class AdminUI extends InternshipUI {
     public Admin admin;
 
-    public AdminUI() {
-        
+    public AdminUI(Scanner scanner) {
+        super(scanner);
     }
 
-    public AdminUI(Admin admin) {
+    public AdminUI(Scanner scanner, Admin admin) {
+        super(scanner);
         this.admin = admin;
     }
 

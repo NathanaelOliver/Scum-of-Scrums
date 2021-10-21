@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.UUID;
 
 /**
@@ -193,7 +194,7 @@ public class Database {
         return true;
     }
 
-    public static InternshipUI verifyLoginCredentials(String username, String password) {
+    public static InternshipUI verifyLoginCredentials(Scanner scanner, String username, String password) {
         // erase dialog up to this point
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -210,7 +211,7 @@ public class Database {
         for (Employer employer: verifiedEmployers) {
             if (employer.getUsername().equals(username)) {
                 if (isCorrectPassword(employer, password)) {
-                    return new EmployerUI(employer);
+                    return new EmployerUI(scanner, employer);
                 }
                 return null;
             }
@@ -218,7 +219,7 @@ public class Database {
         for (Student student: verifiedStudents) {
             if (student.getUsername().equals(username)) {
                 if (isCorrectPassword(student, password)) {
-                    return new StudentUI(student);
+                    return new StudentUI(scanner, student);
                 }
                 return null;
             }
@@ -226,7 +227,7 @@ public class Database {
         for (Admin admin: verifiedAdmins) {
             if (admin.getUsername().equals(username)) {
                 if (isCorrectPassword(admin, password)) {
-                    return new AdminUI(admin);
+                    return new AdminUI(scanner, admin);
                 }
                 return null;
             }
@@ -236,4 +237,25 @@ public class Database {
         System.out.println("The username \"" + username + "\" does not exist.");
         return null;
     }
+
+    public static boolean isAvailable(String username) {
+        for (User unverified: unverifiedUsers)
+            if (unverified.getUsername().equals(username))
+                return false;
+
+        for (Employer employer: verifiedEmployers)
+            if (employer.getUsername().equals(username))
+                return false;
+
+        for (Student student: verifiedStudents)
+            if (student.getUsername().equals(username))
+                return false;
+
+        for (Admin admin: verifiedAdmins)
+            if (admin.getUsername().equals(username))
+                return false;
+
+        return true;
+    }
+
 }

@@ -53,18 +53,6 @@ public abstract class User implements JSONable{
         this.password = password;
     }
 
-    public static boolean isValidPassword(String password) {
-        // ensure password has a length between 8 and 16, has a number,
-        // a lowercase letter, a capital letter, and a symbol
-        // with no spaces
-        return password.length() > 8 && password.length() <= 16 &&
-               password.matches(".*[a-z].*") &&
-               password.matches(".*[A-Z].*") &&
-               password.matches(".*[0-9].*") &&
-               password.matches(".*[!-&].*") &&
-               !password.matches(".*/\\s/g.*");
-    }
-
     /**
      * verifies the password
      * 
