@@ -6,6 +6,9 @@ package src;
  * @author William Hobbs
  */
 public class StudentUI {
+    public StudentUI() {
+        
+    }
     /**
      * apply Student submits their application (including resume) to a job posting
      */
