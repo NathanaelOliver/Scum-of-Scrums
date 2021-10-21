@@ -1,5 +1,9 @@
 package src;
 
+import java.util.Scanner;
+
+import javax.lang.model.util.ElementScanner14;
+
 /**
  * Driver runs the internship program for all users and commands
  * 
@@ -11,13 +15,68 @@ public class Driver {
      * 
      * @param userInterface is the assigned UI to the user
      */
-    private InternshipUI userInterface;
+    private static InternshipUI userInterface;
+    private static Scanner scanner;
 
     /**
      * login accepts a user credentials and assigns an interface
      */
-    private void login() {
+    private static void login() {
+        boolean loggingIn;
+        String username, password;
+        do {
+            loggingIn = false;
+            System.out.println("Please enter your Username:");
+            username = scanner.nextLine();
+            System.out.println("Please enter your password:");
+            password = scanner.nextLine();
 
+            userInterface = Database.verifyLoginCredentials(username, password);
+            loggingIn = userInterface == null;
+        } while (loggingIn);
     }
 
+    /**
+     * Signup accepts a user credentials assigns an interface
+     */
+    private static void signup() {
+        boolean signingUp;
+        do {
+            signingUp = false;
+            System.out.println("Are you a:\n1) Student\n2) Employer\n3) Administrator");
+            int input = Integer.parseInt(scanner.nextLine());
+            switch(input) {
+                case 1: userInterface = new StudentUI();
+                case 2: userInterface = new EmployerUI();
+                case 3: userInterface = new AdminUI();
+                default: signingUp = true;
+
+                userInterface.createUser();
+            }
+        } while (signingUp);
+    }
+
+    public static void main(String[] args) {
+        scanner = new Scanner(System.in);
+
+        // DataLoader.loadDatabase();
+        boolean loggingIn;
+        do {
+            loggingIn = false;
+            System.out.println("Hello. Do you have an account? (y/n) ");
+            String input = scanner.nextLine();
+
+            // If user has account, calls log-in function, if user wants account,
+            // calls sign-up function, otherwise repeats for valid input.
+            if (input.equalsIgnoreCase("y"))
+                login();
+            else if (input.equalsIgnoreCase("n"))
+                signup();
+            else loggingIn = true;
+
+        } while (loggingIn);
+
+        userInterface.run();
+        System.out.println("Thanks for using our service. Goodbye!");
+    }
 }

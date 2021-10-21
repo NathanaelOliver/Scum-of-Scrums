@@ -6,7 +6,15 @@ package src;
  * 
  * @author William Hobbs
  */
-public class EmployerUI {
+public class EmployerUI extends InternshipUI {
+    public void run() {
+
+    }
+
+    public void createUser() {
+        
+    }
+
     /**
      * addProfile Helps an employer set up their Employer Profile for students to
      * search.

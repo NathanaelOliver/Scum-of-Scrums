@@ -35,4 +35,9 @@ public abstract class InternshipUI {
         System.out.println("Pick 1 through " + this.mainMenuOptions.length);
     };
 
+    /**
+     * Creates a user when they are signing up, called by Driver
+     */
+    public abstract void createUser();
+
 }

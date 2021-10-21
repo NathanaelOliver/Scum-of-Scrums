@@ -5,7 +5,10 @@ package src;
  * 
  * @author William Hobbs
  */
-public class StudentUI {
+public class StudentUI extends InternshipUI {
+    public void run() {
+
+    }
     /**
      * apply Student submits their application (including resume) to a job posting
      */
@@ -31,6 +34,10 @@ public class StudentUI {
      * editResume Student can edit their main resume
      */
     private void editResume() {
+
+    }
+
+    public void createUser() {
 
     }
 }

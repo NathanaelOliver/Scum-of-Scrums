@@ -5,7 +5,15 @@ package src;
  * 
  * @author William Hobbs
  */
-public class AdminUI {
+public class AdminUI extends InternshipUI {
+    public void run() {
+
+    }
+
+    public void createUser() {
+        
+    }
+
     /**
      * searchEmployer searches all of the users assigned to user type 'employer'
      */
