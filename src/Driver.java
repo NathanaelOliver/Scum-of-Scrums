@@ -20,4 +20,15 @@ public class Driver {
 
     }
 
+    /**
+     * Non-static 
+     */
+    private void run() {
+
+    }
+
+    public static void main(String[] args) {
+        
+    }
+
 }
