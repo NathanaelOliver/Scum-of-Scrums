@@ -3,7 +3,7 @@ package src;
 /**
  * Intership User Interface
  * This user interface runs the front-end of the Internship system.
- * @author William Hobbs and Jack Oberman
+ * @author William Hobbs, Noah MacBride, and Jack Oberman
  */
 
 import java.util.Scanner;
