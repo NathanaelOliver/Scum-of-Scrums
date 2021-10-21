@@ -61,6 +61,28 @@ public abstract class InternshipUI {
         return Integer.parseInt(scanner.nextLine());
     }
 
+    protected double readDouble(String message) {
+        System.out.println(message);
+        return Double.parseDouble(scanner.nextLine());
+    }
+
+    protected boolean readBoolean(String message) {
+        boolean reading;
+        do {
+            reading = false;
+            System.out.println(message + " (y/n)");
+            String input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("y"))
+                return true;
+            else if (input.equalsIgnoreCase("n"))
+                return false;
+            else reading = true;
+        } while (reading);
+
+        return false;
+    }
+
     protected String readWord(String message) {
         boolean reading;
         String word;
@@ -72,7 +94,7 @@ public abstract class InternshipUI {
 
             if (word.contains(" "))
                 reading = !error("Please enter only a single word");
-            else if (word.length() > 20)
+            else if (word.length() > 40)
                 reading = !error("Please enter less than 21 characters");
         } while (reading);
 
