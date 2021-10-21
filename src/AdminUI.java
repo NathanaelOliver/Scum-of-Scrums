@@ -5,30 +5,33 @@ import java.util.Scanner;
 /**
  * Admin User Interface Front-facing commands for Administrator users
  * 
- * @author William Hobbs
+ * @author Jack Oberman
  */
 public class AdminUI extends InternshipUI {
-    public Admin admin;
+    private boolean loggedIn = true;
 
     public AdminUI(Scanner scanner) {
         super(scanner);
+        this.mainMenuOptions = new String[]{"View Unverified Users", "Edit Account", "Log Out"};
     }
 
     public AdminUI(Scanner scanner, Admin admin) {
-        super(scanner);
-        this.admin = admin;
+        this(scanner);
+        this.currentUser = admin;
     }
 
     public void run() {
+        while (loggedIn) {
 
+        }
     }
 
     public void createUser() {
         String username = readUsername();
         String password = readPassword();
-        String firstName = readWord("first name");
-        String lastName = readWord("last name");
-        admin = new Admin(username, password, firstName, lastName);
+        String firstName = readWord("Please enter your first name");
+        String lastName = readWord("Please enter your last name");
+        this.currentUser = new Admin(username, password, firstName, lastName);
     }
 
     /**
