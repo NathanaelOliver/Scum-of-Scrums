@@ -29,23 +29,23 @@ public abstract class InternshipUI {
         //TO-DO: DataWriter.save();
     }
 
-    protected String displayMainMenu() {
+    protected String displayMenu(String[] menuOptions) {
         String display = "";
-        for (int i = 0; i < this.mainMenuOptions.length; ++i) {
-            display += (i+1) + ") " + this.mainMenuOptions[i] + "\n";
+        for (int i = 0; i < menuOptions.length; ++i) {
+            display += (i+1) + ") " + menuOptions[i] + "\n";
         }
-        return display + "Pick 1 through " + this.mainMenuOptions.length;
+        return display + "Pick 1 through " + menuOptions.length;
     }
 
-    protected int readMainMenu() {
+    protected int readMenu(String[] menuOptions) {
         boolean reading;
         int option;
         do {
             reading = false;
-            System.out.println(displayMainMenu());
+            System.out.println(displayMenu(menuOptions));
             option = Integer.parseInt(scanner.nextLine());
-            if (option < 1 || option > this.mainMenuOptions.length)
-                reading = !error("Please enter a valid number from 1 through " + this.mainMenuOptions.length);
+            if (option < 1 || option > menuOptions.length)
+                reading = !error("Please enter a valid number from 1 through " + menuOptions.length);
         } while (reading);
 
         return option;
