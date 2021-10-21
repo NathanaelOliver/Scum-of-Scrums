@@ -1,5 +1,7 @@
 package src;
 
+import java.util.Scanner;
+
 /**
  * Student User Interface Front-facing user commands for Student users.
  * 
@@ -8,11 +10,12 @@ package src;
 public class StudentUI extends InternshipUI {
     public Student student;
 
-    public StudentUI() {
-
+    public StudentUI(Scanner scanner) {
+        super(scanner);
     }
 
-    public StudentUI(Student student) {
+    public StudentUI(Scanner scanner, Student student) {
+        super(scanner);
         this.student = student;
     }
 
@@ -48,6 +51,7 @@ public class StudentUI extends InternshipUI {
     }
 
     public void createUser() {
+
         //student = new Student(username,password,UserType.student);
         //Database.addStudent(student);
     }

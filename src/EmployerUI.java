@@ -1,5 +1,7 @@
 package src;
 
+import java.util.Scanner;
+
 /**
  * Employer User Interface Runs the front-end of the employer's experience with
  * the Internship program.
@@ -9,11 +11,12 @@ package src;
 public class EmployerUI extends InternshipUI {
     public Employer employer;
 
-    public EmployerUI() {
-        
+    public EmployerUI(Scanner scanner) {
+        super(scanner);
     }
 
-    public EmployerUI(Employer employer) {
+    public EmployerUI(Scanner scanner, Employer employer) {
+        super(scanner);
         this.employer = employer;
     }
 
