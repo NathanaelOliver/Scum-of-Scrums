@@ -22,7 +22,7 @@ public class AdminUI extends InternshipUI {
 
     public void run() {
         while (loggedIn) {
-            int mainMenuOption = readMainMenu();
+            int mainMenuOption = readMenu(this.mainMenuOptions);
             switch(mainMenuOption) {
                 case 1: viewUnverifiedUsers();
                 case 2: editAccount();
@@ -44,7 +44,7 @@ public class AdminUI extends InternshipUI {
     }
 
     private void editAccount() {
-        
+
     }
  
     /**
