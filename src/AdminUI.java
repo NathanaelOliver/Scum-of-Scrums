@@ -22,7 +22,12 @@ public class AdminUI extends InternshipUI {
 
     public void run() {
         while (loggedIn) {
-            
+            int mainMenuOption = readMainMenu();
+            switch(mainMenuOption) {
+                case 1: viewUnverifiedUsers();
+                case 2: editAccount();
+                case 3: logout();
+            }
         }
     }
 
@@ -33,7 +38,15 @@ public class AdminUI extends InternshipUI {
         String lastName = readWord("Please enter your last name");
         this.currentUser = new Admin(username, password, firstName, lastName);
     }
+    
+    private void viewUnverifiedUsers() {
 
+    }
+
+    private void editAccount() {
+        
+    }
+ 
     /**
      * searchEmployer searches all of the users assigned to user type 'employer'
      */
