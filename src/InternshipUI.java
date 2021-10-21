@@ -39,13 +39,23 @@ public abstract class InternshipUI {
         System.out.println("Pick 1 through " + this.mainMenuOptions.length);
     }
 
-    protected String readWord(String type) {
+    protected String readString(String message) {
+        System.out.println(message);
+        return scanner.nextLine();
+    }
+
+    protected int readInt(String message) {
+        System.out.println(message);
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    protected String readWord(String message) {
         boolean reading;
         String word;
 
         do {
             reading = false;
-            System.out.println("Please enter a " + type + ":");
+            System.out.println(message);
             word = scanner.nextLine();
 
             if (word.contains(" "))
