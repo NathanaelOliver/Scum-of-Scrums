@@ -183,7 +183,7 @@ public class Database {
      * @return the user with the specified id
      */
     public static User getUserByID(String id) {
-        return new Admin("", "");
+        return new Admin("","","", "");
     }
 
     private static boolean isCorrectPassword(User user, String password) {

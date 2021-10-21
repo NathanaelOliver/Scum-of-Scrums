@@ -24,7 +24,11 @@ public class AdminUI extends InternshipUI {
     }
 
     public void createUser() {
-        
+        String username = readUsername();
+        String password = readPassword();
+        String firstName = readWord("first name");
+        String lastName = readWord("last name");
+        admin = new Admin(username, password, firstName, lastName);
     }
 
     /**
