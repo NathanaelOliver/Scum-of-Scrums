@@ -6,6 +6,16 @@ package src;
  * @author William Hobbs
  */
 public class StudentUI extends InternshipUI {
+    public Student student;
+
+    public StudentUI() {
+        
+    }
+
+    public StudentUI(Student student) {
+        this.student = student;
+    }
+
     public void run() {
 
     }

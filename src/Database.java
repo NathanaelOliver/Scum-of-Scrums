@@ -7,10 +7,10 @@ import java.util.UUID;
  * Database class stores all users
  */
 public class Database {
-    public ArrayList<User> unverifiedUsers;
-    public ArrayList<Employer> employers;
-    public ArrayList<Student> students;
-    public ArrayList<Admin> admins;
+    public static ArrayList<User> unverifiedUsers;
+    public static ArrayList<Employer> employers;
+    public static ArrayList<Student> students;
+    public static ArrayList<Admin> admins;
 
     /**
      * Filters through the users
@@ -185,7 +185,50 @@ public class Database {
         return new Admin("", "");
     }
 
+    private static boolean isCorrectPassword(User user, String password) {
+        if (!user.password.equals(password)) {
+            System.out.println("Incorrect password");
+            return false;
+        }
+        return true;
+    }
+
     public static InternshipUI verifyLoginCredentials(String username, String password) {
+        for (User unverified: unverifiedUsers) {
+            if (unverified.getUsername().equals(username)) {
+                if (isCorrectPassword(unverified, password)) {
+                    System.out.println("User verification is still pending.");
+                }
+                return null;
+            }
+        }
+        for (Employer employer: employers) {
+            if (employer.getUsername().equals(username)) {
+                if (isCorrectPassword(employer, password)) {
+                    return new EmployerUI(employer);
+                }
+                return null;
+            }
+        }
+        for (Student student: students) {
+            if (student.getUsername().equals(username)) {
+                if (isCorrectPassword(student, password)) {
+                    return new StudentUI(student);
+                }
+                return null;
+            }
+        }
+        for (Admin admin: admins) {
+            if (admin.getUsername().equals(username)) {
+                if (isCorrectPassword(admin, password)) {
+                    return new AdminUI(admin);
+                }
+                return null;
+            }
+        }
+
+        // username does not correspond with a user
+        System.out.println("Username does not exist");
         return null;
     }
 }

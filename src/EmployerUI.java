@@ -7,6 +7,16 @@ package src;
  * @author William Hobbs
  */
 public class EmployerUI extends InternshipUI {
+    public Employer employer;
+
+    public EmployerUI() {
+        
+    }
+
+    public EmployerUI(Employer employer) {
+        this.employer = employer;
+    }
+
     public void run() {
 
     }

@@ -67,7 +67,7 @@ public abstract class User implements JSONable{
 
     /**
      * verifies the password
-     * 
+     * // IS THIS METHOD NECESSARY? -JACK
      * @param password the password to verify
      * @return true if it is the users password, otherwise false
      */

@@ -2,12 +2,10 @@ package src;
 
 import java.util.Scanner;
 
-import javax.lang.model.util.ElementScanner14;
-
 /**
  * Driver runs the internship program for all users and commands
  * 
- * @author William Hobbs
+ * @author William Hobbs, Noah Macbride, and Jack Oberman
  */
 public class Driver {
     /**
