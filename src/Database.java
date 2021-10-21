@@ -184,4 +184,8 @@ public class Database {
     public static User getUserByID(String id) {
         return new Admin("", "");
     }
+
+    public static InternshipUI verifyLoginCredentials(String username, String password) {
+        return null;
+    }
 }

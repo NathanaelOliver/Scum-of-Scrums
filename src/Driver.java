@@ -22,7 +22,18 @@ public class Driver {
      * login accepts a user credentials and assigns an interface
      */
     private static void login() {
-        
+        boolean loggingIn;
+        String username, password;
+        do {
+            loggingIn = false;
+            System.out.println("Please enter your Username:");
+            username = scanner.nextLine();
+            System.out.println("Please enter your password:");
+            password = scanner.nextLine();
+
+            userInterface = Database.verifyLoginCredentials(username, password);
+            loggingIn = userInterface == null;
+        } while (loggingIn);
     }
 
     /**
@@ -65,6 +76,7 @@ public class Driver {
 
         } while (loggingIn);
 
+        userInterface.run();
         System.out.println("Thanks for using our service. Goodbye!");
     }
 }

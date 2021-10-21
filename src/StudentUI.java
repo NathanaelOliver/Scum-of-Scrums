@@ -6,7 +6,7 @@ package src;
  * @author William Hobbs
  */
 public class StudentUI extends InternshipUI {
-    public StudentUI() {
+    public void run() {
 
     }
     /**
