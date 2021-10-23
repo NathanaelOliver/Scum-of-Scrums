@@ -120,4 +120,8 @@ public class Employer extends User {
     public String toJSON() {
         return null;
     }
+
+    public String toString() {
+        return "Employer toString result";
+    }
 }

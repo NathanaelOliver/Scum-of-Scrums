@@ -258,4 +258,21 @@ public class Database {
         return true;
     }
 
+    public static void removeUnverifiedUser(UUID id) {
+        for (int i = 0; i < unverifiedUsers.size(); ++i) {
+            if (unverifiedUsers.get(i).ID.equals(id)) {
+                unverifiedUsers.remove(i);
+                break;
+            }
+        }
+    }
+
+    public static void removeAdmin(UUID id) {
+        for (int i = 0; i < verifiedAdmins.size(); ++i) {
+            if (verifiedAdmins.get(i).ID.equals(id)) {
+                verifiedAdmins.remove(i);
+                break;
+            }
+        }
+    }
 }

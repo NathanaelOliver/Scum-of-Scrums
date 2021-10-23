@@ -9,7 +9,6 @@ package src;
 import java.util.Scanner;
 
 public abstract class InternshipUI {
-    protected User currentUser;
     protected Scanner scanner;
     protected String[] mainMenuOptions;
 
@@ -67,6 +66,7 @@ public abstract class InternshipUI {
     }
 
     protected boolean readBoolean(String message) {
+        flush();
         boolean reading;
         do {
             reading = false;
@@ -84,9 +84,10 @@ public abstract class InternshipUI {
     }
 
     protected String readWord(String message) {
+        flush();
         boolean reading;
         String word;
-
+        
         do {
             reading = false;
             System.out.println(message);
@@ -102,9 +103,10 @@ public abstract class InternshipUI {
     }
 
     protected String readUsername() {
+        flush();
         boolean reading;
         String username;
-
+        
         do {
             reading = false;
             System.out.println("Please enter a username:");
@@ -117,11 +119,11 @@ public abstract class InternshipUI {
     }
 
     protected String readPassword() {
+        flush();
         boolean reading;
         String password;
-
+        
         do {
-            flush();
             reading = false;
             System.out.println("Please enter a password:");
             password = scanner.nextLine();

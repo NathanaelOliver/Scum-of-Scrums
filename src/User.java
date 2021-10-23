@@ -87,4 +87,6 @@ public abstract class User implements JSONable{
      * @return a JSON representation of the USER
      */
     public abstract String toJSON();
+
+    public abstract String toString();
 }

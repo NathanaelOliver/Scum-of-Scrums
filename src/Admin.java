@@ -30,6 +30,10 @@ public class Admin extends User {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     /**
      * Gets the last name of the admin
      * 
@@ -37,6 +41,10 @@ public class Admin extends User {
      */
     public String getLastName() {
         return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
@@ -48,5 +56,9 @@ public class Admin extends User {
         return "\"id\":\"" + ID.toString() + "\",\"username\":\"" + getUsername() + "\",\"password\":\"" + password
         + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified + ",\"firstName\":\""
         + firstName + "\",\"lastName\":\"" + lastName + "\"}";
+    }
+
+    public String toString() {
+        return "Admin toString result";
     }
 }
