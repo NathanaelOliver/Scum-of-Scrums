@@ -13,6 +13,10 @@ public class AdminUI extends InternshipUI {
     private final String[] UNVERIFIED_USERS_MENU;
     private final String[] EDIT_ACCOUNT_MENU;
 
+    /**
+     * Constructor for AdminUI. Initializes menus
+     * @param scanner is the scanner from Driver
+     */
     public AdminUI(Scanner scanner) {
         super(scanner);
         this.mainMenuOptions = new String[]{"View Unverified Users", "Edit Account", "Log Out"};
@@ -20,11 +24,19 @@ public class AdminUI extends InternshipUI {
         this.EDIT_ACCOUNT_MENU = new String[]{"First Name","Last Name","Delete Account", "Return to Main Menu"};
     }
 
+    /**
+     * Constructor for adminUI with an admin.
+     * @param scanner is the scanner from Driver
+     * @param admin is the admin experiencing the interface
+     */
     public AdminUI(Scanner scanner, Admin admin) {
         this(scanner);
         this.admin = admin;
     }
 
+    /**
+     * runs the admin interface, serves as a loop for mainMenu
+     */
     public void run() {
         while (loggedIn) {
             int mainMenuOption = readMenu(this.mainMenuOptions);
@@ -42,15 +54,10 @@ public class AdminUI extends InternshipUI {
             }
         }
     }
-
-    public void createUser() {
-        String username = readUsername();
-        String password = readPassword();
-        String firstName = readWord("Please enter your first name");
-        String lastName = readWord("Please enter your last name");
-        this.admin = new Admin(username, password, firstName, lastName);
-    }
-    
+  
+    /**
+     * runs sub menu for viewing unverified users
+     */
     private void viewUnverifiedUsers() {
         for (User user: Database.unverifiedUsers) {
             flush();
@@ -70,6 +77,9 @@ public class AdminUI extends InternshipUI {
         System.out.println("No more unverified users to verify at this time.");
     }
 
+    /**
+     * runs sub menu for editing account
+     */
     private void editAccount() {
         flush();
         int menuOption = readMenu(this.EDIT_ACCOUNT_MENU);
@@ -90,54 +100,15 @@ public class AdminUI extends InternshipUI {
                 flush();
         }
     }
- 
-    /**
-     * searchEmployer searches all of the users assigned to user type 'employer'
-     */
-    private void searchEmployer() {
-
-    }
 
     /**
-     * searchAdmin searches all of the users assigned to user type 'admin'
+     * Creates a new admin
      */
-    private void searchAdmin() {
-
-    }
-
-    /**
-     * Moves a user from unverifiedUsers into their respective group Allows user to
-     * perform user-y tasks
-     */
-    private void validateUser() {
-
-    }
-
-    /**
-     * searchListing searches the posted job listings
-     */
-    private void searchListing() {
-
-    }
-
-    /**
-     * deleteListings is used to remove an [inappropriate] job listing
-     */
-    private void deleteListing() {
-
-    }
-
-    /**
-     * deleteUser removes a user from the system
-     */
-    private void deleteUser() {
-
-    }
-
-    /**
-     * editListings is used to edit the private variables of a listing
-     */
-    private void editListing() {
-
+    public void createUser() {
+        String username = readUsername();
+        String password = readPassword();
+        String firstName = readWord("Please enter your first name");
+        String lastName = readWord("Please enter your last name");
+        this.admin = new Admin(username, password, firstName, lastName);
     }
 }

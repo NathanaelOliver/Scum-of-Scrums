@@ -1,17 +1,20 @@
 package src;
 
+import java.util.Scanner;
+
 /**
  * Intership User Interface
  * This user interface runs the front-end of the Internship system.
  * @author William Hobbs, Noah MacBride, and Jack Oberman
  */
-
-import java.util.Scanner;
-
 public abstract class InternshipUI {
     protected Scanner scanner;
     protected String[] mainMenuOptions;
 
+    /**
+     * Constructor for an internship user interface
+     * @param scanner is the scanner from Driver
+     */
     public InternshipUI(Scanner scanner) {
         this.scanner = scanner;
     }
@@ -28,6 +31,11 @@ public abstract class InternshipUI {
         //TO-DO: DataWriter.save();
     }
 
+    /**
+     * Displays menu options
+     * @param menuOptions is a String[] for menu options with a corresponding int
+     * @return string representation of menu options with corresponding int 
+     */
     protected String displayMenu(String[] menuOptions) {
         String display = "";
         for (int i = 0; i < menuOptions.length; ++i) {
@@ -36,6 +44,11 @@ public abstract class InternshipUI {
         return display + "Pick 1 through " + menuOptions.length;
     }
 
+    /**
+     * displays a menu and reads integer response, repeating until it receives a valid response
+     * @param menuOptions is a String[] for menu options with a corresponding int
+     * @return integer response for menu option
+     */
     protected int readMenu(String[] menuOptions) {
         boolean reading;
         int option;
@@ -50,21 +63,41 @@ public abstract class InternshipUI {
         return option;
     }
 
+    /**
+     * reads a string response to a prompt
+     * @param message is the prompt 
+     * @return String response
+     */
     protected String readString(String message) {
         System.out.println(message);
         return scanner.nextLine();
     }
 
+    /**
+     * reads an int response to a prompt
+     * @param message is the prompt
+     * @return int response
+     */
     protected int readInt(String message) {
         System.out.println(message);
         return Integer.parseInt(scanner.nextLine());
     }
 
+    /**
+     * reads a double response to a prompt
+     * @param message is the prompt
+     * @return double response
+     */
     protected double readDouble(String message) {
         System.out.println(message);
         return Double.parseDouble(scanner.nextLine());
     }
 
+    /**
+     * reads a boolean response to a prompt
+     * @param message is the prompt
+     * @return boolean response
+     */
     protected boolean readBoolean(String message) {
         flush();
         boolean reading;
@@ -83,6 +116,11 @@ public abstract class InternshipUI {
         return false;
     }
 
+    /**
+     * reads a singular word response to a prompt
+     * @param message is the prompt
+     * @return is the string with no spaces
+     */
     protected String readWord(String message) {
         flush();
         boolean reading;
@@ -102,6 +140,10 @@ public abstract class InternshipUI {
         return word;
     }
 
+    /**
+     * reads a username, repeats until an available username is chosen
+     * @return a valid username
+     */
     protected String readUsername() {
         flush();
         boolean reading;
@@ -118,6 +160,10 @@ public abstract class InternshipUI {
         return username;
     }
 
+    /**
+     * reads a password, repeats until a valid password is chosen
+     * @return a valid password
+     */
     protected String readPassword() {
         flush();
         boolean reading;
@@ -145,7 +191,7 @@ public abstract class InternshipUI {
      * @return true if password is valid, false otherwise
      */
     private boolean isValidPassword(String password) {
-        if (password.length() <= 8)
+        if (password.length() < 8)
             return error("Password must be at least 8 characters");
         if (password.length() > 16)
             return error("Password must be less than 17 characters");
@@ -163,6 +209,11 @@ public abstract class InternshipUI {
         return true;
     }
 
+    /**
+     * prints error response
+     * @param message is the error response
+     * @return false
+     */
     protected boolean error(String message) {
         System.err.println(message);
         return false;
