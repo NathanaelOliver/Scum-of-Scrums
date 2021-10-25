@@ -1,7 +1,7 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 
 /**
  * CourseExperience Class Contains the information related to a course
@@ -63,8 +63,15 @@ public class CourseExperience extends Experience {
      */
     public String toJSON() {
         return "{\"id\":" + ID.toString() + "\",\"title\":\"" + title + "\",\"details\":"
-                + JSONhelper.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString()
-                + "\",\"endDate\":\"" + endDate.toString() + "\",\"grade\":" + grade + "}";
+                + DataWriter.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\""
+                + endDate.toString() + "\",\"grade\":" + grade + "}";
+    }
+
+    public static CourseExperience fromJSON(String json) {
+        HashMap<String, String> dict = DataLoader.dictFromBrace(json);
+        return new CourseExperience(dict.get("title"), DataLoader.dictFromBracket(dict.get("details")),
+                Date.fromString(dict.get("startDate")), Date.fromString(dict.get("endDate")),
+                Double.parseDouble(dict.get("grade")));
     }
 
 }

@@ -1,17 +1,20 @@
 package src;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class JSONhelper {
+public class DataWriter {
     /**
      * Private constructor so no instances can be made
      */
-    private JSONhelper() {
+    private DataWriter() {
     }
 
     /**
-     * Takes a list of JSON objects and outputs the concatenation of them as
-     * JSON objects delimited by Strings
+     * Takes a list of JSON objects and outputs the concatenation of them as JSON
+     * objects delimited by Strings
      * 
      * @param list the list of objects to be converted to JSON
      * @return the concatenated list as JSON objects
@@ -24,8 +27,8 @@ public class JSONhelper {
     }
 
     /**
-     * Takes a list of skills and outputs the concatenation of them as JSON
-     * objects delimited by Strings
+     * Takes a list of skills and outputs the concatenation of them as JSON objects
+     * delimited by Strings
      * 
      * @param skills the list of skills to be converted to JSON
      * @return the concatenated list as JSON objects
@@ -38,13 +41,28 @@ public class JSONhelper {
     }
 
     /**
-     * Takes a list of Strings and outputs the concatenation of them as
-     * JSON objects delimited by Strings
+     * Takes a list of Strings and outputs the concatenation of them as JSON objects
+     * delimited by Strings
      * 
      * @param strings the list of strings to be converted to JSON
      * @return the concatenated list as JSON objects
      */
     public static String stringsToJSON(ArrayList<String> strings) {
         return "[\"" + String.join("\",\"", strings) + "\"]";
+    }
+
+    /**
+     * Saves all things in database to JSON files
+     * 
+     * TODO Very Confident That this method will not work
+     */
+    public static void save() throws IOException {
+        String users = "{\"unverifiedUsers\":[" + toJson(Database.unverifiedUsers) + "],\"students\":["
+                + toJson(Database.students) + "],\"employers\":[" + toJson(Database.employers) + "],\"admins\":["
+                + toJson(Database.admins) + "]}";
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter("data/Users2.json"));
+        writer.write(users);
+        writer.close();
     }
 }

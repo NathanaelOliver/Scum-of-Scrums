@@ -1,7 +1,8 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * WorkExperience Class Contains the information related to a work experience
@@ -19,6 +20,22 @@ public class WorkExperience extends Experience {
     public WorkExperience(String title) {
         super(title);
         references = new ArrayList<Reference>();
+    }
+
+    /**
+     * Private Constructor for use in generating Work Experience from JSON
+     * 
+     * @param id         the id
+     * @param title      the title
+     * @param details    the details of the work experience
+     * @param startDate  the start date
+     * @param endDate    the end date
+     * @param references the reference for the work experience
+     */
+    private WorkExperience(UUID id, String title, ArrayList<String> details, Date startDate, Date endDate,
+            ArrayList<Reference> references) {
+        super(id, title, details, startDate, endDate);
+        this.references = references;
     }
 
     /**
@@ -73,9 +90,24 @@ public class WorkExperience extends Experience {
      */
     public String toJSON() {
         return "{\"id\":\"" + ID.toString() + "\",\"title\":\"" + title + "\",\"details\":"
-                + JSONhelper.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString()
-                + "\",\"endDate\":\"" + endDate.toString() + "\",\"references\":" + JSONhelper.toJson(references)
-                + "}";
+                + DataWriter.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\""
+                + endDate.toString() + "\",\"references\":" + DataWriter.toJson(references) + "}";
+    }
+
+    /**
+     * Creates a work experience from a json object
+     * 
+     * @param json the json object
+     * @return the work experience created from the json object
+     */
+    public static WorkExperience fromJSON(String json) {
+        HashMap<String, String> dict = DataLoader.dictFromBrace(json);
+        ArrayList<Reference> references = new ArrayList<Reference>();
+        for (String e : DataLoader.dictFromBracket(dict.get("references"))) {
+            references.add(Reference.fromJSON(e));
+        }
+        return new WorkExperience(dict.get("title"), DataLoader.dictFromBracket(dict.get("details")),
+                Date.fromString(dict.get("startDate")), Date.fromString(dict.get("endDate")), references);
     }
 
 }

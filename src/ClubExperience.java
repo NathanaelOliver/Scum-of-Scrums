@@ -1,7 +1,7 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 
 /**
  * ClubExperience Class Contains the information related to a club experience
@@ -21,7 +21,7 @@ public class ClubExperience extends Experience {
     }
 
     /**
-     * Constructor for Club Experience with all fields except role
+     * Constructor for Club Experience with all fields
      * 
      * @param title     the title of the experience
      * @param details   details of the experience
@@ -62,7 +62,13 @@ public class ClubExperience extends Experience {
      */
     public String toJSON() {
         return "{\"id\":" + ID.toString() + "\",\"title\":\"" + title + "\",\"details\":"
-                + JSONhelper.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString()
-                + "\",\"endDate\":\"" + endDate.toString() + "\",\"role\":\"" + role + "\"}";
+                + DataWriter.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\""
+                + endDate.toString() + "\",\"role\":\"" + role + "\"}";
+    }
+
+    public static ClubExperience fromJSON(String json) {
+        HashMap<String, String> dict = DataLoader.dictFromBrace(json);
+        return new ClubExperience(dict.get("title"), DataLoader.dictFromBracket(dict.get("details")),
+                Date.fromString(dict.get("startDate")), Date.fromString(dict.get("endDate")), dict.get("role"));
     }
 }

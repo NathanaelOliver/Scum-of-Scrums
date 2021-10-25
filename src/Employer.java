@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -16,13 +17,26 @@ public class Employer extends User {
     /**
      * Creates an employer
      * 
-     * @param id    the id for the employer
      * @param title the company title
      */
     public Employer(String title) {
         super(UserType.employer);
         this.title = title;
         listings = new ArrayList<Listing>();
+    }
+
+    /**
+     * Creates an employer
+     * 
+     * @param id    the id for the employer
+     * @param title the company title
+     */
+    public Employer(UUID id, boolean isVerified, String username, String password, String title,
+            ArrayList<String> description, ArrayList<Listing> listings) {
+        super(id, UserType.employer, isVerified, username, password);
+        this.title = title;
+        this.listings = listings;
+        this.description = description;
     }
 
     /**
@@ -119,5 +133,22 @@ public class Employer extends User {
      */
     public String toJSON() {
         return null;
+    }
+
+    /**
+     * Creates an employer from JSON
+     * 
+     * @param json the json string that an employer is being created from
+     * @return the employer represented by the JSON
+     */
+    public static Employer fromJSON(String json) {
+        HashMap<String, String> dict = DataLoader.dictFromBrace(json);
+        ArrayList<Listing> listings = new ArrayList<Listing>();
+        for (String listing : DataLoader.dictFromBracket(dict.get("listings"))) {
+            listings.add(Listing.fromJSON(listing));
+        }
+        return new Employer(UUID.fromString(dict.get("id")), dict.get("isVerified").equals("true"),
+                dict.get("username"), dict.get("password"), dict.get("title"),
+                DataLoader.dictFromBracket(dict.get("description")), listings);
     }
 }
