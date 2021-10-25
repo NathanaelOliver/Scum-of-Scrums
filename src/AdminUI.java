@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public class AdminUI extends InternshipUI {
     public Admin admin;
-    private boolean loggedIn = true;
+    private boolean loggedIn;
     private final String[] UNVERIFIED_USERS_MENU;
     private final String[] EDIT_ACCOUNT_MENU;
 
@@ -22,6 +22,7 @@ public class AdminUI extends InternshipUI {
         this.mainMenuOptions = new String[]{"View Unverified Users", "Edit Account", "Log Out"};
         this.UNVERIFIED_USERS_MENU = new String[]{"Verify User", "Remove User", "Go to Next User", "Return to Main Menu"};
         this.EDIT_ACCOUNT_MENU = new String[]{"First Name","Last Name","Delete Account", "Return to Main Menu"};
+        this.loggedIn = true;
     }
 
     /**

@@ -12,6 +12,7 @@ public class Student extends User {
     private String email;
     private int year;
     private Resume resume;
+    private ArrayList<Application> applications;
 
     /**
      * Constructor for a student
@@ -26,6 +27,7 @@ public class Student extends User {
         super(username, password);
         this.email = email;
         this.resume = new Resume(firstName, lastName);
+        this.applications = new ArrayList<>();
     }
 
     /**
@@ -183,6 +185,24 @@ public class Student extends User {
      */
     public void addSkill(Skills skill) {
         this.resume.addSkill(skill);
+    }
+
+    /**
+     * Adds a job application to the student's records
+     * 
+     * @param app the new application to be added
+     */
+    public void addApplication(Application app) {
+        this.applications.add(app);
+    }
+
+    /**
+     * Gets all of a student's past applications
+     * 
+     * @return the student's applications
+     */
+    public ArrayList<Application> getApplications() {
+        return this.applications;
     }
 
     /**

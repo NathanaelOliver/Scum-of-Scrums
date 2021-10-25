@@ -1,7 +1,7 @@
 package src;
 
+import java.util.ArrayList;
 import java.util.Scanner;
-
 
 /**
  * Student User Interface Front-facing user commands for Student users.
@@ -9,6 +9,8 @@ import java.util.Scanner;
  */
 public class StudentUI extends InternshipUI {
     public Student student;
+    private final String[] FILTER_MENU;
+    private String filter;
 
     /**
      * Constructor for a student's user interface
@@ -16,6 +18,12 @@ public class StudentUI extends InternshipUI {
      */
     public StudentUI(Scanner scanner) {
         super(scanner);
+        this.mainMenuOptions = new String[]{"View Job Listings",
+                               "View Applications", "Edit Account Information",
+                               "Edit Resume", "Log Out"};
+        this.FILTER_MENU = new String[]{"Pay Rate", "Location", "Start Date",
+                           "End Date", "Skills", "Complete Filter", "Clear Filter"};
+        this.filter = "";
     }
 
     /**
@@ -24,7 +32,7 @@ public class StudentUI extends InternshipUI {
      * @param student the particular student using the program
      */
     public StudentUI(Scanner scanner, Student student) {
-        super(scanner);
+        this(scanner);
         this.student = student;
     }
 
@@ -32,7 +40,15 @@ public class StudentUI extends InternshipUI {
      * Runs the main logic of the student's user interface
      */
     public void run() {
-
+        flush();
+        int mainMenuOption = readMenu(this.mainMenuOptions);
+        switch(mainMenuOption) {
+            case 1:  searchJobs();  // "View Job Listings"
+            case 2:  searchApplications();  // "View Applications"
+            case 3:  editAccount();  // "Edit Account Information"
+            case 4:  editResume();  // "Edit Resume"
+            case 5:  logout();  // "Log Out"
+        }
     }
 
     /**
@@ -49,7 +65,8 @@ public class StudentUI extends InternshipUI {
             double gpa = readDouble("Please enter your GPA:");
             int year = readInt("Please enter your graduation year:");
             
-            student = new Student(username, password, firstName, lastName, phoneNumber, email, gpa, year);
+            student = new Student(username, password, firstName, lastName, phoneNumber,
+                                  email, gpa, year);
         } else student = new Student(username, password, firstName, lastName, email);
         
         if (readBoolean("Would you like to enter a list of skills?"))
@@ -62,29 +79,178 @@ public class StudentUI extends InternshipUI {
     /**
      * apply Student submits their application (including resume) to a job posting
      */
-    private void apply() {
+    private void apply(Listing listing) {
+        listing.apply(this.student.getResume());
+        this.student.addApplication(new Application(listing, student));
+    }
 
+    /**
+     * searchApplications Student searches for jobs already applied to
+     */
+    private void searchApplications() {
+        ArrayList<Listing> listings = getListingsFromApps();
+        int input = readListingMenu(listings, new String[]{"Exit to Main Menu"});
+
+        if (input-1 < this.student.getApplications().size())
+            viewApplication(this.student.getApplications().get(input-1));
+        else run();
     }
 
     /**
      * searchJobs Student searches for jobs of interest
      */
     private void searchJobs() {
+        this.filter = "";
+        ArrayList<Listing> listings = Database.getListings();
+        searchJobs(listings);
+    }
 
+    /**
+     * Student searches for jobs of interest
+     * @param listings pre-determined arraylist of listings - useful for filtered listings lists
+     */
+    private void searchJobs(ArrayList<Listing> listings) {
+        int input = readListingMenu(listings, new String[]{"Edit Filters", "Clear Filters", "Exit to Main Menu"});
+
+        if (input-1 < listings.size())
+            viewListing(listings.get(input-1), listings);
+        else if (input-1 == listings.size())
+            searchJobs(filterListings(listings));
+        else if (input-1 == listings.size()+1)
+            searchJobs();
+        else run();
+    }
+
+    /**
+     * takes a list of applications and returns a list of the job listings applied to
+     * @return the job listings applied to by the student
+     */
+    private ArrayList<Listing> getListingsFromApps() {
+        ArrayList<Listing> list = new ArrayList<>();
+        for (Application app : this.student.getApplications())
+            list.add(app.LISTING);
+        return list;
+    }
+
+    /**
+     * Processes the user looking at a menu of listings and selecting one to look at,
+     * or choose a different option
+     * @param listings list of jobs the student can apply to, possibly filtered
+     * @param additionalOptions extra options at the end of the listing, could be
+     *                          "Exit to Main Menu" or "Edit Filter", etc
+     * @return the int value corresponding to the option chosen by the user
+     */
+    private int readListingMenu(ArrayList<Listing> listings, String[] additionalOptions) {
+        flush();
+        String[] listingStrings = new String[listings.size() + additionalOptions.length];
+        for (int i = 0; i < listingStrings.length; i++)
+            listingStrings[i] = listings.get(i).getEmployer().getTitle() + " - " + listings.get(i).getTitle();
+
+        for (int i = 0; i < additionalOptions.length; i++)
+            listingStrings[listings.size()+i] = additionalOptions[i];
+
+        System.out.println("Select job listing to view by number:");
+        return readMenu(listingStrings);
+    }
+
+    /**
+     * Recursive method to process the user filtering a list of job listings
+     * @param filter the concatenated string of filters to go through
+     * @param listings the list of job listings to filter
+     * @return a filtered list of job listings
+     */
+    private ArrayList<Listing> filterListings(ArrayList<Listing> listings) {
+        int input = readMenu(FILTER_MENU);
+
+        switch(input) {
+            case 1:  // "Pay Rate"
+                this.filter += "minpay:" + readInt("Enter a minimum hourly pay rate:") + ";";
+            case 2:  // "Location"
+                this.filter += "location:" + readLocation() + ";";
+            case 3:  // "Start Date"
+                this.filter += "startdate:" + readDate("Enter the first day you are able to work:").toString() + ";";
+            case 4:  // "End Date"
+                this.filter += "enddate:" + readDate("Enter the final day you are able to work:").toString() + ";";
+            case 5:  // "Skills"
+                this.filter += "skills:" + readSkillsFilter() + ";";
+            case 6:  // "Complete Filter"
+                return Database.filterListings(listings, this.filter);
+            case 7:  // "Clear Filter"
+                this.filter = ""; return filterListings(listings);
+        }
+
+        return filterListings(listings);
+    }
+
+    /**
+     * Processes the user entering his desired location for a filter
+     * @return filter representation of location
+     */
+    private String readLocation() {
+        return readString("Enter the city you want to work in:") + ", " + readString("Enter the state you want to work in");
+    }
+
+    /**
+     * Shows the student a listing and asks if they would like to apply for the job
+     * @param listing the job listing to be displayed
+     * @param listings a potentially filtered list of job listings
+     */
+    private void viewListing(Listing listing, ArrayList<Listing> listings) {
+        System.out.println(listing.toString(false));
+        if (readBoolean("Would you like to apply for this job?")) {
+            apply(listing);
+            flush(); System.out.println("Success!");
+        }
+        System.out.println("Returning to listings...");
+        searchJobs(listings);
+    }
+
+    /**
+     * Shows the student a listing for a job they've already applied for and asks
+     * if they would like to give the employer a rating
+     * @param app application to be displayed
+     */
+    private void viewApplication(Application app) {
+        System.out.println(app.LISTING.toString(false));
+        if (readBoolean("Would you like to review this employer?")) {
+            rateEmployer(app.LISTING.getEmployer());
+            flush(); System.out.println("Success!");
+        }
+        System.out.println("Returning to applications...");
+        searchApplications();
     }
 
     /**
      * rateEmployer Student can rate employers based on their experiences
      */
-    private void rateEmployer() {
+    private void rateEmployer(Employer employer) {
+        int score = readInt("Out of 5, what would you rate this employer?");
+        String comment = readString("Enter a comment about your experience with this employer");
+        employer.addRating(score, comment, student);
+    }
 
+    /**
+     * editAccount Student can edit their account information
+     */
+    private void editAccount() {
+        student.setUsername(readUsername());
+        student.setPassword(readPassword());
+        student.setPhoneNumber(readInt("Please enter your phone number:"));
+        student.setEmail(readWord("Please enter your email:"));
+        student.setYear(readInt("Please enter your graduation year:"));
     }
 
     /**
      * editResume Student can edit their main resume
      */
     private void editResume() {
-
+        student.setFirstName(readWord("Please enter your first name:"));
+        student.setLastName(readWord("Please enter your last name:"));
+        student.setGPA(readDouble("Please enter your GPA:"));
+        if (readBoolean("Would you like to add skills?"))
+            readSkills();
+        if (readBoolean("Would you like to add experiences?"))
+            readExperiences();
     }
 
     /**
@@ -98,9 +264,9 @@ public class StudentUI extends InternshipUI {
             int input = readMenu(mainMenuOptions);
             
             switch(input) {
-                case 1: readWorkExperience();
-                case 2: readCourseExperience();
-                case 3: readClubExperience();
+                case 1:  readWorkExperience();  // "Work Experience"
+                case 2:  readCourseExperience();  // "Course Experience"
+                case 3:  readClubExperience();  // "Club Experience"
             }
 
         } while (reading);
@@ -217,5 +383,24 @@ public class StudentUI extends InternshipUI {
 
             reading = readBoolean("Would you like to enter another skill?");
         } while (reading);
+    }
+
+    /**
+     * Processes new skills to be added to a filter to filter through job listings
+     * @return a string representation of a list of skills to filter by
+     */
+    private String readSkillsFilter() {
+        boolean reading;
+        String str = "{";
+        do {
+            reading = false;
+
+            Skills newSkill = readSkillMenu();
+            str += newSkill.toString() + ",";
+
+            reading = readBoolean("Would you like to enter another skill?");
+        } while (reading);
+
+        return str.substring(0, str.length()-1) + "}";
     }
 }

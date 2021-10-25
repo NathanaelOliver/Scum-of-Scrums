@@ -38,6 +38,19 @@ public class Database {
     }
 
     /**
+     * filters through job listings students can apply for
+     * 
+     * @param listings the job listings the student can apply for and that have
+     *                 passed any previous filters
+     * @param filter a string containing concatenated filters for the method to
+     *               execute
+     * @return An ArrayList of listings after the filters were applied
+     */
+    public static ArrayList<Listing> filterListings(ArrayList<Listing> listings, String filter) {
+        return listings;
+    }
+
+    /**
      * Gets the unverified employers
      * 
      * @return the unverified employers
@@ -172,8 +185,11 @@ public class Database {
      * 
      * @return all job listings
      */
-    private ArrayList<Listing> getListings() {
-        return new ArrayList<Listing>();
+    public static ArrayList<Listing> getListings() {
+        ArrayList<Listing> list = new ArrayList<>();
+        for (Employer e : verifiedEmployers)
+            list.addAll(e.getListings());
+        return list;
     }
 
     /**
