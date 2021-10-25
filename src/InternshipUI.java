@@ -1,6 +1,5 @@
 package src;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -193,7 +192,7 @@ public abstract class InternshipUI {
             if (word.contains(" "))
                 reading = !error("Please enter only a single word");
             else if (word.length() > 40)
-                reading = !error("Please enter less than 21 characters");
+                reading = !error("Please enter 40 characters or less");
         } while (reading);
 
         return word;

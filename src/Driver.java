@@ -87,7 +87,7 @@ public class Driver {
         System.out.println("Thanks for using our service. Goodbye!");
     }
 
-    public static void flush() {
+    private static void flush() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
