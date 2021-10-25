@@ -21,29 +21,7 @@ public class CourseExperience extends Experience {
         super(title);
     }
 
-    /**
-     * Constructor for Course Experience with all fields except grade
-     * 
-     * @param title     the title of the experience
-     * @param details   details of the experience
-     * @param startDate start date of the experience
-     * @param endDate   end date of the experience
-     */
-    public CourseExperience(String title, ArrayList<String> details, Date startDate, Date endDate) {
-        super(title, details, startDate, endDate);
-    }
-
-    /**
-     * Constructor for Course Experience with all fields including grade
-     * 
-     * @param title     the title of the experience
-     * @param details   details of the experience
-     * @param startDate start date of the experience
-     * @param endDate   end date of the experience
-     * @param grade     grade attained by student in the course:uses floating point
-     */
-    public CourseExperience(String title, ArrayList<String> details, Date startDate, Date endDate, double grade) {
-        super(title, details, startDate, endDate);
+    public void setGrade(Double grade) {
         this.grade = grade;
     }
 

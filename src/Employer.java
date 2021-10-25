@@ -20,9 +20,10 @@ public class Employer extends User {
      * @param title the company title
      */
     public Employer(String title) {
-        super(UserType.employer);
+        super();
         this.title = title;
-        listings = new ArrayList<Listing>();
+        this.description = new ArrayList<String>();
+        this.listings = new ArrayList<Listing>();
     }
 
     /**

@@ -43,7 +43,7 @@ public class Listing implements JSONable {
      */
     Listing(double payRate, String location, ArrayList<String> description, Date startDate, Date endDate,
             String siteLink, ArrayList<Skills> skills, String employerName) {
-        this.ID = UUID.randomUUID();
+        this(employerName);
         this.payRate = payRate;
         this.location = location;
         this.description = description;
@@ -51,7 +51,6 @@ public class Listing implements JSONable {
         this.endDate = endDate;
         this.siteLink = siteLink;
         this.skills = skills;
-        this.EMPLOYER_NAME = employerName;
     }
 
     /**
