@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class EmployerUI extends InternshipUI {
     public Employer employer;
+    // QUESTION - reference employer or this.employer?
 
     public EmployerUI(Scanner scanner) {
         super(scanner);
@@ -19,16 +20,23 @@ public class EmployerUI extends InternshipUI {
         super(scanner);
         this.employer = employer;
     }
-
+    /**
+     * run runs the central framework of the UI for employers
+     */
     public void run() {
         boolean running = true;
         while (running) {
+            System.out.println("1. Add a Company Profile\n2. Add a Job Listing\n3. Update a Job Listing\n4. Delete a Job Listing\n5. Quit");
             int input = scanner.nextLine();
             switch (input) {
-                case 1:
-                case 2: 
-                case 3:
-                case 4:
+                case 1: addProfile();
+                        break;
+                case 2: addListing();
+                        break;
+                case 3: editListing();
+                        break;
+                case 4: deleteListing();
+                        break;
                 case 5: running = false;
                         break;
             }
@@ -50,9 +58,18 @@ public class EmployerUI extends InternshipUI {
      * - this is called profile in the UI but description in the Employer class, do we change?
      */
     private void addProfile() {
-        System.out.println("Write your company's profile, followed by the enter key.");
-        employer.addDescription(scanner.nextLine());
-    }
+        System.out.println("Write your company's profile, type DONE when finished.");
+        describing = true;
+        while (describing) {
+            String desc = scanner.nextLine();
+            if (desc.equalsIgnoreCase("done")) {
+                describing = false;
+                break;
+            } else {
+                this.employer.addDescription(desc);
+            }
+        }
+    } // done
 
     /**
      * addListing Employer adds a new job listing for students to apply.
@@ -61,19 +78,14 @@ public class EmployerUI extends InternshipUI {
         // loops through all the stuff it needs and adds it
         // to their arraylist
         boolean creatingListing;
-        // String[] prompts = new String["payRate", "description", "startDate", "endDate", "description", "title", "location", "skills"];
         do {
             creatingListing = false;
             System.out.println("Please give the pay rate of the listing as an hourly wage");
             double payRate = scanner.nextLine();
-            // bulletpoints description, "quit" = quit
-
-
             System.out.println("Add a start date for the job. MM/DD/YYYY");
             Date startDate = scanner.nextLine();
             System.out.println("Add an end date for the job. MM/DD/YYYY");
             Date endDate = scanner.nextLine();
-
             System.out.println("Link a site for the job description.");
             String siteLink = scanner.nextLine();
             System.out.println("Provide a title for the job.");
@@ -81,16 +93,40 @@ public class EmployerUI extends InternshipUI {
             System.out.println("Provide the location for work.");
             String location = scanner.nextLine();
             // prompt for strings, "quit" = quit
-            
-            System.out.println("What skills will the job require? (type \'done\' when done)");
-            System.out.println("Add a description of the job.");
-            describing = false;
-            ArrayList<String> 
-            while (describing) {
+            Listing listing = new Listing(payRate, location, description, startDate, 
+                endDate, siteLink, skills, employer.getTitle());
 
+            System.out.println("What skills will the job require? (type \'done\' when done)");
+            ArrayList<Skills> skills = new ArrayList<Skills>();
+            boolean describing = true;
+            while (describing) {
+                String skill = scanner.nextLine();
+                if (skill.equalsIgnoreCase("done")) {
+                    describing = false;
+                    break;
+                } else {
+                    try {
+                        skills.add(scanner.nextLine()); 
+                    } catch(Exception e) {
+                        System.out.println("Invalid skill, try again");
+                    }
+                }
+            }
+            System.out.println("Add a description of the job.");
+            describing = true;
+            while (describing) {
+                String desc = scanner.nextLine();
+                if (desc.equalsIgnoreCase("done")) {
+                    describing = false;
+                    break;
+                } else {
+
+                }
             }
 
         } while (creatingListing);
+        // creating listing could hypothetically fail infinitely
+        // until a user gets their act together and puts in acceptable values
     }
 
     /**
@@ -100,42 +136,42 @@ public class EmployerUI extends InternshipUI {
         // for loop, prints title of all listings
         // asks them for the index of which one they want to delete
         // deletes that listing from the arraylist, moves all the others up
-        for (int i = 0; i < employer.getListings().size(); i++) {
-            System.out.println((i+1) + ". " + employer.getListings().get(i).getTitle());
+        for (int i = 0; i < this.employer.getListings().size(); i++) {
+            System.out.println((i+1) + ". " + this.employer.getListings().get(i).getTitle());
         }
         System.out.println("Which listing would you like to delete?"); 
         // go back and make this a while in case someone doesn't put a number
         try {
-            int input = Scanner.nextline();
-            employer.setListings(employer.getListings().remove(i));
+            int input = (Scanner.nextline() - 1);
+            this.employer.setListings(employer.getListings().remove(i));
         } catch (Exception e) {
-            System.out.println("invalid entry");
+            System.out.println("Invalid entry");
         }
         // BUG - if they delete the listing, that deletes all the applications associated with it in
-        // our current UML. are we sure we want this?
+        // our current UML
     }
 
     /**
      * editListing Employer can edit their job listings
      */
     private void editListing() {
-        // for loop, prints title of all listings
-        // asks them which listing they want
-        // loop, prints the different things in the listing, which one do you want to edit
-        // edit that listing
-        // done
-        // ArrayList<Listing> listings = employer.getListings();
+        // WHICH TO EDIT
         for (int i = 0; i < employer.getListings().size(); i++) {
             System.out.println((i+1) + ". " + employer.getListings().get(i).getTitle());
         }
-        System.out.println("Which listing would you like to edit?"); // go back and make this a while in case someone gets smart and doesn't put a number
-        /*try {
-            int input = Scanner.nextline();
-        } catch(Exception e) {
-
-        }*/
-        int input = Scanner.nextline();
-        Listing listing = listings.get(input);
+        System.out.println("Which listing would you like to edit?");
+        boolean choosing = true;
+        while (choosing) {
+            try {
+                int input = Scanner.nextline();
+                Listing listing = listings.get(input);
+                choosing = false;
+                break; // necessary?
+            } catch(Exception e) {
+                System.out.println("Invalid entry! Try again.");
+            }
+        }
+        // WHAT TO EDIT
         System.out.println("What would you like to edit?");
         System.out.println("1. Pay Rate \n2. Description \n3. Start Date \n4. End Date \n5. Site Link \n6. Title \n7. Location \n8. Skills");
         String editing = scanner.nextLine();
@@ -145,6 +181,7 @@ public class EmployerUI extends InternshipUI {
                     listing.setPayRate(scanner.nextLine());
                     break;
             case 2: System.out.println("Enter the new description.");
+                    // TODO
                     break;
             case 3: System.out.println("Enter the new start date.");
                     listing.setStartDate(scanner.nextLine());
@@ -152,21 +189,18 @@ public class EmployerUI extends InternshipUI {
             case 4: System.out.println("Enter the new end date.");
                     listing.setEndDate(scanner.nextLine());
                     break;
-            case 5: 
-            case 6: 
-            case 7:
-            case 8:
+            case 5: System.out.println("Enter the new site link.");
+                    listing.setSiteLink(scanner.nextLine());
+                    break;
+            case 6: System.out.println("Enter the new title.");
+                    listing.setTitle(scanner.nextLine());
+                    break;
+            case 7: System.out.println("Enter the new location.");
+                    listing.setLocation(scanner.nextLine());
+                    break;
+            case 8: System.out.println("Enter the new skils.");
+                    // TODO
+                    break;
         }
-        /** f
-            private double payRate;
-            private ArrayList<String> description;
-            private Date startDate, endDate;
-            private String siteLink, title, location;
-            private ArrayList<Skills> skills;
-        */
-        
-
-
     }
-
 }
