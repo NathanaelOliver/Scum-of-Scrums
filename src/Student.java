@@ -8,8 +8,7 @@ package src;
 import java.util.ArrayList;
 
 public class Student extends User {
-    private int phoneNumber;
-    private String email;
+    private String phoneNumber, email;
     private int year;
     private Resume resume;
     private ArrayList<Application> applications;
@@ -42,7 +41,7 @@ public class Student extends User {
      * @param gpa the gpa of the student
      * @param year the graduation year of the student
      */
-    public Student(String username, String password, String firstName, String lastName, int phoneNumber, String email, double gpa, int year) {
+    public Student(String username, String password, String firstName, String lastName, String phoneNumber, String email, double gpa, int year) {
         this(username, password, firstName, lastName, email);
         this.phoneNumber = phoneNumber;
         this.year = year;
@@ -57,7 +56,7 @@ public class Student extends User {
     public String toJSON() {
         return "{\"id\":\"" + ID.toString() + "\",\"username\":\"" + getUsername() + "\",\"password\":\"" + password
         + "\",\"userType\":\"student\",\"isVerified\":" + isVerified + ",\"firstName\":\"" + resume.getFirstName()
-        + "\",\"lastName\":\"" + resume.getLastName() + "\",\"phoneNumber\":" + phoneNumber + ",\"email\":\"" + email
+        + "\",\"lastName\":\"" + resume.getLastName() + "\",\"phoneNumber\":\"" + phoneNumber + "\",\"email\":\"" + email
         + "\",\"resume\":" + resume.toJSON() + "}";
     }
 
@@ -102,7 +101,7 @@ public class Student extends User {
      * 
      * @return the phone number of the student
      */
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
@@ -111,7 +110,7 @@ public class Student extends User {
      * 
      * @param phoneNumber the new phone number of the student
      */
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
