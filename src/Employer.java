@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * Employer Class The profile for the Employer
  * 
- * @author Nathanael Oliver
+ * @author Nathanael Oliver, William Hobbs
  */
 public class Employer extends User {
     private String title;
@@ -118,6 +118,12 @@ public class Employer extends User {
      * @return JSON representation of an Employer
      */
     public String toJSON() {
-        return null;
+        // TODO - run this through a json validator, think it may be missing a comma
+        String ret = "{\"title\":\"" + this.title + "\",";
+        ret += JSONhelper.stringsToJSON(this.description);
+        ret += ",";
+        ret += JSONhelper.skillsToJSON(this.skills);
+        ret += ",";
+        return ret;
     }
 }

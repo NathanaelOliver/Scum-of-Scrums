@@ -24,6 +24,7 @@ public class EmployerUI extends InternshipUI {
      * run runs the central framework of the UI for employers
      */
     public void run() {
+        // initialize?
         boolean running = true;
         while (running) {
             System.out.println("1. Add a Company Profile\n2. Add a Job Listing\n3. Update a Job Listing\n4. Delete a Job Listing\n5. Quit");
@@ -41,12 +42,17 @@ public class EmployerUI extends InternshipUI {
                         break;
             }
         }
-    }
+    } // done
 
     public void createUser() {
         boolean creatingUser = true;
         while (creatingUser) {
-
+            Employer employer = new Employer();
+            System.out.println("Please enter your employer name.");
+            employer.setTitle(scanner.nextLine());
+            this.employer = employer;
+            addProfile(); // is it ok to call this method here?
+            break;
         }
     }
 
@@ -93,8 +99,7 @@ public class EmployerUI extends InternshipUI {
             System.out.println("Provide the location for work.");
             String location = scanner.nextLine();
             // prompt for strings, "quit" = quit
-            Listing listing = new Listing(payRate, location, description, startDate, 
-                endDate, siteLink, skills, employer.getTitle());
+            
 
             System.out.println("What skills will the job require? (type \'done\' when done)");
             ArrayList<Skills> skills = new ArrayList<Skills>();
@@ -106,28 +111,32 @@ public class EmployerUI extends InternshipUI {
                     break;
                 } else {
                     try {
+                        // convert string to Skill?
                         skills.add(scanner.nextLine()); 
                     } catch(Exception e) {
                         System.out.println("Invalid skill, try again");
                     }
                 }
             }
-            System.out.println("Add a description of the job.");
+            System.out.println("Add a description of the job. (type \'done\' when done)");
             describing = true;
+            ArrayList<String> description = new ArrayList<String>();
             while (describing) {
                 String desc = scanner.nextLine();
                 if (desc.equalsIgnoreCase("done")) {
                     describing = false;
                     break;
                 } else {
-
+                    description.add(scanner.nextLine());
                 }
             }
-
+            Listing listing = new Listing(payRate, location, description, startDate, 
+                endDate, siteLink, skills, employer.getTitle());
         } while (creatingListing);
         // creating listing could hypothetically fail infinitely
         // until a user gets their act together and puts in acceptable values
-    }
+        // also this is memory intense and I don't like it
+    } // done
 
     /**
      * deleteListing Employer can delete their job listings
@@ -149,7 +158,7 @@ public class EmployerUI extends InternshipUI {
         }
         // BUG - if they delete the listing, that deletes all the applications associated with it in
         // our current UML
-    }
+    } // done
 
     /**
      * editListing Employer can edit their job listings
@@ -180,8 +189,9 @@ public class EmployerUI extends InternshipUI {
             case 1: System.out.println("Enter the new pay rate.");
                     listing.setPayRate(scanner.nextLine());
                     break;
-            case 2: System.out.println("Enter the new description.");
-                    // TODO
+            case 2: System.out.println("Add the new description.");
+                    listing.addDescription(scanner.nextLine())
+                    // same question as for skills
                     break;
             case 3: System.out.println("Enter the new start date.");
                     listing.setStartDate(scanner.nextLine());
@@ -199,8 +209,9 @@ public class EmployerUI extends InternshipUI {
                     listing.setLocation(scanner.nextLine());
                     break;
             case 8: System.out.println("Enter the new skils.");
-                    // TODO
+                    listing.addSkills(scanner.nextLine());
+                    // Do we want to update skills by adding new ones, or wiping old ones?
                     break;
         }
     }
-}
+} // done
