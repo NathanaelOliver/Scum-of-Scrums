@@ -97,7 +97,7 @@ public class Rating {
      * @return JSON representation of a rating
      */
     public String toJSON() {
-        // TODO - complete JSON method
-        return "";
+        return "\"id\":\"" + ID.toString() + "\",\"receiverID\":\"" + RECEIVER_ID.toString() + "\",\"rating\":"
+        + rating + ",\"comment\":\"" + comment + "\",\"writerID\":\"" + WRITER_ID.toString() + "\"}";
     }
 }

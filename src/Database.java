@@ -2,6 +2,7 @@ package src;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.UUID;
 
 /**
@@ -221,4 +222,77 @@ public class Database {
     public static User getUserByID(String id) {
         return new Admin("", "");
     }
+
+    private static boolean isCorrectPassword(User user, String password) {
+        if (!user.checkPassword(password)) {
+            System.out.println("Incorrect password");
+            return false;
+        }
+        return true;
+    }
+
+    public static InternshipUI verifyLoginCredentials(Scanner scanner, String username, String password) {
+        // erase dialog up to this point
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+        // find user in system
+        for (User unverified : unverifiedUsers) {
+            if (unverified.getUsername().equals(username)) {
+                if (isCorrectPassword(unverified, password)) {
+                    System.out.println("User verification is still pending.");
+                }
+                return null;
+            }
+        }
+        for (Employer employer : employers) {
+            if (employer.getUsername().equals(username)) {
+                if (isCorrectPassword(employer, password)) {
+                    return new EmployerUI(scanner, employer);
+                }
+                return null;
+            }
+        }
+        for (Student student : students) {
+            if (student.getUsername().equals(username)) {
+                if (isCorrectPassword(student, password)) {
+                    return new StudentUI(scanner, student);
+                }
+                return null;
+            }
+        }
+        for (Admin admin : admins) {
+            if (admin.getUsername().equals(username)) {
+                if (isCorrectPassword(admin, password)) {
+                    return new AdminUI(scanner, admin);
+                }
+                return null;
+            }
+        }
+
+        // username does not correspond with a user
+        System.out.println("The username \"" + username + "\" does not exist.");
+        return null;
+    }
+
+    public static boolean isAvailable(String username) {
+        for (User unverified : unverifiedUsers)
+            if (unverified.getUsername().equals(username))
+                return false;
+
+        for (Employer employer : employers)
+            if (employer.getUsername().equals(username))
+                return false;
+
+        for (Student student : students)
+            if (student.getUsername().equals(username))
+                return false;
+
+        for (Admin admin : admins)
+            if (admin.getUsername().equals(username))
+                return false;
+
+        return true;
+    }
+
 }

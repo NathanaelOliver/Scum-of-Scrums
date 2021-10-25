@@ -1,11 +1,27 @@
 package src;
 
+import java.util.Scanner;
+
 /**
  * Student User Interface Front-facing user commands for Student users.
  * 
  * @author William Hobbs
  */
-public class StudentUI {
+public class StudentUI extends InternshipUI {
+    public Student student;
+
+    public StudentUI(Scanner scanner) {
+        super(scanner);
+    }
+
+    public StudentUI(Scanner scanner, Student student) {
+        super(scanner);
+        this.student = student;
+    }
+
+    public void run() {
+
+    }
     /**
      * apply Student submits their application (including resume) to a job posting
      */
@@ -32,5 +48,11 @@ public class StudentUI {
      */
     private void editResume() {
 
+    }
+
+    public void createUser() {
+
+        //student = new Student(username,password,UserType.student);
+        //Database.addStudent(student);
     }
 }

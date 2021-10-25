@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * DataLoader Class
@@ -26,11 +28,16 @@ public class DataLoader {
      */
     public static String getJSON() {
         String jsonText = "";
-        Scanner scan = new Scanner("data/Users.json");
-        while (scan.hasNextLine()) {
-            jsonText += scan.nextLine();
+        try {
+            Scanner scan = new Scanner(new File("data/Users.json"));
+            while (scan.hasNextLine()) {
+                jsonText += scan.nextLine();
+            }
+            scan.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getStackTrace());
+            return null;
         }
-        scan.close();
         jsonText.replaceAll("\\s", "");
         return jsonText;
     }

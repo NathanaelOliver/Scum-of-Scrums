@@ -1,11 +1,32 @@
 package src;
 
+import java.util.Scanner;
+
 /**
  * Admin User Interface Front-facing commands for Administrator users
  * 
  * @author William Hobbs
  */
-public class AdminUI {
+public class AdminUI extends InternshipUI {
+    public Admin admin;
+
+    public AdminUI(Scanner scanner) {
+        super(scanner);
+    }
+
+    public AdminUI(Scanner scanner, Admin admin) {
+        super(scanner);
+        this.admin = admin;
+    }
+
+    public void run() {
+
+    }
+
+    public void createUser() {
+        
+    }
+
     /**
      * searchEmployer searches all of the users assigned to user type 'employer'
      */

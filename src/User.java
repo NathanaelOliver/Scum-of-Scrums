@@ -76,9 +76,9 @@ public abstract class User implements JSONable {
     }
 
     /**
-     * Sets the users password
+     * Sets the user's password
      * 
-     * @param password
+     * @param password the user's new password
      */
     public void setPassword(String password) {
         this.password = password;
