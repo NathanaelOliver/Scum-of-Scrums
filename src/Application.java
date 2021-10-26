@@ -2,6 +2,7 @@ package src;
 
 /**
  * Application class, stores a job application
+ * @author Noah MacBride
  */
 public class Application {
     public final Listing LISTING;

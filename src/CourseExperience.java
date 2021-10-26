@@ -1,8 +1,5 @@
 package src;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 /**
  * CourseExperience Class Contains the information related to a course
  * experience

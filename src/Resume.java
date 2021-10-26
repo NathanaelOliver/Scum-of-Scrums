@@ -23,6 +23,7 @@ public class Resume implements JSONable {
     public Resume(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.skills = new ArrayList<>();
         this.workExperiences = new ArrayList<>();
         this.courseExperiences = new ArrayList<>();
         this.clubExperiences = new ArrayList<>();
