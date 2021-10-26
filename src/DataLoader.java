@@ -72,7 +72,6 @@ public class DataLoader {
             case '"':
                 vStart++;
                 do {
-                    System.out.print(json.charAt(i));
                     i++;
                 } while (json.charAt(i) != '"');
                 vEnd = i;
