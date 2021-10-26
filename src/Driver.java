@@ -78,6 +78,10 @@ public class Driver {
         } while (loggingIn);
 
         userInterface.run();
+
+        System.out.println("\033[H\033[2J");
+        System.out.flush();
+
         System.out.println("Thanks for using our service. Goodbye!");
     }
 }
