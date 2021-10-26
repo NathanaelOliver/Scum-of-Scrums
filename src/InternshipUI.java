@@ -1,5 +1,6 @@
 package src;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -79,7 +80,30 @@ public abstract class InternshipUI {
         for (int i = 0; i < skills.length; i++)
             skills[i] = SKILLS_LIST[i].toString();
 
-        return SKILLS_LIST[readMenu(skills) + 1];
+        return SKILLS_LIST[readMenu(skills) - 1];
+    }
+
+    /**
+     * Processes new skills being added by the user until the user is done
+     */
+    protected ArrayList<Skills> readSkills(ArrayList<Skills> skills) {
+        ArrayList<Skills> list = skills;
+        boolean reading;
+        do {
+            reading = false;
+
+            Skills newSkill = readSkillMenu();
+            if (!list.contains(newSkill)) {
+                list.add(newSkill);
+                System.out.println(newSkill.toString() + " added");
+            } else {
+                System.out.println("This skill was already added");
+            }
+
+            reading = readBoolean("Would you like to enter another skill?");
+        } while (reading);
+
+        return skills;
     }
 
     /**
