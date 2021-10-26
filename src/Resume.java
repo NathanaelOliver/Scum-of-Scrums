@@ -9,31 +9,73 @@ import java.util.UUID;
  * @author Nathanael Oliver
  */
 public class Resume implements JSONable {
+    private String firstName;
+    private String lastName;
     private double gpa;
-    private String name;
-    private String education;
     private ArrayList<Skills> skills;
     private ArrayList<Experience> workExperiences;
     private ArrayList<Experience> courseExperiences;
     private ArrayList<Experience> clubExperiences;
 
     /**
-     * Constructor for the resume class
-     * 
-     * @param firstName first name of the student creating the resume
-     * @param lastName  last name of the student creating the resume
+     * Constructor for the resume class, initializes arrays
      */
     public Resume(String firstName, String lastName) {
-        this.name = firstName + " " + lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.skills = new ArrayList<>();
+        this.workExperiences = new ArrayList<>();
+        this.courseExperiences = new ArrayList<>();
+        this.clubExperiences = new ArrayList<>();
     }
 
     /**
-     * Gets the name of the student whose resume this belongs to
+     * Constructor for the resume class
      * 
-     * @return the name of the student
+     * @param gpa the gpa of the student
      */
+    public Resume(String firstName, String lastName, double gpa) {
+        this(firstName, lastName);
+        this.gpa = gpa;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
     public String getName() {
-        return this.name;
+        return this.firstName + " " + this.lastName;
+    }
+
+    public void setGPA(double gpa) {
+        this.gpa = gpa;
+    }
+
+    public double getGPA() {
+        return this.gpa;
+    }
+
+    public ArrayList<Skills> getSkills() {
+        return this.skills;
+    }
+
+    public ArrayList<Experience> getExperiences() {
+        ArrayList<Experience> experiences = workExperiences;
+        experiences.addAll(courseExperiences);
+        experiences.addAll(clubExperiences);
+        return experiences;
     }
 
     /**
@@ -41,7 +83,7 @@ public class Resume implements JSONable {
      * 
      * @param experience the experience to be added
      */
-    public void addWorkExperience(WorkExperience experience) {
+    public void addExperience(WorkExperience experience) {
         workExperiences.add(experience);
     }
 
@@ -50,7 +92,7 @@ public class Resume implements JSONable {
      * 
      * @param experience the experience to be added
      */
-    public void addClubExperience(ClubExperience experience) {
+    public void addExperience(ClubExperience experience) {
         clubExperiences.add(experience);
     }
 
@@ -59,7 +101,7 @@ public class Resume implements JSONable {
      * 
      * @param experience the experience to be added
      */
-    public void addCourseExperience(CourseExperience experience) {
+    public void addExperience(CourseExperience experience) {
         courseExperiences.add(experience);
     }
 
@@ -111,18 +153,9 @@ public class Resume implements JSONable {
         this.skills.remove(skill);
     }
 
-    public String getEducation() {
-        return this.education;
-    }
-
-    public void setEducation(String education) {
-        this.education = education;
-    }
-
     public String toJSON() {
-        return "{\"gpa\":" + gpa + ",\"education\":\"" + education + "\",\"skills\":"
-        + JSONhelper.skillsToJSON(skills) + ",\"workExperiences\":" + JSONhelper.toJson(workExperiences)
-        + ",\"courseExperiences\":" + JSONhelper.toJson(courseExperiences) + ",\"clubExperiences\":"
-        + JSONhelper.toJson(clubExperiences) + "}";
+        return "{\"gpa\":" + gpa + "\",\"skills\":" + JSONhelper.skillsToJSON(skills) + ",\"workExperiences\":"
+        + JSONhelper.toJson(workExperiences) + ",\"courseExperiences\":" + JSONhelper.toJson(courseExperiences)
+        + ",\"clubExperiences\":" + JSONhelper.toJson(clubExperiences) + "}";
     }
 }

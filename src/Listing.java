@@ -1,8 +1,7 @@
 package src;
 
-import java.util.Date;
-import java.util.UUID;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Listing class stores a posted job listing
@@ -11,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Listing implements JSONable {
     public final UUID ID;
-    private final String EMPLOYER_NAME;
+    private final Employer EMPLOYER;
     private double payRate;
     private ArrayList<String> description;
     private Date startDate, endDate;
@@ -24,9 +23,26 @@ public class Listing implements JSONable {
      *
      * @param employerName the name of the employer offering the job
      */
-    public Listing(String employerName) {
+    public Listing(Employer employer) {
         this.ID = UUID.randomUUID();
-        this.EMPLOYER_NAME = employerName;
+        this.EMPLOYER = employer;
+    }
+
+    /**
+     * Creates a copy of a listing based on 
+     * @param listing
+     */
+    public Listing(Listing listing) {
+        this(listing.getEmployer());
+        this.payRate = listing.getPayRate();
+        this.description = listing.getDescription();
+        this.startDate = listing.getStartDate();
+        this.endDate = listing.getEndDate();
+        this.siteLink = listing.getSiteLink();
+        this.title = listing.getTitle();
+        this.location = listing.getLocation();
+        this.skills = listing.getSkills();
+        this.applicants = null;
     }
 
     /**
@@ -42,16 +58,16 @@ public class Listing implements JSONable {
      * @param employerName the name of the employer offering the job
      */
     Listing(double payRate, String location, ArrayList<String> description, Date startDate, Date endDate,
-            String siteLink, ArrayList<Skills> skills, String employerName) {
-        this.ID = UUID.randomUUID();
+            String siteLink, String title, ArrayList<Skills> skills, Employer employer) {
+        this(employer);
         this.payRate = payRate;
         this.location = location;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.siteLink = siteLink;
+        this.title = title;
         this.skills = skills;
-        this.EMPLOYER_NAME = employerName;
     }
 
     /**
@@ -69,6 +85,15 @@ public class Listing implements JSONable {
         + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\"" + endDate.toString()
         + "\",\"siteLink\":\"" + siteLink + "\",\"skills\":" + JSONhelper.skillsToJSON(skills) + "\",\"applicants\":"
         + JSONhelper.toJson(applicants) + "}";
+    }
+
+    /**
+     * Gets the name of the employer offering this job listing
+     * 
+     * @return the name of the job listing's employer
+     */
+    public Employer getEmployer() {
+        return this.EMPLOYER;
     }
 
     /**
@@ -242,7 +267,7 @@ public class Listing implements JSONable {
      * @return a displayed listing
      */
     public String toString(boolean isEmployer) {
-        String result = EMPLOYER_NAME;
+        String result = EMPLOYER.getTitle();
         if (!title.isEmpty()) result += " - " + title;
         result += "\n********************";
 

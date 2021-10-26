@@ -16,7 +16,7 @@ public class Admin extends User {
      * @param lastName  the last name of the admin
      */
     public Admin(String username, String password, String firstName, String lastName) {
-        super(username, password, UserType.admin);
+        super(username, password);
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -54,8 +54,8 @@ public class Admin extends User {
      */
     public String toJSON() {
         return "\"id\":\"" + ID.toString() + "\",\"username\":\"" + getUsername() + "\",\"password\":\"" + password
-        + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified + ",\"firstName\":\""
-        + firstName + "\",\"lastName\":\"" + lastName + "\"}";
+        + "\",\"userType\":\"admin\",\"isVerified\":" + isVerified + ",\"firstName\":\"" + firstName
+        + "\",\"lastName\":\"" + lastName + "\"}";
     }
 
     public String toString() {
