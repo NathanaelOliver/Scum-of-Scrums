@@ -12,9 +12,8 @@ import java.util.UUID;
 public class Student extends User {
     private String firstName;
     private String lastName;
-    private int phoneNumber;
+    private String phoneNumber;
     private String email;
-    private double gpa;
     private int year;
     private ArrayList<Skills> skills;
     private ArrayList<Experience> experiences;
@@ -33,14 +32,13 @@ public class Student extends User {
     }
 
     public Student(UUID id, boolean isVerified, String username, String password, String firstName, String lastName,
-            int phoneNumber, String email, double gpa, int year, ArrayList<Skills> skills,
-            ArrayList<Experience> experiences, Resume resume) {
+            String phoneNumber, String email, int year, ArrayList<Skills> skills, ArrayList<Experience> experiences,
+            Resume resume) {
         super(id, UserType.student, isVerified, username, password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.gpa = gpa;
         this.year = year;
         this.skills = skills;
         this.experiences = experiences;
@@ -84,9 +82,9 @@ public class Student extends User {
             }
         }
         return new Student(UUID.fromString(dict.get("id")), dict.get("isVerified").equals("true"), dict.get("username"),
-                dict.get("password"), dict.get("firstName"), dict.get("lastName"),
-                Integer.parseInt(dict.get("phoneNumber")), dict.get("email"), Double.parseDouble(dict.get("gpa")),
-                Integer.parseInt(dict.get("year")), skills, experiences, Resume.fromJSON(dict.get("resume")));
+                dict.get("password"), dict.get("firstName"), dict.get("lastName"), dict.get("phoneNumber"),
+                dict.get("email"), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")), skills,
+                experiences, Resume.fromJSON(dict.get("resume")));
     }
 
     /**
@@ -130,7 +128,7 @@ public class Student extends User {
      * 
      * @return the phone number of the student
      */
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
@@ -139,7 +137,7 @@ public class Student extends User {
      * 
      * @param phoneNumber the new phone number of the student
      */
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -159,24 +157,6 @@ public class Student extends User {
      */
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    /**
-     * Gets the student's GPA
-     * 
-     * @return the student's GPA
-     */
-    public double getGpa() {
-        return this.gpa;
-    }
-
-    /**
-     * Sets the student's GPA
-     * 
-     * @param gpa the new GPA of the student
-     */
-    public void setGpa(double gpa) {
-        this.gpa = gpa;
     }
 
     /**

@@ -1,7 +1,6 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.File;
@@ -38,8 +37,7 @@ public class DataLoader {
             System.out.println(e.getStackTrace());
             return null;
         }
-        jsonText.replaceAll("\\s", "");
-        return jsonText;
+        return jsonText.replaceAll("[\\t\\n ]", "");
     }
 
     /**
@@ -49,68 +47,75 @@ public class DataLoader {
      * @return a hashmap of the JSON object
      */
     public static HashMap<String, String> dictFromBrace(String json) {
-        // TODO - This method is also probably broken
         HashMap<String, String> dict = new HashMap<String, String>();
-        for (int i = 0; i < json.length() - 1;) {
+        int i = 0;
+        while (i < json.length()) {
+
             while (json.charAt(i) != '"') {
                 i++;
-            }
-            i++;
-            int kStart = i;
-            while (json.charAt(i) != '"') {
-                i++;
-            }
-            int kEnd = i;
-            i += 2;
-            if (json.charAt(i) == '"') {
-                i++;
-                int vStart = i;
-                i++;
-                while (json.charAt(i) != '"') {
-                    i++;
+                if (i == json.length()) {
+                    return dict;
                 }
-                int vEnd = i;
-                dict.put(json.substring(kStart, kEnd), json.substring(vStart, vEnd));
-            } else if (json.charAt(i) == 't') {
-                dict.put(json.substring(kStart, kEnd), "true");
-            } else if (json.charAt(i) == 'f') {
-                dict.put(json.substring(kStart, kEnd), "false");
-            } else if (json.charAt(i) == '{') {
-                int count = 1;
-                int vStart = i;
+            }
+            int kStart = i + 1;
+            do {
                 i++;
-                while (count != 0) {
+            } while (json.charAt(i) != '"');
+            int kEnd = i;
+            do {
+                i++;
+            } while (json.charAt(i) == ' ' || json.charAt(i) == '\t' || json.charAt(i) == '\n'
+                    || json.charAt(i) == ':');
+            int vStart = i, vEnd;
+            int count = 0;
+            switch (json.charAt(i)) {
+            case '"':
+                vStart++;
+                do {
+                    System.out.print(json.charAt(i));
                     i++;
+                } while (json.charAt(i) != '"');
+                vEnd = i;
+                break;
+            case 'f':
+                i++;
+                vEnd = i;
+            case 't':
+                i += 4;
+                vEnd = i;
+                break;
+            case '{':
+                count = 0;
+                do {
                     if (json.charAt(i) == '{') {
                         count++;
                     } else if (json.charAt(i) == '}') {
                         count--;
                     }
-                }
-                i++;
-                int vEnd = i;
-                dict.put(json.substring(kStart, kEnd), json.substring(vStart, vEnd));
-            } else if (json.charAt(i) == '[') {
-                int count = 1;
-                int vStart = i;
-                i++;
-                while (count != 0) {
                     i++;
+                } while (count != 0);
+                vEnd = i;
+                break;
+            case '[':
+                count = 0;
+                do {
                     if (json.charAt(i) == '[') {
                         count++;
                     } else if (json.charAt(i) == ']') {
                         count--;
                     }
-                }
-                i++;
-                dict.put(json.substring(kStart, kEnd), json.substring(vStart, i));
-            } else {
-                int vStart = i;
-                while (json.charAt(i) != ',') {
                     i++;
-                }
-                dict.put(json.substring(kStart, kEnd), json.substring(vStart, i));
+                } while (count != 0);
+                vEnd = i;
+                break;
+            default:
+                do {
+                    i++;
+                } while (json.charAt(i) != ',');
+                vEnd = i;
             }
+            dict.put(json.substring(kStart, kEnd).trim(), json.substring(vStart, i).trim());
+            i++;
         }
         return dict;
     }
@@ -122,35 +127,40 @@ public class DataLoader {
      * @return an ArrayList of elements within the brackets
      */
     public static ArrayList<String> dictFromBracket(String json) {
-        switch (json.charAt(1)) {
+        ArrayList<String> dict = new ArrayList<String>();
+        if (json == null || json.length() <= 2) {
+            return dict;
+        }
+        json = json.substring(1, json.length() - 1);
+        switch (json.charAt(0)) {
         case '"':
-            return (ArrayList<String>) Arrays.asList(json.split(","));
+            for (String e : json.split(",")) {
+                dict.add(e.substring(1, e.length() - 1).trim());
+            }
+            break;
         case '{':
-            ArrayList<String> dict = new ArrayList<String>();
-            int start = 1;
-            int count = 0;
+            int start = 0;
+            int count = 0, i = 0;
             boolean flag = true;
-            for (int i = 0; i < json.length(); i++) {
-                if (flag) {
+            do {
+                do {
                     switch (json.charAt(i)) {
+                    case '"':
+                        flag = !flag;
+                        break;
                     case '{':
-                        if (count == 0)
-                            start = i;
                         count += flag ? 1 : 0;
                         break;
                     case '}':
                         count -= flag ? 1 : 0;
-                        if (count == 0)
-                            dict.add(json.substring(start, i + 1));
                         break;
-                    case '"':
-                        flag = !flag;
                     }
-                }
-            }
-            return dict;
+                    i++;
+                } while (count != 0);
+                dict.add(json.substring(start, i).trim());
+            } while (i != json.length());
         }
-        return null;
+        return dict;
     }
 
     /**

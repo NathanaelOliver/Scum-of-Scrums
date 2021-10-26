@@ -60,8 +60,6 @@ public class Driver {
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
         Database.fromJSON(DataLoader.getJSON());
-
-        // DataLoader.loadDatabase();
         boolean loggingIn;
         do {
             loggingIn = false;

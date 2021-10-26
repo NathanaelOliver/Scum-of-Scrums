@@ -23,6 +23,7 @@ public class Database {
 
     public static void fromJSON(String json) {
         HashMap<String, String> userLists = DataLoader.dictFromBrace(json);
+
         for (String e : DataLoader.dictFromBracket(userLists.get("employers"))) {
             employers.add(Employer.fromJSON(e));
         }
@@ -32,22 +33,15 @@ public class Database {
         for (String e : DataLoader.dictFromBracket(userLists.get("admins"))) {
             admins.add(Admin.fromJSON(e));
         }
-        for (String e : DataLoader.dictFromBracket(userLists.get("unverifiedUsers"))) {
-            switch (e.charAt(e.indexOf("\"userType\": \"") + "\"userType\": \"".length())) {
-            case 'E':
-            case 'e':
-                unverifiedUsers.add(Employer.fromJSON(e));
-                break;
-            case 'A':
-            case 'a':
-                unverifiedUsers.add(Admin.fromJSON(e));
-                break;
-            case 'S':
-            case 's':
-                unverifiedUsers.add(Student.fromJSON(e));
-                break;
-            }
-        }
+
+        /*
+         * for (String e : DataLoader.dictFromBracket(userLists.get("unverifiedUsers")))
+         * { switch (e.charAt(e.indexOf("\"userType\": \"") +
+         * "\"userType\": \"".length())) { case 'E': case 'e':
+         * unverifiedUsers.add(Employer.fromJSON(e)); break; case 'A': case 'a':
+         * unverifiedUsers.add(Admin.fromJSON(e)); break; case 'S': case 's':
+         * unverifiedUsers.add(Student.fromJSON(e)); break; } }
+         */
     }
 
     /**

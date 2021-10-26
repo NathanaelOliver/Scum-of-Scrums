@@ -17,7 +17,7 @@ public class Listing implements JSONable {
     private Date startDate, endDate;
     private String siteLink, title, location;
     private ArrayList<Skills> skills;
-    private ArrayList<Resume> applicants;
+    private ArrayList<String> applicants;
 
     /**
      * Creates an empty Listing with only an id
@@ -28,6 +28,7 @@ public class Listing implements JSONable {
     public Listing(String title, String employerName) {
         this.ID = UUID.randomUUID();
         this.EMPLOYER_NAME = employerName;
+        this.applicants = new ArrayList<String>();
     }
 
     /**
@@ -55,6 +56,7 @@ public class Listing implements JSONable {
         this.siteLink = siteLink;
         this.skills = skills;
         this.EMPLOYER_NAME = employerName;
+        this.applicants = new ArrayList<String>();
     }
 
     /**
@@ -83,6 +85,7 @@ public class Listing implements JSONable {
         this.siteLink = siteLink;
         this.skills = skills;
         this.EMPLOYER_NAME = employerName;
+        this.applicants = new ArrayList<String>();
     }
 
     /**
@@ -99,7 +102,7 @@ public class Listing implements JSONable {
                 + "\",\"title\":\"" + title + "\",\"description\":" + DataWriter.stringsToJSON(description)
                 + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\"" + endDate.toString()
                 + "\",\"siteLink\":\"" + siteLink + "\",\"skills\":" + DataWriter.skillsToJSON(skills)
-                + "\",\"applicants\":" + DataWriter.toJson(applicants) + "}";
+                + "\",\"applicants\":" + DataWriter.stringsToJSON(applicants) + "}";
     }
 
     /**
@@ -119,7 +122,7 @@ public class Listing implements JSONable {
                 DataLoader.dictFromBracket(dict.get("description")), Date.fromString(dict.get("startDate")),
                 Date.fromString(dict.get("endDate")), dict.get("siteLink"), skills, dict.get("employerName"));
         for (String e : DataLoader.dictFromBracket(dict.get("applicants"))) {
-            listing.apply(Resume.fromJSON(e));
+            listing.apply(e);
         }
         return listing;
     }
@@ -273,16 +276,16 @@ public class Listing implements JSONable {
      * 
      * @return the students who have applied for the job
      */
-    public ArrayList<Resume> getApplicants() {
+    public ArrayList<String> getApplicants() {
         return this.applicants;
     }
 
     /**
-     * Adds a student to the list of applicants
+     * Adds a resume id to the list of applicants
      * 
      * @param student the student to be added to the list of applicants
      */
-    public void apply(Resume resume) {
+    public void apply(String resume) {
         this.applicants.add(resume);
     }
 
@@ -302,8 +305,8 @@ public class Listing implements JSONable {
 
         if (isEmployer && applicants.size() > 0) {
             result += "\nApplicants:";
-            for (Resume r : applicants)
-                result += "\n" + r.getName();
+            for (String r : applicants)
+                result += "\n" + r;
             result += "\n";
         }
 

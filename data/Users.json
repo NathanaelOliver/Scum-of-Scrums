@@ -1,14 +1,14 @@
 {
     "students": [
         {
-            "id": "B8710298",
+            "id": "c67dd783-0f91-4a9e-b337-794768fd9ba3",
             "username": "wihobbs",
             "password": "hobbsman1",
             "userType": "student",
             "isVerified": true,
             "firstName": "Bill",
             "lastName": "Hobbs",
-            "phoneNumber": 4204206969,
+            "phoneNumber": "4204206969",
             "email": "williamhobbs@email.sc.edu",
             "resume": {
                 "gpa": 3.9,
@@ -28,13 +28,13 @@
                             {
                                 "firstName": "Jeff",
                                 "lastName": "Koons",
-                                "phoneNumber": 7843098073,
+                                "phoneNumber": "7843098073",
                                 "email": "jkoons@gmail.com"
                             },
                             {
                                 "firstName": "Kara",
                                 "lastName": "Walker",
-                                "phoneNumber": 6723333333,
+                                "phoneNumber": "6723333333",
                                 "email": "kwalker@gmail.com"
                             }
                         ]
@@ -78,14 +78,14 @@
             }
         },
         {
-            "id": "J78522814",
+            "id": "0f01337c-13ea-45b7-8d2c-97085402fc58",
             "username": "joberman",
             "password": "G@meCok7",
             "userType": "student",
             "isVerified": true,
             "firstName": "Jack",
             "lastName": "Oberman",
-            "phoneNumber": 3709012334,
+            "phoneNumber": "3709012334",
             "email": "joberman@email.sc.edu",
             "resume": {
                 "gpa": 1.0,
@@ -97,14 +97,14 @@
             }
         },
         {
-            "id": "L8327109",
+            "id": "cd37b6a7-894a-4355-857c-ae582249fe6d",
             "username": "natoliver",
             "password": "gamerBoi2",
             "userType": "student",
             "isVerified": true,
             "firstName": "Nathanael",
             "lastName": "Oliver",
-            "phoneNumber": 1234567890,
+            "phoneNumber": "1234567890",
             "email": "no2@email.sc.edu",
             "resume": {
                 "gpa": 3.9,
@@ -127,14 +127,14 @@
             }
         },
         {
-            "id": "P1289123",
+            "id": "162bcc1c-b0a2-41be-8d19-ed36bdb407ec",
             "username": "brideguy9",
             "password": "tacoB3llH$ll",
             "userType": "student",
             "isVerified": false,
             "firstName": "Macbride",
             "lastName": "Noah",
-            "phoneNumber": 9287654167,
+            "phoneNumber": "9287654167",
             "email": "macbride@email.sc.edu",
             "resume": {
                 "gpa": 1.0,
@@ -231,7 +231,9 @@
                     "endDate": "08/20/2022",
                     "siteLink": "https://www.publix.com/",
                     "skills": [
-                        "java", "linux", "css"
+                        "Java",
+                        "Linux",
+                        "CSS"
                     ],
                     "applicants": []
                 }
