@@ -12,6 +12,7 @@ public class Employer extends User {
     private String title;
     private ArrayList<String> description;
     private ArrayList<Listing> listings;
+    private ArrayList<Rating> ratings;
 
     /**
      * Creates an employer
@@ -20,9 +21,11 @@ public class Employer extends User {
      * @param title the company title
      */
     public Employer(String title) {
-        super(UserType.employer);
+        super();
         this.title = title;
-        listings = new ArrayList<Listing>();
+        this.description = new ArrayList<String>();
+        this.listings = new ArrayList<Listing>();
+        this.ratings = new ArrayList<Rating>();
     }
 
     /**
@@ -104,6 +107,35 @@ public class Employer extends User {
     }
 
     /**
+     * Adds a rating to the employer's list of ratings
+     * 
+     * @param rating the rating being added to this employer
+     */
+    public void addRating(Rating rating) {
+        this.ratings.add(rating);
+    }
+
+    /**
+     * Adds a rating to the employer's list of ratings
+     * 
+     * @param score the score (out of 5) the rating received
+     * @param comment a note from the student about this employer
+     * @param student the student reviewing this employer
+     */
+    public void addRating(int score, String comment, Student student) {
+        this.ratings.add(new Rating(comment, score, student.ID, this.ID));
+    }
+
+    /**
+     * Gets all of this employer's ratings
+     * 
+     * @return this employer's ratings
+     */
+    public ArrayList<Rating> getRatings() {
+        return this.ratings;
+    }
+
+    /**
      * Deletes a listing
      * 
      * @param listing the listing to get deleted
@@ -125,5 +157,9 @@ public class Employer extends User {
         ret += JSONhelper.skillsToJSON(this.skills);
         ret += ",";
         return ret;
+    }
+
+    public String toString() {
+        return "Employer toString result";
     }
 }
