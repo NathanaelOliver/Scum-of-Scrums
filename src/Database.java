@@ -38,6 +38,19 @@ public class Database {
     }
 
     /**
+     * filters through job listings students can apply for
+     * 
+     * @param listings the job listings the student can apply for and that have
+     *                 passed any previous filters
+     * @param filter a string containing concatenated filters for the method to
+     *               execute
+     * @return An ArrayList of listings after the filters were applied
+     */
+    public static ArrayList<Listing> filterListings(ArrayList<Listing> listings, String filter) {
+        return listings;
+    }
+
+    /**
      * Gets the unverified employers
      * 
      * @return the unverified employers
@@ -172,8 +185,11 @@ public class Database {
      * 
      * @return all job listings
      */
-    private ArrayList<Listing> getListings() {
-        return new ArrayList<Listing>();
+    public static ArrayList<Listing> getListings() {
+        ArrayList<Listing> list = new ArrayList<>();
+        for (Employer e : verifiedEmployers)
+            list.addAll(e.getListings());
+        return list;
     }
 
     /**
@@ -183,7 +199,7 @@ public class Database {
      * @return the user with the specified id
      */
     public static User getUserByID(String id) {
-        return new Admin("", "");
+        return new Admin("","","", "");
     }
 
     private static boolean isCorrectPassword(User user, String password) {
@@ -258,4 +274,21 @@ public class Database {
         return true;
     }
 
+    public static void removeUnverifiedUser(UUID id) {
+        for (int i = 0; i < unverifiedUsers.size(); ++i) {
+            if (unverifiedUsers.get(i).ID.equals(id)) {
+                unverifiedUsers.remove(i);
+                break;
+            }
+        }
+    }
+
+    public static void removeAdmin(UUID id) {
+        for (int i = 0; i < verifiedAdmins.size(); ++i) {
+            if (verifiedAdmins.get(i).ID.equals(id)) {
+                verifiedAdmins.remove(i);
+                break;
+            }
+        }
+    }
 }

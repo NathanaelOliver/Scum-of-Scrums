@@ -1,7 +1,6 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * WorkExperience Class Contains the information related to a work experience
@@ -19,33 +18,6 @@ public class WorkExperience extends Experience {
     public WorkExperience(String title) {
         super(title);
         references = new ArrayList<Reference>();
-    }
-
-    /**
-     * Constructor for Work Experience with all fields except references
-     * 
-     * @param title     the title of the experience
-     * @param details   details of the experience
-     * @param startDate start date of the experience
-     * @param endDate   end date of the experience
-     */
-    public WorkExperience(String title, ArrayList<String> details, Date startDate, Date endDate) {
-        super(title, details, startDate, endDate);
-        references = new ArrayList<Reference>();
-    }
-
-    /**
-     * Constructor for Work Experience with all fields including references
-     * 
-     * @param title     the title of the experience
-     * @param details   details of the experience
-     * @param startDate start date of the experience
-     * @param endDate   end date of the experience
-     */
-    public WorkExperience(String title, ArrayList<String> details, Date startDate, Date endDate,
-            ArrayList<Reference> references) {
-        super(title, details, startDate, endDate);
-        this.references = references;
     }
 
     /**

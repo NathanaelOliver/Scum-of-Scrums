@@ -8,26 +8,44 @@ package src;
 import java.util.ArrayList;
 
 public class Student extends User {
-    private String firstName;
-    private String lastName;
-    private int phoneNumber;
-    private String email;
-    private double gpa;
+    private String phoneNumber, email;
     private int year;
-    private ArrayList<Skills> skills;
-    private ArrayList<Experience> experiences;
     private Resume resume;
+    private ArrayList<Application> applications;
 
     /**
      * Constructor for a student
      * 
+     * @param username the username of the student
+     * @param password the password of the student
      * @param firstName the first name of the student
      * @param lastName  the last name of the student
+     * @param email the email of the student
      */
-    public Student(String firstName, String lastName) {
-        super(UserType.student);
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Student(String username, String password, String firstName, String lastName, String email) {
+        super(username, password);
+        this.email = email;
+        this.resume = new Resume(firstName, lastName);
+        this.applications = new ArrayList<>();
+    }
+
+    /**
+     * Constructor for a student
+     * 
+     * @param username the username of the student
+     * @param password the password of the student
+     * @param firstName the first name of the student
+     * @param lastName  the last name of the student
+     * @param phoneNumber the phone number of the student
+     * @param email the email of the student
+     * @param gpa the gpa of the student
+     * @param year the graduation year of the student
+     */
+    public Student(String username, String password, String firstName, String lastName, String phoneNumber, String email, double gpa, int year) {
+        this(username, password, firstName, lastName, email);
+        this.phoneNumber = phoneNumber;
+        this.year = year;
+        this.resume.setGPA(gpa);
     }
 
     /**
@@ -37,8 +55,8 @@ public class Student extends User {
      */
     public String toJSON() {
         return "{\"id\":\"" + ID.toString() + "\",\"username\":\"" + getUsername() + "\",\"password\":\"" + password
-        + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified + ",\"firstName\":\""
-        + firstName + "\",\"lastName\":\"" + lastName + "\",\"phoneNumber\":" + phoneNumber + ",\"email\":\"" + email
+        + "\",\"userType\":\"student\",\"isVerified\":" + isVerified + ",\"firstName\":\"" + resume.getFirstName()
+        + "\",\"lastName\":\"" + resume.getLastName() + "\",\"phoneNumber\":\"" + phoneNumber + "\",\"email\":\"" + email
         + "\",\"resume\":" + resume.toJSON() + "}";
     }
 
@@ -48,7 +66,7 @@ public class Student extends User {
      * @return the student's first name
      */
     public String getFirstName() {
-        return this.firstName;
+        return this.resume.getFirstName();
     }
 
     /**
@@ -57,7 +75,7 @@ public class Student extends User {
      * @param firstName the new first name of the student
      */
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.resume.setFirstName(firstName);
     }
 
     /**
@@ -66,7 +84,7 @@ public class Student extends User {
      * @return the last name of the student
      */
     public String getLastName() {
-        return this.lastName;
+        return this.resume.getLastName();
     }
 
     /**
@@ -75,7 +93,7 @@ public class Student extends User {
      * @param lastName the student's new last name
      */
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.resume.setLastName(lastName);
     }
 
     /**
@@ -83,7 +101,7 @@ public class Student extends User {
      * 
      * @return the phone number of the student
      */
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
@@ -92,7 +110,7 @@ public class Student extends User {
      * 
      * @param phoneNumber the new phone number of the student
      */
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -115,24 +133,6 @@ public class Student extends User {
     }
 
     /**
-     * Gets the student's GPA
-     * 
-     * @return the student's GPA
-     */
-    public double getGpa() {
-        return this.gpa;
-    }
-
-    /**
-     * Sets the student's GPA
-     * 
-     * @param gpa the new GPA of the student
-     */
-    public void setGpa(double gpa) {
-        this.gpa = gpa;
-    }
-
-    /**
      * Gets the year that the student is graduating from school
      * 
      * @return the student's graduation year
@@ -151,39 +151,78 @@ public class Student extends User {
     }
 
     /**
-     * Gets the Student's Skills
+     * Gets the student's Grade Point Average (GPA)
+     * 
+     * @return the student's GPA
+     */
+    public double getGPA() {
+        return this.resume.getGPA();
+    }
+    
+    /**
+     * Sets the student's Grade Point Average (GPA)
+     * 
+     * @param gpa the student's new GPA
+     */
+    public void setGPA(double gpa) {
+        this.resume.setGPA(gpa);
+    }
+
+    /**
+     * Gets all of a student's skills
      * 
      * @return the student's skills
      */
     public ArrayList<Skills> getSkills() {
-        return this.skills;
+        return this.resume.getSkills();
     }
 
     /**
-     * sets the students skills
+     * Adds a skill to a student's list
      * 
-     * @param skills the students new skills
+     * @param skill new skill to be added to resume
      */
-    public void setSkills(ArrayList<Skills> skills) {
-        this.skills = skills;
+    public void addSkill(Skills skill) {
+        this.resume.addSkill(skill);
     }
 
     /**
-     * Gets the student's Experiences
+     * Adds a job application to the student's records
+     * 
+     * @param app the new application to be added
+     */
+    public void addApplication(Application app) {
+        this.applications.add(app);
+    }
+
+    /**
+     * Gets all of a student's past applications
+     * 
+     * @return the student's applications
+     */
+    public ArrayList<Application> getApplications() {
+        return this.applications;
+    }
+
+    /**
+     * Gets all the student's experiences
      * 
      * @return the student's experiences
      */
     public ArrayList<Experience> getExperiences() {
-        return this.experiences;
+        return this.resume.getExperiences();
     }
 
-    /**
-     * Sets the students experiences
-     * 
-     * @param experiences the student's new experiences.
-     */
-    public void setExperiences(ArrayList<Experience> experiences) {
-        this.experiences = experiences;
+    public void addExperience(WorkExperience e) {
+        this.resume.addExperience(e);
+    }
+
+    public void addExperience(CourseExperience e) {
+        this.resume.addExperience(e);
+    }
+
+    public void addExperience(ClubExperience e) {
+        this.resume.addExperience(e);
     }
 
     /**
@@ -202,5 +241,9 @@ public class Student extends User {
      */
     public void setResume(Resume resume) {
         this.resume = resume;
+    }
+
+    public String toString() {
+        return "Student toString result";
     }
 }

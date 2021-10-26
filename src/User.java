@@ -9,31 +9,23 @@ import java.util.UUID;
  */
 public abstract class User implements JSONable{
     public final UUID ID;
-    public UserType userType;
-    public boolean isVerified = false;
+    public boolean isVerified;
     protected String password;
     private String username;
+
+    public User() {
+        this.ID = UUID.randomUUID();
+    }
+
     /**
      * Constructor for the User Class
      * 
      * @param userType the user type
      */
-    public User(UserType userType) {
-        this.ID = UUID.randomUUID();
-        this.userType = userType;
-    }
-
-    /**
-     * Constructor for the User Class with username, password, and userType
-     * @param username the user's username
-     * @param password the user's password
-     * @param userType enum of user's type: admin, employer, or student
-     */
-    public User(String username, String password, UserType userType) {
-        this.ID = UUID.randomUUID();
+    public User(String username, String password) {
+        this();
         this.username = username;
         this.password = password;
-        this.userType = userType;
     }
 
     /**
@@ -87,4 +79,6 @@ public abstract class User implements JSONable{
      * @return a JSON representation of the USER
      */
     public abstract String toJSON();
+
+    public abstract String toString();
 }

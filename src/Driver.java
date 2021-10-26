@@ -20,6 +20,7 @@ public class Driver {
      * login accepts a user credentials and assigns an interface
      */
     private static void login() {
+        flush();
         boolean loggingIn;
         String username, password;
         do {
@@ -38,22 +39,31 @@ public class Driver {
      * Signup accepts a user credentials assigns an interface
      */
     private static void signup() {
+        flush();
         boolean signingUp;
         do {
             signingUp = false;
             System.out.println("Are you a:\n1) Student\n2) Employer\n3) Administrator");
             int input = Integer.parseInt(scanner.nextLine());
             switch(input) {
-                case 1: userInterface = new StudentUI(scanner);
-                case 2: userInterface = new EmployerUI(scanner);
-                case 3: userInterface = new AdminUI(scanner);
-                default: signingUp = true;
+                case 1:
+                    userInterface = new StudentUI(scanner);
+                    break;
+                case 2:
+                    userInterface = new EmployerUI(scanner);
+                    break;
+                case 3:
+                    userInterface = new AdminUI(scanner);
+                    break;
+                default:
+                    signingUp = true;
             }
         } while (signingUp);
         userInterface.createUser();
     }
 
     public static void main(String[] args) {
+        flush();
         scanner = new Scanner(System.in);
 
         // DataLoader.loadDatabase();
@@ -75,5 +85,10 @@ public class Driver {
 
         userInterface.run();
         System.out.println("Thanks for using our service. Goodbye!");
+    }
+
+    private static void flush() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

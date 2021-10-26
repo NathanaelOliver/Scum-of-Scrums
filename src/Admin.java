@@ -15,8 +15,8 @@ public class Admin extends User {
      * @param firstName the first name of the admin
      * @param lastName  the last name of the admin
      */
-    public Admin(String firstName, String lastName) {
-        super(UserType.admin);
+    public Admin(String username, String password, String firstName, String lastName) {
+        super(username, password);
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -30,6 +30,10 @@ public class Admin extends User {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     /**
      * Gets the last name of the admin
      * 
@@ -39,6 +43,10 @@ public class Admin extends User {
         return lastName;
     }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     /**
      * Gets JSON representation of the admin
      * 
@@ -46,7 +54,11 @@ public class Admin extends User {
      */
     public String toJSON() {
         return "\"id\":\"" + ID.toString() + "\",\"username\":\"" + getUsername() + "\",\"password\":\"" + password
-        + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified + ",\"firstName\":\""
-        + firstName + "\",\"lastName\":\"" + lastName + "\"}";
+        + "\",\"userType\":\"admin\",\"isVerified\":" + isVerified + ",\"firstName\":\"" + firstName
+        + "\",\"lastName\":\"" + lastName + "\"}";
+    }
+
+    public String toString() {
+        return "Admin toString result";
     }
 }
