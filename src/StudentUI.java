@@ -61,7 +61,7 @@ public class StudentUI extends InternshipUI {
         String lastName = readWord("Please enter your last name:");
         String email = readWord("Please enter your e-mail:");
         if (readBoolean("Would you like to add more information?")) {
-            int phoneNumber = readInt("Please enter your phone number:");
+            String phoneNumber = readWord("Please enter your phone number:");
             double gpa = readDouble("Please enter your GPA:");
             int year = readInt("Please enter your graduation year:");
             
@@ -235,7 +235,7 @@ public class StudentUI extends InternshipUI {
     private void editAccount() {
         student.setUsername(readUsername());
         student.setPassword(readPassword());
-        student.setPhoneNumber(readInt("Please enter your phone number:"));
+        student.setPhoneNumber(readWord("Please enter your phone number:"));
         student.setEmail(readWord("Please enter your email:"));
         student.setYear(readInt("Please enter your graduation year:"));
     }
