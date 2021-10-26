@@ -222,6 +222,22 @@ public abstract class InternshipUI {
         return word;
     }
 
+    protected ArrayList<String> readStringArrayList(String message, String loopPrompt) {
+        System.out.println(message);
+        ArrayList<String> list = new ArrayList<>();
+        boolean reading;
+        do {
+            reading = false;
+
+            String str = scanner.nextLine();
+            list.add(str);
+
+            reading = readBoolean(loopPrompt);
+        } while (reading);
+
+        return list;
+    }
+
     /**
      * reads a username, repeats until an available username is chosen
      * @return a valid username
