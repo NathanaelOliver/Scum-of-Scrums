@@ -30,7 +30,7 @@ public class Student extends User {
      * @param email     the email of the student
      */
     public Student(String username, String password, String firstName, String lastName, String email) {
-        super(username, password);
+        super(username, password, UserType.student);
         this.email = email;
         this.resume = new Resume(firstName, lastName);
         this.applications = new ArrayList<>();
@@ -56,6 +56,21 @@ public class Student extends User {
         this.resume.setGPA(gpa);
     }
 
+    /**
+     * Student Constructor
+     * @param id student user id
+     * @param isVerified boolean if user if verified
+     * @param username student's username
+     * @param password student's password
+     * @param firstName student's first name
+     * @param lastName student's last name
+     * @param phoneNumber student's phone number
+     * @param email student's email
+     * @param year student's grade level
+     * @param skills list of student's skills
+     * @param experiences list of student's experiences
+     * @param resume student's resume
+     */
     public Student(UUID id, boolean isVerified, String username, String password, String firstName, String lastName,
             String phoneNumber, String email, int year, ArrayList<Skills> skills, ArrayList<Experience> experiences,
             Resume resume) {

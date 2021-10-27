@@ -23,10 +23,11 @@ public abstract class User implements JSONable {
      * 
      * @param userType the user type
      */
-    public User(String username, String password) {
+    public User(String username, String password, UserType userType) {
         this();
         this.username = username;
         this.password = password;
+        this.userType = userType;
     }
 
     /**

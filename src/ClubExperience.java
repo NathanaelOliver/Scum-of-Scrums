@@ -13,13 +13,13 @@ public class ClubExperience extends Experience {
     private String role;
 
     /**
-     * Constructor for Club Experience with all fields
      * 
-     * @param title     the title of the club experience
-     * @param details   a list of the details of the club
+     * @param id club experience uuid
+     * @param title the title of the club experience
+     * @param details a list of the details of the club
      * @param startDate when the student joined the club
-     * @param endDate   when the student left the club
-     * @param role      the student's role in the club
+     * @param endDate when the student left the club
+     * @param role the student's role in the club
      */
     public ClubExperience(UUID id, String title, ArrayList<String> details, Date startDate, Date endDate, String role) {
         super(id, title, details, startDate, endDate);
@@ -64,6 +64,11 @@ public class ClubExperience extends Experience {
                 + endDate.toString() + "\",\"role\":\"" + role + "\"}";
     }
 
+     /**
+     * Creates a club experience from JSON
+     * @param json is JSON representation of club experience
+     * @return new club experience
+     */
     public static ClubExperience fromJSON(String json) {
         HashMap<String, String> dict = DataLoader.dictFromBrace(json);
         return new ClubExperience(UUID.fromString(dict.get("id")), dict.get("title"),

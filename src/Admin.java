@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 /**
- * Admin Class A User with Administrator rights
+ * Admin Class is a User with Administrator rights
  * 
  * @author Jack Oberman
  */
@@ -13,21 +13,26 @@ public class Admin extends User {
     private String lastName;
 
     /**
-     * Constructor for the admin class
-     * 
-     * @param firstName the first name of the admin
-     * @param lastName  the last name of the admin
+     * Constructor for admin
+     * @param username is the admin's username
+     * @param password is the admin's password 
+     * @param firstName is the admin's first name
+     * @param lastName is the admin's last name
      */
     public Admin(String username, String password, String firstName, String lastName) {
-        super(username, password);
+        super(username, password, UserType.admin);
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     /**
-     * Constructor for the admin class with all fields
-     * 
-     * @return
+     * Constructor for admin
+     * @param id is the admin's user id
+     * @param isVerified boolean for whether the admin is verified
+     * @param username is the admin's username
+     * @param password is the admin's password
+     * @param firstname is the admin's first name
+     * @param lastName is the admin's last name
      */
     public Admin(UUID id, boolean isVerified, String username, String password, String firstname, String lastName) {
         super(id, UserType.admin, isVerified, username, password);
@@ -44,6 +49,10 @@ public class Admin extends User {
         return firstName;
     }
 
+    /**
+     * Sets admin's first name
+     * @param firstName admin's new first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -57,6 +66,10 @@ public class Admin extends User {
         return lastName;
     }
 
+    /**
+     * Sets admin's last name
+     * @param lastName admin's new last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -84,6 +97,10 @@ public class Admin extends User {
                 dict.get("password"), dict.get("firstname"), dict.get("lastName"));
     }
 
+    /**
+     * Gets a string representation of the admin
+     * @return string representation of admin
+     */
     public String toString() {
         return "This is a string representing the admin";
     }

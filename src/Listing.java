@@ -26,6 +26,7 @@ public class Listing implements JSONable {
      * @param employerName the name of the employer offering the job
      */
     public Listing(String title, UUID employerId) {
+        this.title = title;
         this.ID = UUID.randomUUID();
         this.EMPLOYER_ID = employerId;
         this.applicants = new ArrayList<Resume>();
@@ -53,7 +54,7 @@ public class Listing implements JSONable {
     /**
      * Creates a listing with all propeerties
      * 
-     * @parma title the title of the job listing
+     * @param title the title of the job listing
      * @param payRate      the pay rate of the job listing
      * @param location     the location of the job
      * @param description  a description of the job
@@ -82,7 +83,7 @@ public class Listing implements JSONable {
      * Creates a listing with all propeerties
      * 
      * @param id the id of the job listing
-     * @parma title the title of the job listing
+     * @par title the title of the job listing
      * @param payRate      the pay rate of the job listing
      * @param location     the location of the job
      * @param description  a description of the job

@@ -26,7 +26,6 @@ public abstract class Experience implements JSONable {
     }
 
     /**
-<<<<<<< HEAD
      * Protected Constructor for use in generating Experiences from JSON
      * 
      * @param id        the id
@@ -60,8 +59,6 @@ public abstract class Experience implements JSONable {
     }
 
     /**
-=======
->>>>>>> c9cbb6b3d21511bea36abd302226bc8f922d9973
      * Gets the title of the experience
      * 
      * @return the title of the experience

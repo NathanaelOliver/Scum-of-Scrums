@@ -20,7 +20,9 @@ public class Resume implements JSONable {
     private ArrayList<ClubExperience> clubExperiences;
 
     /**
-     * Constructor for the resume class, initializes arrays
+     * Resume Constructor
+     * @param firstName first name of resume owner
+     * @param lastName last name of resume owner
      */
     public Resume(String firstName, String lastName) {
         this.firstName = firstName;
@@ -31,6 +33,17 @@ public class Resume implements JSONable {
         this.clubExperiences = new ArrayList<>();
     }
 
+    /**
+     * Full Constructor for Resume
+     * @param firstName first name of resume owner
+     * @param lastName last name of resume owner
+     * @param gpa double gpa
+     * @param education string of degree/school
+     * @param skills list of skills
+     * @param workExperiences list of work experiences
+     * @param courseExperiences list of course experiences
+     * @param clubExperiences list of club experiences
+     */
     public Resume(String firstName, String lastName, double gpa, String education, ArrayList<Skills> skills,
             ArrayList<WorkExperience> workExperiences, ArrayList<CourseExperience> courseExperiences,
             ArrayList<ClubExperience> clubExperiences) {
@@ -44,48 +57,85 @@ public class Resume implements JSONable {
         this.clubExperiences = clubExperiences;
     }
 
-    /**
-     * Constructor for the resume class
-     * 
-     * @param gpa the gpa of the student
-     */
+   /**
+    * Resume Constructor
+    * @param firstName first name of resume owner
+    * @param lastName last name of resume owner
+    * @param gpa double gpa
+    */
     public Resume(String firstName, String lastName, double gpa) {
         this(firstName, lastName);
         this.gpa = gpa;
     }
 
+    /**
+     * Set first name
+     * @param firstName new first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Get first name
+     * @return first name
+     */
     public String getFirstName() {
         return this.firstName;
     }
 
+    /**
+     * set last name
+     * @param lastName new last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * get last name
+     * @return last name
+     */
     public String getLastName() {
         return this.lastName;
     }
 
+    /**
+     * get name
+     * @return string representation of full name
+     */
     public String getName() {
         return this.firstName + " " + this.lastName;
     }
 
+    /**
+     * set gpa
+     * @param gpa new double gpa
+     */
     public void setGPA(double gpa) {
         this.gpa = gpa;
     }
 
+    /**
+     * get gpa
+     * @return gpa as double
+     */
     public double getGPA() {
         return this.gpa;
     }
 
+    /**
+     * get list of skills
+     * @return list of skills
+     */
     public ArrayList<Skills> getSkills() {
         return this.skills;
     }
 
+    /**
+     * get experiences
+     * @return list of experiences
+     */
     public ArrayList<Experience> getExperiences() {
         ArrayList<Experience> experiences = new ArrayList<Experience>();
         experiences.addAll(workExperiences);
