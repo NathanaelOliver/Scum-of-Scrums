@@ -9,19 +9,24 @@ import java.util.UUID;
  */
 public abstract class User implements JSONable {
     public final UUID ID;
-    public UserType userType;
-    public boolean isVerified = false;
+    public boolean isVerified;
     protected String password;
     protected String username;
+    protected UserType userType;
+
+    public User() {
+        this.ID = UUID.randomUUID();
+    }
 
     /**
      * Constructor for the User Class
      * 
      * @param userType the user type
      */
-    public User(UserType userType) {
-        this.ID = UUID.randomUUID();
-        this.userType = userType;
+    public User(String username, String password) {
+        this();
+        this.username = username;
+        this.password = password;
     }
 
     /**
@@ -40,13 +45,13 @@ public abstract class User implements JSONable {
      * 
      * @param username the user's username
      * @param password the user's password
-     * @param userType enum of user's type: admin, employer, or student
+     * @param userType enum of user's type: admin, employer, or student Sets the
+     *                 user's username
+     * 
+     * @param username the user's new username
      */
-    public User(String username, String password, UserType userType) {
-        this.ID = UUID.randomUUID();
+    public void setUsername(String username) {
         this.username = username;
-        this.password = password;
-        this.userType = userType;
     }
 
     /**
@@ -84,15 +89,6 @@ public abstract class User implements JSONable {
         this.password = password;
     }
 
-    public static boolean isValidPassword(String password) {
-        // ensure password has a length between 8 and 16, has a number,
-        // a lowercase letter, a capital letter, and a symbol
-        // with no spaces
-        return password.length() > 8 && password.length() <= 16 && password.matches(".*[a-z].*")
-                && password.matches(".*[A-Z].*") && password.matches(".*[0-9].*") && password.matches(".*[!-&].*")
-                && !password.matches(".*/\\s/g.*");
-    }
-
     /**
      * verifies the password
      * 
@@ -117,4 +113,6 @@ public abstract class User implements JSONable {
      * @return a JSON representation of the USER
      */
     public abstract String toJSON();
+
+    public abstract String toString();
 }

@@ -10,28 +10,32 @@ import java.util.UUID;
  * @author Nathanael Oliver
  */
 public class Resume implements JSONable {
-    private double gpa;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String education;
+    private double gpa;
     private ArrayList<Skills> skills;
     private ArrayList<WorkExperience> workExperiences;
     private ArrayList<CourseExperience> courseExperiences;
     private ArrayList<ClubExperience> clubExperiences;
 
     /**
-     * Constructor for the resume class
-     * 
-     * @param firstName first name of the student creating the resume
-     * @param lastName  last name of the student creating the resume
+     * Constructor for the resume class, initializes arrays
      */
     public Resume(String firstName, String lastName) {
-        this.name = firstName + " " + lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.skills = new ArrayList<>();
+        this.workExperiences = new ArrayList<>();
+        this.courseExperiences = new ArrayList<>();
+        this.clubExperiences = new ArrayList<>();
     }
 
-    public Resume(String name, double gpa, String education, ArrayList<Skills> skills,
+    public Resume(String firstName, String lastName, double gpa, String education, ArrayList<Skills> skills,
             ArrayList<WorkExperience> workExperiences, ArrayList<CourseExperience> courseExperiences,
             ArrayList<ClubExperience> clubExperiences) {
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.gpa = gpa;
         this.education = education;
         this.skills = skills;
@@ -41,12 +45,53 @@ public class Resume implements JSONable {
     }
 
     /**
-     * Gets the name of the student whose resume this belongs to
+     * Constructor for the resume class
      * 
-     * @return the name of the student
+     * @param gpa the gpa of the student
      */
+    public Resume(String firstName, String lastName, double gpa) {
+        this(firstName, lastName);
+        this.gpa = gpa;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
     public String getName() {
-        return this.name;
+        return this.firstName + " " + this.lastName;
+    }
+
+    public void setGPA(double gpa) {
+        this.gpa = gpa;
+    }
+
+    public double getGPA() {
+        return this.gpa;
+    }
+
+    public ArrayList<Skills> getSkills() {
+        return this.skills;
+    }
+
+    public ArrayList<Experience> getExperiences() {
+        ArrayList<Experience> experiences = new ArrayList<Experience>();
+        experiences.addAll(workExperiences);
+        experiences.addAll(courseExperiences);
+        experiences.addAll(clubExperiences);
+        return experiences;
     }
 
     /**
@@ -54,7 +99,7 @@ public class Resume implements JSONable {
      * 
      * @param experience the experience to be added
      */
-    public void addWorkExperience(WorkExperience experience) {
+    public void addExperience(WorkExperience experience) {
         workExperiences.add(experience);
     }
 
@@ -63,7 +108,7 @@ public class Resume implements JSONable {
      * 
      * @param experience the experience to be added
      */
-    public void addClubExperience(ClubExperience experience) {
+    public void addExperience(ClubExperience experience) {
         clubExperiences.add(experience);
     }
 
@@ -72,7 +117,7 @@ public class Resume implements JSONable {
      * 
      * @param experience the experience to be added
      */
-    public void addCourseExperience(CourseExperience experience) {
+    public void addExperience(CourseExperience experience) {
         courseExperiences.add(experience);
     }
 
@@ -170,8 +215,8 @@ public class Resume implements JSONable {
      */
     public String toJSON() {
         return "{\"gpa\":" + gpa + ",\"education\":\"" + education + "\",\"skills\":" + DataWriter.skillsToJSON(skills)
-                + ",\"workExperiences\":" + DataWriter.toJson(workExperiences) + ",\"courseExperiences\":"
-                + DataWriter.toJson(courseExperiences) + ",\"clubExperiences\":" + DataWriter.toJson(clubExperiences)
+                + ",\"workExperiences\":" + DataWriter.toJSON(workExperiences) + ",\"courseExperiences\":"
+                + DataWriter.toJSON(courseExperiences) + ",\"clubExperiences\":" + DataWriter.toJSON(clubExperiences)
                 + "}";
     }
 
@@ -199,7 +244,8 @@ public class Resume implements JSONable {
         for (String e : DataLoader.dictFromBracket(dict.get("courseExperience"))) {
             courseExperiences.add(CourseExperience.fromJSON(e));
         }
-        return new Resume(dict.get("name"), Double.parseDouble(dict.get("gpa")), dict.get("education"), skills,
+        return new Resume(dict.get("firstName"), dict.get("lastName"),
+                dict.get("gpa") == null ? 0 : Double.parseDouble(dict.get("gpa")), dict.get("education"), skills,
                 workExperiences, courseExperiences, clubExperiences);
     }
 }

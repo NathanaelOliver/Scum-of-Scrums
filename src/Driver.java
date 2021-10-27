@@ -2,6 +2,8 @@ package src;
 
 import java.util.Scanner;
 
+import javax.xml.crypto.Data;
+
 /**
  * Driver runs the internship program for all users and commands
  * 
@@ -20,6 +22,7 @@ public class Driver {
      * login accepts a user credentials and assigns an interface
      */
     private static void login() {
+        flush();
         boolean loggingIn;
         String username, password;
         do {
@@ -38,6 +41,7 @@ public class Driver {
      * Signup accepts a user credentials assigns an interface
      */
     private static void signup() {
+        flush();
         boolean signingUp;
         do {
             signingUp = false;
@@ -46,10 +50,13 @@ public class Driver {
             switch (input) {
             case 1:
                 userInterface = new StudentUI(scanner);
+                break;
             case 2:
                 userInterface = new EmployerUI(scanner);
+                break;
             case 3:
                 userInterface = new AdminUI(scanner);
+                break;
             default:
                 signingUp = true;
             }
@@ -58,8 +65,11 @@ public class Driver {
     }
 
     public static void main(String[] args) {
+        flush();
         scanner = new Scanner(System.in);
+
         Database.fromJSON(DataLoader.getJSON());
+
         boolean loggingIn;
         do {
             loggingIn = false;
@@ -78,10 +88,11 @@ public class Driver {
         } while (loggingIn);
 
         userInterface.run();
-
-        System.out.println("\033[H\033[2J");
-        System.out.flush();
-
         System.out.println("Thanks for using our service. Goodbye!");
+    }
+
+    private static void flush() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

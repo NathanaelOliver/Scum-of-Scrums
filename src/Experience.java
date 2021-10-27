@@ -12,8 +12,7 @@ public abstract class Experience implements JSONable {
     public final UUID ID;
     protected String title;
     protected ArrayList<String> details;
-    protected Date startDate;
-    protected Date endDate;
+    protected Date startDate, endDate;
 
     /**
      * Constructor for Experience with only title
@@ -27,6 +26,7 @@ public abstract class Experience implements JSONable {
     }
 
     /**
+<<<<<<< HEAD
      * Protected Constructor for use in generating Experiences from JSON
      * 
      * @param id        the id
@@ -60,6 +60,8 @@ public abstract class Experience implements JSONable {
     }
 
     /**
+=======
+>>>>>>> c9cbb6b3d21511bea36abd302226bc8f922d9973
      * Gets the title of the experience
      * 
      * @return the title of the experience
@@ -93,6 +95,15 @@ public abstract class Experience implements JSONable {
      */
     public void setDetails(ArrayList<String> details) {
         this.details = details;
+    }
+
+    /**
+     * Adds a detail to the experience
+     * 
+     * @param detail the new detail to be added to the experience
+     */
+    public void addDetail(String detail) {
+        this.details.add(detail);
     }
 
     /**

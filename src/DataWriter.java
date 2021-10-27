@@ -19,7 +19,7 @@ public class DataWriter {
      * @param list the list of objects to be converted to JSON
      * @return the concatenated list as JSON objects
      */
-    public static String toJson(ArrayList<? extends JSONable> list) {
+    public static String toJSON(ArrayList<? extends JSONable> list) {
         String str = "[";
         for (JSONable j : list)
             str += j.toJSON() + ",";
@@ -53,13 +53,11 @@ public class DataWriter {
 
     /**
      * Saves all things in database to JSON files
-     * 
-     * TODO Very Confident That this method will not work
      */
     public static void save() throws IOException {
-        String users = "{\"unverifiedUsers\":[" + toJson(Database.unverifiedUsers) + "],\"students\":["
-                + toJson(Database.students) + "],\"employers\":[" + toJson(Database.employers) + "],\"admins\":["
-                + toJson(Database.admins) + "]}";
+        String users = "{\"unverifiedUsers\":[" + toJSON(Database.unverifiedUsers) + "],\"students\":["
+                + toJSON(Database.students) + "],\"employers\":[" + toJSON(Database.employers) + "],\"admins\":["
+                + toJSON(Database.admins) + "]}";
 
         BufferedWriter writer = new BufferedWriter(new FileWriter("data/Users2.json"));
         writer.write(users);

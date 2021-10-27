@@ -11,13 +11,13 @@ import java.util.HashMap;
  */
 public class Listing implements JSONable {
     public final UUID ID;
-    private final String EMPLOYER_NAME;
+    private final UUID EMPLOYER_ID;
     private double payRate;
     private ArrayList<String> description;
     private Date startDate, endDate;
     private String siteLink, title, location;
     private ArrayList<Skills> skills;
-    private ArrayList<String> applicants;
+    private ArrayList<Resume> applicants;
 
     /**
      * Creates an empty Listing with only an id
@@ -25,10 +25,29 @@ public class Listing implements JSONable {
      * @param title        the title of the listing
      * @param employerName the name of the employer offering the job
      */
-    public Listing(String title, String employerName) {
+    public Listing(String title, UUID employerId) {
         this.ID = UUID.randomUUID();
-        this.EMPLOYER_NAME = employerName;
-        this.applicants = new ArrayList<String>();
+        this.EMPLOYER_ID = employerId;
+        this.applicants = new ArrayList<Resume>();
+    }
+
+    /**
+     * Creates a copy of a listing based on
+     * 
+     * @param listing
+     */
+    public Listing(Listing listing) {
+        this.ID = listing.ID;
+        this.EMPLOYER_ID = listing.EMPLOYER_ID;
+        this.payRate = listing.getPayRate();
+        this.description = listing.getDescription();
+        this.startDate = listing.getStartDate();
+        this.endDate = listing.getEndDate();
+        this.siteLink = listing.getSiteLink();
+        this.title = listing.getTitle();
+        this.location = listing.getLocation();
+        this.skills = listing.getSkills();
+        this.applicants = null;
     }
 
     /**
@@ -45,7 +64,7 @@ public class Listing implements JSONable {
      * @param employerName the name of the employer offering the job
      */
     Listing(String title, double payRate, String location, ArrayList<String> description, Date startDate, Date endDate,
-            String siteLink, ArrayList<Skills> skills, String employerName) {
+            String siteLink, ArrayList<Skills> skills, UUID employerId) {
         this.ID = UUID.randomUUID();
         this.title = title;
         this.payRate = payRate;
@@ -55,8 +74,8 @@ public class Listing implements JSONable {
         this.endDate = endDate;
         this.siteLink = siteLink;
         this.skills = skills;
-        this.EMPLOYER_NAME = employerName;
-        this.applicants = new ArrayList<String>();
+        this.EMPLOYER_ID = employerId;
+        this.applicants = new ArrayList<Resume>();
     }
 
     /**
@@ -74,7 +93,7 @@ public class Listing implements JSONable {
      * @param employerName the name of the employer offering the job
      */
     Listing(UUID id, String title, double payRate, String location, ArrayList<String> description, Date startDate,
-            Date endDate, String siteLink, ArrayList<Skills> skills, String employerName) {
+            Date endDate, String siteLink, ArrayList<Skills> skills, UUID employerId) {
         this.ID = id;
         this.title = title;
         this.payRate = payRate;
@@ -83,9 +102,10 @@ public class Listing implements JSONable {
         this.startDate = startDate;
         this.endDate = endDate;
         this.siteLink = siteLink;
+        this.title = title;
         this.skills = skills;
-        this.EMPLOYER_NAME = employerName;
-        this.applicants = new ArrayList<String>();
+        this.EMPLOYER_ID = employerId;
+        this.applicants = new ArrayList<Resume>();
     }
 
     /**
@@ -102,7 +122,7 @@ public class Listing implements JSONable {
                 + "\",\"title\":\"" + title + "\",\"description\":" + DataWriter.stringsToJSON(description)
                 + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\"" + endDate.toString()
                 + "\",\"siteLink\":\"" + siteLink + "\",\"skills\":" + DataWriter.skillsToJSON(skills)
-                + "\",\"applicants\":" + DataWriter.stringsToJSON(applicants) + "}";
+                + "\",\"applicants\":" + DataWriter.toJSON(applicants) + "}";
     }
 
     /**
@@ -120,11 +140,21 @@ public class Listing implements JSONable {
         Listing listing = new Listing(UUID.fromString(dict.get("id")), dict.get("title"),
                 Double.parseDouble(dict.get("payRate")), dict.get("location"),
                 DataLoader.dictFromBracket(dict.get("description")), Date.fromString(dict.get("startDate")),
-                Date.fromString(dict.get("endDate")), dict.get("siteLink"), skills, dict.get("employerName"));
+                Date.fromString(dict.get("endDate")), dict.get("siteLink"), skills,
+                UUID.fromString(dict.get("employerId")));
         for (String e : DataLoader.dictFromBracket(dict.get("applicants"))) {
-            listing.apply(e);
+            listing.apply(Resume.fromJSON(e));
         }
         return listing;
+    }
+
+    /**
+     * Gets the name of the employer offering this job listing
+     * 
+     * @return the name of the job listing's employer
+     */
+    public UUID getEmployerId() {
+        return this.EMPLOYER_ID;
     }
 
     /**
@@ -276,7 +306,7 @@ public class Listing implements JSONable {
      * 
      * @return the students who have applied for the job
      */
-    public ArrayList<String> getApplicants() {
+    public ArrayList<Resume> getApplicants() {
         return this.applicants;
     }
 
@@ -285,7 +315,7 @@ public class Listing implements JSONable {
      * 
      * @param student the student to be added to the list of applicants
      */
-    public void apply(String resume) {
+    public void apply(Resume resume) {
         this.applicants.add(resume);
     }
 
@@ -298,14 +328,14 @@ public class Listing implements JSONable {
      * @return a displayed listing
      */
     public String toString(boolean isEmployer) {
-        String result = EMPLOYER_NAME;
+        String result = EMPLOYER_ID.toString();
         if (!title.isEmpty())
             result += " - " + title;
         result += "\n********************";
 
         if (isEmployer && applicants.size() > 0) {
             result += "\nApplicants:";
-            for (String r : applicants)
+            for (Resume r : applicants)
                 result += "\n" + r;
             result += "\n";
         }

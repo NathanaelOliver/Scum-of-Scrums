@@ -18,8 +18,8 @@ public class Admin extends User {
      * @param firstName the first name of the admin
      * @param lastName  the last name of the admin
      */
-    public Admin(String firstName, String lastName) {
-        super(UserType.admin);
+    public Admin(String username, String password, String firstName, String lastName) {
+        super(username, password);
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -44,6 +44,10 @@ public class Admin extends User {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     /**
      * Gets the last name of the admin
      * 
@@ -51,6 +55,10 @@ public class Admin extends User {
      */
     public String getLastName() {
         return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
@@ -74,5 +82,9 @@ public class Admin extends User {
         HashMap<String, String> dict = DataLoader.dictFromBrace(json);
         return new Admin(UUID.fromString(dict.get("id")), dict.get("isVerified").equals("true"), dict.get("username"),
                 dict.get("password"), dict.get("firstname"), dict.get("lastName"));
+    }
+
+    public String toString() {
+        return "This is a string representing the admin";
     }
 }

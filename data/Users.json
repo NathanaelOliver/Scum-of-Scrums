@@ -116,7 +116,7 @@
                     {
                         "id": "741690ea-c168-4211-9b75-bcba8c6fd1ea",
                         "title": "Association for Computing Machinery UofSC Branch",
-                        "description": [
+                        "details": [
                             "Showed up regularly and ate pizza"
                         ],
                         "startDate": "08/05/2021",
@@ -178,6 +178,7 @@
             "listings": [
                 {
                     "id": "fd0ef5ac-ec60-487e-b4ee-165c5fc45680",
+                    "employerId": "6dd197f1-c14d-4a22-9bf3-6435f78df24e",
                     "payRate": 11.0,
                     "location": "Columbia, South Carolina",
                     "title": "IT Intern",
@@ -223,6 +224,7 @@
             "listings": [
                 {
                     "id": "f2c88aaa-dd37-46e4-abaf-919856ab5c4c",
+                    "employerId": "01f78a8e-21a0-40cc-8b03-6155cb92986f",
                     "payRate": 18.75,
                     "location": "Greenville, South Carolina",
                     "title": "Software Engineering Intern",

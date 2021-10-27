@@ -2,6 +2,7 @@ package src;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * CourseExperience Class Contains the information related to a course
@@ -12,6 +13,12 @@ import java.util.HashMap;
 public class CourseExperience extends Experience {
     private double grade;
 
+    public CourseExperience(UUID id, String title, ArrayList<String> details, Date startDate, Date endDate,
+            double grade) {
+        super(id, title, details, startDate, endDate);
+        this.grade = grade;
+    }
+
     /**
      * Constructor for Course Experience with only a title
      * 
@@ -21,29 +28,7 @@ public class CourseExperience extends Experience {
         super(title);
     }
 
-    /**
-     * Constructor for Course Experience with all fields except grade
-     * 
-     * @param title     the title of the experience
-     * @param details   details of the experience
-     * @param startDate start date of the experience
-     * @param endDate   end date of the experience
-     */
-    public CourseExperience(String title, ArrayList<String> details, Date startDate, Date endDate) {
-        super(title, details, startDate, endDate);
-    }
-
-    /**
-     * Constructor for Course Experience with all fields including grade
-     * 
-     * @param title     the title of the experience
-     * @param details   details of the experience
-     * @param startDate start date of the experience
-     * @param endDate   end date of the experience
-     * @param grade     grade attained by student in the course:uses floating point
-     */
-    public CourseExperience(String title, ArrayList<String> details, Date startDate, Date endDate, double grade) {
-        super(title, details, startDate, endDate);
+    public void setGrade(Double grade) {
         this.grade = grade;
     }
 
@@ -69,9 +54,9 @@ public class CourseExperience extends Experience {
 
     public static CourseExperience fromJSON(String json) {
         HashMap<String, String> dict = DataLoader.dictFromBrace(json);
-        return new CourseExperience(dict.get("title"), DataLoader.dictFromBracket(dict.get("details")),
-                Date.fromString(dict.get("startDate")), Date.fromString(dict.get("endDate")),
-                Double.parseDouble(dict.get("grade")));
+        return new CourseExperience(UUID.fromString(dict.get("id")), dict.get("title"),
+                DataLoader.dictFromBracket(dict.get("details")), Date.fromString(dict.get("startDate")),
+                Date.fromString(dict.get("endDate")), Double.parseDouble(dict.get("grade")));
     }
 
 }

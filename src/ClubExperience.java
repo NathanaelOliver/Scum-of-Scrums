@@ -2,6 +2,7 @@ package src;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * ClubExperience Class Contains the information related to a club experience
@@ -10,6 +11,20 @@ import java.util.HashMap;
  */
 public class ClubExperience extends Experience {
     private String role;
+
+    /**
+     * Constructor for Club Experience with all fields
+     * 
+     * @param title     the title of the club experience
+     * @param details   a list of the details of the club
+     * @param startDate when the student joined the club
+     * @param endDate   when the student left the club
+     * @param role      the student's role in the club
+     */
+    public ClubExperience(UUID id, String title, ArrayList<String> details, Date startDate, Date endDate, String role) {
+        super(id, title, details, startDate, endDate);
+        this.role = role;
+    }
 
     /**
      * Constructor for Club Experience with only a title
@@ -21,38 +36,21 @@ public class ClubExperience extends Experience {
     }
 
     /**
-     * Constructor for Club Experience with all fields
-     * 
-     * @param title     the title of the experience
-     * @param details   details of the experience
-     * @param startDate start date of the experience
-     * @param endDate   end date of the experience
-     */
-    public ClubExperience(String title, ArrayList<String> details, Date startDate, Date endDate) {
-        super(title, details, startDate, endDate);
-    }
-
-    /**
-     * Constructor for Club Experience with all fields including role
-     * 
-     * @param title     the title of the experience
-     * @param details   details of the experience
-     * @param startDate start date of the experience
-     * @param endDate   end date of the experience
-     * @param role      the position the student held within the club
-     */
-    public ClubExperience(String title, ArrayList<String> details, Date startDate, Date endDate, String role) {
-        super(title, details, startDate, endDate);
-        this.role = role;
-    }
-
-    /**
      * Gets the role the student held
      * 
      * @return the role the student held
      */
     public String getRole() {
         return this.role;
+    }
+
+    /**
+     * Sets the role the student held in the club
+     * 
+     * @param role the role the student held
+     */
+    public void setRole(String role) {
+        this.role = role;
     }
 
     /**
@@ -68,7 +66,8 @@ public class ClubExperience extends Experience {
 
     public static ClubExperience fromJSON(String json) {
         HashMap<String, String> dict = DataLoader.dictFromBrace(json);
-        return new ClubExperience(dict.get("title"), DataLoader.dictFromBracket(dict.get("details")),
-                Date.fromString(dict.get("startDate")), Date.fromString(dict.get("endDate")), dict.get("role"));
+        return new ClubExperience(UUID.fromString(dict.get("id")), dict.get("title"),
+                DataLoader.dictFromBracket(dict.get("details")), Date.fromString(dict.get("startDate")),
+                Date.fromString(dict.get("endDate")), dict.get("role"));
     }
 }

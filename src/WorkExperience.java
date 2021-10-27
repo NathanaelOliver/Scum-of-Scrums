@@ -91,7 +91,7 @@ public class WorkExperience extends Experience {
     public String toJSON() {
         return "{\"id\":\"" + ID.toString() + "\",\"title\":\"" + title + "\",\"details\":"
                 + DataWriter.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\""
-                + endDate.toString() + "\",\"references\":" + DataWriter.toJson(references) + "}";
+                + endDate.toString() + "\",\"references\":" + DataWriter.toJSON(references) + "}";
     }
 
     /**
