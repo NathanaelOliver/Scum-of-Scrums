@@ -2,8 +2,6 @@ package src;
 
 import java.util.Scanner;
 
-import javax.xml.crypto.Data;
-
 /**
  * Driver runs the internship program for all users and commands
  * 
