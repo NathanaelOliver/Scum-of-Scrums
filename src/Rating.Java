@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * Rating Class Stores a Rating for a User
  * 
- * @author Nathanael Oliver
+ * @author Nathanael Olive
  */
 public class Rating {
     public final UUID ID;
