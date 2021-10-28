@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -15,17 +16,35 @@ public class Employer extends User {
     private ArrayList<Rating> ratings;
 
     /**
-     * Creates an employer
-     * 
-     * @param id    the id for the employer
-     * @param title the company title
+     * Employer Constructor
+     * @param username employer's username
+     * @param password employer's password
+     * @param title employer's title
      */
-    public Employer(String title) {
-        super();
+    public Employer(String username, String password, String title) {
+        super(username, password, UserType.employer);
         this.title = title;
         this.description = new ArrayList<String>();
         this.listings = new ArrayList<Listing>();
         this.ratings = new ArrayList<Rating>();
+    }
+
+    /**
+     * Employer Constructor
+     * @param id employer's user id
+     * @param isVerified boolean for if employer is verified
+     * @param username employer's username
+     * @param password employer's password
+     * @param title employer's title
+     * @param description employer's description
+     * @param listings employer's list of listings
+     */
+    public Employer(UUID id, boolean isVerified, String username, String password, String title,
+            ArrayList<String> description, ArrayList<Listing> listings) {
+        super(id, UserType.employer, isVerified, username, password);
+        this.title = title;
+        this.listings = listings;
+        this.description = description;
     }
 
     /**
@@ -118,7 +137,7 @@ public class Employer extends User {
     /**
      * Adds a rating to the employer's list of ratings
      * 
-     * @param score the score (out of 5) the rating received
+     * @param score   the score (out of 5) the rating received
      * @param comment a note from the student about this employer
      * @param student the student reviewing this employer
      */
@@ -153,6 +172,28 @@ public class Employer extends User {
         return null;
     }
 
+    /**
+     * Creates an employer from JSON
+     * 
+     * @param json the json string that an employer is being created from
+     * @return the employer represented by the JSON
+     */
+    public static Employer fromJSON(String json) {
+        HashMap<String, String> dict = DataLoader.dictFromBrace(json);
+        ArrayList<Listing> listings = new ArrayList<Listing>();
+        for (String listing : DataLoader.dictFromBracket(dict.get("listings"))) {
+            listings.add(Listing.fromJSON(listing));
+        }
+        return new Employer(UUID.fromString(dict.get("id")), dict.get("isVerified").equals("true"),
+                dict.get("username"), dict.get("password"), dict.get("title"),
+                DataLoader.dictFromBracket(dict.get("description")), listings);
+    }
+
+    /**
+     * Represents an employer as a string
+     * 
+     * @return a string representation of the employer
+     */
     public String toString() {
         return "Employer toString result";
     }

@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -8,10 +9,40 @@ import java.util.UUID;
  * Database class stores all users
  */
 public class Database {
-    public static ArrayList<User> unverifiedUsers = new ArrayList<>();
-    public static ArrayList<Employer> verifiedEmployers = new ArrayList<>();
-    public static ArrayList<Student> verifiedStudents = new ArrayList<>();
-    public static ArrayList<Admin> verifiedAdmins = new ArrayList<>();
+    public static ArrayList<User> unverifiedUsers = new ArrayList<User>();
+    public static ArrayList<Employer> employers = new ArrayList<Employer>();
+    public static ArrayList<Student> students = new ArrayList<Student>();
+    public static ArrayList<Admin> admins = new ArrayList<Admin>();
+
+    /**
+     * Private Constructor so it cannot be instantiated
+     */
+    private Database() {
+
+    }
+
+    public static void fromJSON(String json) {
+        HashMap<String, String> userLists = DataLoader.dictFromBrace(json);
+
+        for (String e : DataLoader.dictFromBracket(userLists.get("employers"))) {
+            employers.add(Employer.fromJSON(e));
+        }
+        for (String e : DataLoader.dictFromBracket(userLists.get("students"))) {
+            students.add(Student.fromJSON(e));
+        }
+        for (String e : DataLoader.dictFromBracket(userLists.get("admins"))) {
+            admins.add(Admin.fromJSON(e));
+        }
+
+        /*
+         * for (String e : DataLoader.dictFromBracket(userLists.get("unverifiedUsers")))
+         * { switch (e.charAt(e.indexOf("\"userType\": \"") +
+         * "\"userType\": \"".length())) { case 'E': case 'e':
+         * unverifiedUsers.add(Employer.fromJSON(e)); break; case 'A': case 'a':
+         * unverifiedUsers.add(Admin.fromJSON(e)); break; case 'S': case 's':
+         * unverifiedUsers.add(Student.fromJSON(e)); break; } }
+         */
+    }
 
     /**
      * Filters through the users
@@ -42,8 +73,8 @@ public class Database {
      * 
      * @param listings the job listings the student can apply for and that have
      *                 passed any previous filters
-     * @param filter a string containing concatenated filters for the method to
-     *               execute
+     * @param filter   a string containing concatenated filters for the method to
+     *                 execute
      * @return An ArrayList of listings after the filters were applied
      */
     public static ArrayList<Listing> filterListings(ArrayList<Listing> listings, String filter) {
@@ -187,7 +218,7 @@ public class Database {
      */
     public static ArrayList<Listing> getListings() {
         ArrayList<Listing> list = new ArrayList<>();
-        for (Employer e : verifiedEmployers)
+        for (Employer e : employers)
             list.addAll(e.getListings());
         return list;
     }
@@ -199,7 +230,7 @@ public class Database {
      * @return the user with the specified id
      */
     public static User getUserByID(String id) {
-        return new Admin("","","", "");
+        return new Admin("", "", "", "");
     }
 
     private static boolean isCorrectPassword(User user, String password) {
@@ -216,7 +247,7 @@ public class Database {
         System.out.flush();
 
         // find user in system
-        for (User unverified: unverifiedUsers) {
+        for (User unverified : unverifiedUsers) {
             if (unverified.getUsername().equals(username)) {
                 if (isCorrectPassword(unverified, password)) {
                     System.out.println("User verification is still pending.");
@@ -224,7 +255,7 @@ public class Database {
                 return null;
             }
         }
-        for (Employer employer: verifiedEmployers) {
+        for (Employer employer : employers) {
             if (employer.getUsername().equals(username)) {
                 if (isCorrectPassword(employer, password)) {
                     return new EmployerUI(scanner, employer);
@@ -232,7 +263,7 @@ public class Database {
                 return null;
             }
         }
-        for (Student student: verifiedStudents) {
+        for (Student student : students) {
             if (student.getUsername().equals(username)) {
                 if (isCorrectPassword(student, password)) {
                     return new StudentUI(scanner, student);
@@ -240,7 +271,7 @@ public class Database {
                 return null;
             }
         }
-        for (Admin admin: verifiedAdmins) {
+        for (Admin admin : admins) {
             if (admin.getUsername().equals(username)) {
                 if (isCorrectPassword(admin, password)) {
                     return new AdminUI(scanner, admin);
@@ -254,26 +285,6 @@ public class Database {
         return null;
     }
 
-    public static boolean isAvailable(String username) {
-        for (User unverified: unverifiedUsers)
-            if (unverified.getUsername().equals(username))
-                return false;
-
-        for (Employer employer: verifiedEmployers)
-            if (employer.getUsername().equals(username))
-                return false;
-
-        for (Student student: verifiedStudents)
-            if (student.getUsername().equals(username))
-                return false;
-
-        for (Admin admin: verifiedAdmins)
-            if (admin.getUsername().equals(username))
-                return false;
-
-        return true;
-    }
-
     public static void removeUnverifiedUser(UUID id) {
         for (int i = 0; i < unverifiedUsers.size(); ++i) {
             if (unverifiedUsers.get(i).ID.equals(id)) {
@@ -284,11 +295,32 @@ public class Database {
     }
 
     public static void removeAdmin(UUID id) {
-        for (int i = 0; i < verifiedAdmins.size(); ++i) {
-            if (verifiedAdmins.get(i).ID.equals(id)) {
-                verifiedAdmins.remove(i);
+        for (int i = 0; i < admins.size(); ++i) {
+            if (admins.get(i).ID.equals(id)) {
+                admins.remove(i);
                 break;
             }
         }
     }
+
+    public static boolean isAvailable(String username) {
+        for (User unverified : unverifiedUsers)
+            if (unverified.getUsername().equals(username))
+                return false;
+
+        for (Employer employer : employers)
+            if (employer.getUsername().equals(username))
+                return false;
+
+        for (Student student : students)
+            if (student.getUsername().equals(username))
+                return false;
+
+        for (Admin admin : admins)
+            if (admin.getUsername().equals(username))
+                return false;
+
+        return true;
+    }
+
 }

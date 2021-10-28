@@ -1,29 +1,36 @@
 /**
  * Student
  * User Type for Student Users with job app. features
- * @author Nathanael Oliver, William Hobbs
+ * @author William Hobbs
  */
 package src;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class Student extends User {
-    private String phoneNumber, email;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    private String email;
     private int year;
     private Resume resume;
+    private ArrayList<Skills> skills;
+    private ArrayList<Experience> experiences;
     private ArrayList<Application> applications;
 
     /**
      * Constructor for a student
      * 
-     * @param username the username of the student
-     * @param password the password of the student
+     * @param username  the username of the student
+     * @param password  the password of the student
      * @param firstName the first name of the student
      * @param lastName  the last name of the student
-     * @param email the email of the student
+     * @param email     the email of the student
      */
     public Student(String username, String password, String firstName, String lastName, String email) {
-        super(username, password);
+        super(username, password, UserType.student);
         this.email = email;
         this.resume = new Resume(firstName, lastName);
         this.applications = new ArrayList<>();
@@ -32,16 +39,17 @@ public class Student extends User {
     /**
      * Constructor for a student
      * 
-     * @param username the username of the student
-     * @param password the password of the student
-     * @param firstName the first name of the student
-     * @param lastName  the last name of the student
+     * @param username    the username of the student
+     * @param password    the password of the student
+     * @param firstName   the first name of the student
+     * @param lastName    the last name of the student
      * @param phoneNumber the phone number of the student
-     * @param email the email of the student
-     * @param gpa the gpa of the student
-     * @param year the graduation year of the student
+     * @param email       the email of the student
+     * @param gpa         the gpa of the student
+     * @param year        the graduation year of the student
      */
-    public Student(String username, String password, String firstName, String lastName, String phoneNumber, String email, double gpa, int year) {
+    public Student(String username, String password, String firstName, String lastName, String phoneNumber,
+            String email, double gpa, int year) {
         this(username, password, firstName, lastName, email);
         this.phoneNumber = phoneNumber;
         this.year = year;
@@ -49,15 +57,72 @@ public class Student extends User {
     }
 
     /**
+     * Student Constructor
+     * @param id student user id
+     * @param isVerified boolean if user if verified
+     * @param username student's username
+     * @param password student's password
+     * @param firstName student's first name
+     * @param lastName student's last name
+     * @param phoneNumber student's phone number
+     * @param email student's email
+     * @param year student's grade level
+     * @param skills list of student's skills
+     * @param experiences list of student's experiences
+     * @param resume student's resume
+     */
+    public Student(UUID id, boolean isVerified, String username, String password, String firstName, String lastName,
+            String phoneNumber, String email, int year, ArrayList<Skills> skills, ArrayList<Experience> experiences,
+            Resume resume) {
+        super(id, UserType.student, isVerified, username, password);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.year = year;
+        this.skills = skills;
+        this.experiences = experiences;
+        this.resume = resume;
+    }
+
+    /**
      * Converts Student to JSON to be stored in database
-     * TODO - run this through a JSON validator; not sure if the helper methods are used correctly
+     * 
      * @return String, a JSON representation of Student
      */
     public String toJSON() {
-        return "{\"id\":\"" + ID.toString() + "\",\"username\":\"" + getUsername() + "\",\"password\":\"" + password
-        + "\",\"userType\":\"student\",\"isVerified\":" + isVerified + ",\"firstName\":\"" + resume.getFirstName()
-        + "\",\"lastName\":\"" + resume.getLastName() + "\",\"phoneNumber\":\"" + phoneNumber + "\",\"email\":\"" + email
-        + "\",\"resume\":" + resume.toJSON() + "}";
+        return "{\"id\":\"" + ID.toString() + "\",\"username\":\"" + username + "\",\"password\":\"" + password
+                + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified + ",\"firstName\":\""
+                + firstName + "\",\"lastName\":\"" + lastName + "\",\"phoneNumber\":" + phoneNumber + ",\"email\":\""
+                + email + "\",\"resume\":" + resume.toJSON() + "}";
+    }
+
+    /**
+     * Creates a student from a JSON object
+     * 
+     * @param json the json object
+     * @return the Student created from the JSON object
+     */
+    public static Student fromJSON(String json) {
+        HashMap<String, String> dict = DataLoader.dictFromBrace(json);
+        ArrayList<Skills> skills = new ArrayList<Skills>();
+        for (String e : DataLoader.dictFromBracket(dict.get("skills"))) {
+            skills.add(Skills.valueOf(e));
+        }
+        ArrayList<Experience> experiences = new ArrayList<Experience>();
+        for (String e : DataLoader.dictFromBracket(dict.get("experience"))) {
+            if (e.contains("\"references\"")) {
+                experiences.add(WorkExperience.fromJSON(e));
+            } else if (e.contains("\"grade\"")) {
+                experiences.add(CourseExperience.fromJSON(e));
+            } else {
+                experiences.add(ClubExperience.fromJSON(e));
+            }
+        }
+        return new Student(UUID.fromString(dict.get("id")), dict.get("isVerified").equals("true"), dict.get("username"),
+                dict.get("password"), dict.get("firstName"), dict.get("lastName"), dict.get("phoneNumber"),
+                dict.get("email"), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")), skills,
+                experiences, Resume.fromJSON(dict.get("resume")));
     }
 
     /**
@@ -158,7 +223,7 @@ public class Student extends User {
     public double getGPA() {
         return this.resume.getGPA();
     }
-    
+
     /**
      * Sets the student's Grade Point Average (GPA)
      * 

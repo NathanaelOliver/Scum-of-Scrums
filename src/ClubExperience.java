@@ -1,5 +1,9 @@
 package src;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
+
 /**
  * ClubExperience Class Contains the information related to a club experience
  * 
@@ -7,6 +11,20 @@ package src;
  */
 public class ClubExperience extends Experience {
     private String role;
+
+    /**
+     * 
+     * @param id club experience uuid
+     * @param title the title of the club experience
+     * @param details a list of the details of the club
+     * @param startDate when the student joined the club
+     * @param endDate when the student left the club
+     * @param role the student's role in the club
+     */
+    public ClubExperience(UUID id, String title, ArrayList<String> details, Date startDate, Date endDate, String role) {
+        super(id, title, details, startDate, endDate);
+        this.role = role;
+    }
 
     /**
      * Constructor for Club Experience with only a title
@@ -42,7 +60,19 @@ public class ClubExperience extends Experience {
      */
     public String toJSON() {
         return "{\"id\":" + ID.toString() + "\",\"title\":\"" + title + "\",\"details\":"
-                + JSONhelper.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString()
-                + "\",\"endDate\":\"" + endDate.toString() + "\",\"role\":\"" + role + "\"}";
+                + DataWriter.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\""
+                + endDate.toString() + "\",\"role\":\"" + role + "\"}";
+    }
+
+     /**
+     * Creates a club experience from JSON
+     * @param json is JSON representation of club experience
+     * @return new club experience
+     */
+    public static ClubExperience fromJSON(String json) {
+        HashMap<String, String> dict = DataLoader.dictFromBrace(json);
+        return new ClubExperience(UUID.fromString(dict.get("id")), dict.get("title"),
+                DataLoader.dictFromBracket(dict.get("details")), Date.fromString(dict.get("startDate")),
+                Date.fromString(dict.get("endDate")), dict.get("role"));
     }
 }

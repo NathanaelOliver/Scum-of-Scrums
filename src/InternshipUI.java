@@ -3,8 +3,9 @@ package src;
 import java.util.Scanner;
 
 /**
- * Intership User Interface
- * This user interface runs the front-end of the Internship system.
+ * Intership User Interface This user interface runs the front-end of the
+ * Internship system.
+ * 
  * @author William Hobbs, Noah MacBride, and Jack Oberman
  */
 public abstract class InternshipUI {
@@ -14,15 +15,15 @@ public abstract class InternshipUI {
 
     /**
      * Constructor for an internship user interface
+     * 
      * @param scanner is the scanner from Driver
      */
     public InternshipUI(Scanner scanner) {
         this.scanner = scanner;
-        this.SKILLS_LIST = new Skills[]{Skills.Linux, Skills.CPlusPlus, Skills.Java, Skills.JavaScript,
-            Skills.CSharp, Skills.Python, Skills.Git, Skills.GitHub, Skills.HTML,
-            Skills.CSS, Skills.React, Skills.Vue, Skills.Angular, Skills.Swift,
-            Skills.Flutter, Skills.Django, Skills.PHP, Skills.C, Skills.RobotC,
-            Skills.Ruby, Skills.Cobalt, Skills.SQL, Skills.GO, Skills.Rust};
+        this.SKILLS_LIST = new Skills[] { Skills.Linux, Skills.CPlusPlus, Skills.Java, Skills.JavaScript, Skills.CSharp,
+                Skills.Python, Skills.Git, Skills.GitHub, Skills.HTML, Skills.CSS, Skills.React, Skills.Vue,
+                Skills.Angular, Skills.Swift, Skills.Flutter, Skills.Django, Skills.PHP, Skills.C, Skills.RobotC,
+                Skills.Ruby, Skills.Cobalt, Skills.SQL, Skills.GO, Skills.Rust };
     }
 
     /**
@@ -34,24 +35,27 @@ public abstract class InternshipUI {
      * Logs a user out of the system and clears data
      */
     protected void logout() {
-        //TO-DO: DataWriter.save();
+        // TO-DO: DataWriter.save();
     }
 
     /**
      * Displays menu options
+     * 
      * @param menuOptions is a String[] for menu options with a corresponding int
-     * @return string representation of menu options with corresponding int 
+     * @return string representation of menu options with corresponding int
      */
     protected String displayMenu(String[] menuOptions) {
         String display = "";
         for (int i = 0; i < menuOptions.length; ++i) {
-            display += (i+1) + ") " + menuOptions[i] + "\n";
+            display += (i + 1) + ") " + menuOptions[i] + "\n";
         }
         return display + "Pick 1 through " + menuOptions.length;
     }
 
     /**
-     * displays a menu and reads integer response, repeating until it receives a valid response
+     * displays a menu and reads integer response, repeating until it receives a
+     * valid response
+     * 
      * @param menuOptions is a String[] for menu options with a corresponding int
      * @return integer response for menu option
      */
@@ -70,7 +74,9 @@ public abstract class InternshipUI {
     }
 
     /**
-     * displays a menu of possible skills and reads an integer response, repeating until it received a valid value
+     * displays a menu of possible skills and reads an integer response, repeating
+     * until it received a valid value
+     * 
      * @return integer response for skill chosen
      */
     protected Skills readSkillMenu() {
@@ -84,7 +90,8 @@ public abstract class InternshipUI {
 
     /**
      * reads a string response to a prompt
-     * @param message is the prompt 
+     * 
+     * @param message is the prompt
      * @return String response
      */
     protected String readString(String message) {
@@ -94,6 +101,7 @@ public abstract class InternshipUI {
 
     /**
      * reads an int response to a prompt
+     * 
      * @param message is the prompt
      * @return int response
      */
@@ -104,9 +112,10 @@ public abstract class InternshipUI {
 
     /**
      * reads an int response to a prompt, int must be in range
+     * 
      * @param message is the prompt
-     * @param lower the lower boundary of the acceptable range (inclusive)
-     * @param upper the upper boundary of the acceptable range (non-inclusive)
+     * @param lower   the lower boundary of the acceptable range (inclusive)
+     * @param upper   the upper boundary of the acceptable range (non-inclusive)
      * @return int response in range
      */
     protected int readInt(String message, int lower, int upper) {
@@ -117,7 +126,8 @@ public abstract class InternshipUI {
             System.out.println(message + " (" + lower + "-" + upper + ")");
             result = Integer.parseInt(scanner.nextLine());
             reading = !(result >= lower && result < upper);
-            if (reading) error("Please enter a number in the range");
+            if (reading)
+                error("Please enter a number in the range");
         } while (reading);
 
         return result;
@@ -125,6 +135,7 @@ public abstract class InternshipUI {
 
     /**
      * reads a double response to a prompt
+     * 
      * @param message is the prompt
      * @return double response
      */
@@ -135,6 +146,7 @@ public abstract class InternshipUI {
 
     /**
      * reads a boolean response to a prompt
+     * 
      * @param message is the prompt
      * @return boolean response
      */
@@ -149,8 +161,10 @@ public abstract class InternshipUI {
                 return true;
             else if (input.equalsIgnoreCase("n"))
                 return false;
-            else reading = true;
-            if (reading) error("Please enter a \"y\" or an \"n\"");
+            else
+                reading = true;
+            if (reading)
+                error("Please enter a \"y\" or an \"n\"");
         } while (reading);
 
         return false;
@@ -158,6 +172,7 @@ public abstract class InternshipUI {
 
     /**
      * reads a date response to a prompt
+     * 
      * @param message is the prompt
      * @return a Date object in the form of mm/dd/yy
      */
@@ -169,21 +184,23 @@ public abstract class InternshipUI {
             day = readInt("Please enter the day", 1, 31);
         else if (month == 4 || month == 6 || month == 9 || month == 11)
             day = readInt("Please enter the day", 1, 30);
-        else day = readInt("Please enter the day", 1, 28);
+        else
+            day = readInt("Please enter the day", 1, 28);
         year = readInt("Please enter the year");
-        
+
         return new Date(month, day, year);
     }
 
     /**
      * reads a singular word response to a prompt
+     * 
      * @param message is the prompt
      * @return is the string with no spaces
      */
     protected String readWord(String message) {
         boolean reading;
         String word;
-        
+
         do {
             reading = false;
             System.out.println(message);
@@ -200,19 +217,21 @@ public abstract class InternshipUI {
 
     /**
      * reads a username, repeats until an available username is chosen
+     * 
      * @return a valid username
      */
     protected String readUsername() {
         flush();
         boolean reading;
         String username;
-        
+
         do {
             reading = false;
             System.out.println("Please enter a username:");
             username = scanner.nextLine();
             reading = !Database.isAvailable(username);
-            if (reading) error("Your username is taken, please enter another username:");
+            if (reading)
+                error("Your username is taken, please enter another username:");
         } while (reading);
 
         return username;
@@ -220,13 +239,14 @@ public abstract class InternshipUI {
 
     /**
      * reads a password, repeats until a valid password is chosen
+     * 
      * @return a valid password
      */
     protected String readPassword() {
         flush();
         boolean reading;
         String password;
-        
+
         do {
             reading = false;
             System.out.println("Please enter a password:");
@@ -243,7 +263,8 @@ public abstract class InternshipUI {
     public abstract void createUser();
 
     /**
-     * Ensure password has a length between 8 and 16, has a number, a lowercase letter, a capital letter, and a symbol with no spaces
+     * Ensure password has a length between 8 and 16, has a number, a lowercase
+     * letter, a capital letter, and a symbol with no spaces
      * 
      * @param password password to be verified
      * @return true if password is valid, false otherwise
@@ -263,12 +284,13 @@ public abstract class InternshipUI {
             return error("Password must contain a special character");
         if (password.matches(".*/\\s/g.*"))
             return error("Password may not have any spaces");
-    
+
         return true;
     }
 
     /**
      * prints error response
+     * 
      * @param message is the error response
      * @return false
      */

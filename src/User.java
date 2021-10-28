@@ -7,11 +7,12 @@ import java.util.UUID;
  * 
  * @author Jack Oberman
  */
-public abstract class User implements JSONable{
+public abstract class User implements JSONable {
     public final UUID ID;
     public boolean isVerified;
     protected String password;
-    private String username;
+    protected String username;
+    protected UserType userType;
 
     public User() {
         this.ID = UUID.randomUUID();
@@ -22,14 +23,31 @@ public abstract class User implements JSONable{
      * 
      * @param userType the user type
      */
-    public User(String username, String password) {
+    public User(String username, String password, UserType userType) {
         this();
         this.username = username;
         this.password = password;
+        this.userType = userType;
     }
 
     /**
-     * Sets the user's username
+     * Constructor for the User Class
+     * 
+     * @param id       the user id
+     * @param userType the user type
+     */
+    public User(UUID id, UserType userType) {
+        this.ID = id;
+        this.userType = userType;
+    }
+
+    /**
+     * Constructor for the User Class with username, password, and userType
+     * 
+     * @param username the user's username
+     * @param password the user's password
+     * @param userType enum of user's type: admin, employer, or student Sets the
+     *                 user's username
      * 
      * @param username the user's new username
      */
@@ -38,7 +56,25 @@ public abstract class User implements JSONable{
     }
 
     /**
+     * Constructor for the User class with all fields
+     * 
+     * @param id
+     * @param userType
+     * @param isVerified
+     * @param username
+     * @param password
+     */
+    public User(UUID id, UserType userType, boolean isVerified, String username, String password) {
+        this.ID = id;
+        this.userType = userType;
+        this.isVerified = isVerified;
+        this.username = username;
+        this.password = password;
+    }
+
+    /**
      * Get user's username
+     * 
      * @return username of user
      */
     public String getUsername() {
@@ -71,7 +107,6 @@ public abstract class User implements JSONable{
     public void verifyUser() {
         this.isVerified = true;
     }
-
 
     /**
      * Converts a user into JSON to be stored in the database
