@@ -13,15 +13,16 @@ public class Employer extends User {
     private ArrayList<String> description;
     private ArrayList<Listing> listings;
     private ArrayList<Rating> ratings;
-
+    
     /**
      * Creates an employer
      * 
-     * @param id    the id for the employer
+     * @param username the login username
+     * @param password the password
      * @param title the company title
      */
-    public Employer(String title) {
-        super();
+    public Employer(String username, String password, String title) {
+        super(username, password);
         this.title = title;
         this.description = new ArrayList<String>();
         this.listings = new ArrayList<Listing>();

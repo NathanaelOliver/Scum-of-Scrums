@@ -10,14 +10,16 @@ import java.util.Scanner;
  */
 public class EmployerUI extends InternshipUI {
     public Employer employer;
+    private boolean loggedIn;
     // QUESTION - reference employer or this.employer?
 
     public EmployerUI(Scanner scanner) {
         super(scanner);
+        this.mainMenuOptions = new String[]{"Edit your Company Profile", "Add a Job Listing", "Update a Job Listing","Delete a Job Listing","Log Out"};
     }
 
     public EmployerUI(Scanner scanner, Employer employer) {
-        super(scanner);
+        this(scanner);
         this.employer = employer;
     }
     /**
@@ -25,34 +27,36 @@ public class EmployerUI extends InternshipUI {
      */
     public void run() {
         // initialize?
-        boolean running = true;
-        while (running) {
-            System.out.println("1. Add a Company Profile\n2. Add a Job Listing\n3. Update a Job Listing\n4. Delete a Job Listing\n5. Quit");
-            int input = scanner.nextLine();
-            switch (input) {
-                case 1: addProfile();
-                        break;
-                case 2: addListing();
-                        break;
-                case 3: editListing();
-                        break;
-                case 4: deleteListing();
-                        break;
-                case 5: running = false;
-                        break;
-            }
+        loggedIn = true;
+        while (loggedIn) {
+            // try {
+                int mainMenuOption = readMenu(this.mainMenuOptions);
+                switch (input) {
+                    case 1: editDescription();
+                            break;
+                    case 2: addListing();
+                            break;
+                    case 3: editListing();
+                            break;
+                    case 4: deleteListing();
+                            break;
+                    case 5: loggedIn = false;
+                            break;
+                }
+            //} catch(Exception e) {
+            //    System.out.println("Invalid entry! Try again.");
+            //}
         }
     } // done
 
     public void createUser() {
-        boolean creatingUser = true;
-        while (creatingUser) {
-            Employer employer = new Employer();
-            System.out.println("Please enter your employer name.");
-            employer.setTitle(scanner.nextLine());
-            this.employer = employer;
-            addProfile(); // is it ok to call this method here?
-            break;
+        flush();
+        String username = readUsername();
+        String password = readPassword();
+        String title = readString("Please enter the name of your company.");
+        this.employer = new Employer(username, password, title);
+        if (readBoolean("Would you like to add a company profile?")) {
+            addDescription();
         }
     }
 
@@ -63,19 +67,10 @@ public class EmployerUI extends InternshipUI {
      * - find a way to take a longer input and allow for formatting (?)
      * - this is called profile in the UI but description in the Employer class, do we change?
      */
-    private void addProfile() {
-        System.out.println("Write your company's profile, type DONE when finished.");
-        describing = true;
-        while (describing) {
-            String desc = scanner.nextLine();
-            if (desc.equalsIgnoreCase("done")) {
-                describing = false;
-                break;
-            } else {
-                this.employer.addDescription(desc);
-            }
-        }
-    } // done
+    private void addDescription() {
+        ArrayList<String> description = this.employer.getDescription();
+        
+    }
 
     /**
      * addListing Employer adds a new job listing for students to apply.
@@ -86,57 +81,20 @@ public class EmployerUI extends InternshipUI {
         boolean creatingListing;
         do {
             creatingListing = false;
-            System.out.println("Please give the pay rate of the listing as an hourly wage");
-            double payRate = scanner.nextLine();
-            System.out.println("Add a start date for the job. MM/DD/YYYY");
-            Date startDate = scanner.nextLine();
-            System.out.println("Add an end date for the job. MM/DD/YYYY");
-            Date endDate = scanner.nextLine();
-            System.out.println("Link a site for the job description.");
-            String siteLink = scanner.nextLine();
-            System.out.println("Provide a title for the job.");
-            String title = scanner.nextLine();
-            System.out.println("Provide the location for work.");
-            String location = scanner.nextLine();
-            // prompt for strings, "quit" = quit
-            
-
-            System.out.println("What skills will the job require? (type \'done\' when done)");
-            ArrayList<Skills> skills = new ArrayList<Skills>();
-            boolean describing = true;
-            while (describing) {
-                String skill = scanner.nextLine();
-                if (skill.equalsIgnoreCase("done")) {
-                    describing = false;
-                    break;
-                } else {
-                    try {
-                        // convert string to Skill?
-                        skills.add(scanner.nextLine()); 
-                    } catch(Exception e) {
-                        System.out.println("Invalid skill, try again");
-                    }
-                }
+            double payRate = readDouble("Please give the pay rate of the listing as an hourly wage");
+            Date startDate = readDate("Add a start date for the job.");
+            Date endDate = readDate("Add an end date for the job.");
+            String siteLink = readWord("Link a site for the job description.");
+            String title = readString("Provide a title for the job.");
+            String location = readString("Provide the location for work.");
+            if (readBoolean("Do you want to enter skills for this job?")) {
+                ArrayList<Skills> skills = readSkills(); // dependency: NM's readSkills method
             }
-            System.out.println("Add a description of the job. (type \'done\' when done)");
-            describing = true;
-            ArrayList<String> description = new ArrayList<String>();
-            while (describing) {
-                String desc = scanner.nextLine();
-                if (desc.equalsIgnoreCase("done")) {
-                    describing = false;
-                    break;
-                } else {
-                    description.add(scanner.nextLine());
-                }
-            }
+            ArrayList<String> description = readStringArrayList("Add a description of the job listing.","Add an additional line of the job description.");
             Listing listing = new Listing(payRate, location, description, startDate, 
-                endDate, siteLink, skills, employer.getTitle());
+                endDate, siteLink, skills, this.employer.getTitle());
         } while (creatingListing);
-        // creating listing could hypothetically fail infinitely
-        // until a user gets their act together and puts in acceptable values
-        // also this is memory intense and I don't like it
-    } // done
+    }
 
     /**
      * deleteListing Employer can delete their job listings
@@ -164,52 +122,42 @@ public class EmployerUI extends InternshipUI {
      * editListing Employer can edit their job listings
      */
     private void editListing() {
-        // WHICH TO EDIT
-        for (int i = 0; i < employer.getListings().size(); i++) {
-            System.out.println((i+1) + ". " + employer.getListings().get(i).getTitle());
+        for (int i = 0; i < this.employer.getListings().size(); i++) {
+            System.out.println((i+1) + ". " + this.employer.getListings().get(i).getTitle());
         }
-        System.out.println("Which listing would you like to edit?");
         boolean choosing = true;
-        while (choosing) {
+        Listing listing;
+        do {
             try {
+                System.out.println("Which listing would you like to edit?");
                 int input = Scanner.nextline();
-                Listing listing = listings.get(input);
+                listing = this.employer.getListings().get(input);
                 choosing = false;
                 break; // necessary?
             } catch(Exception e) {
                 System.out.println("Invalid entry! Try again.");
             }
-        }
-        // WHAT TO EDIT
+        } while (choosing);
         System.out.println("What would you like to edit?");
-        System.out.println("1. Pay Rate \n2. Description \n3. Start Date \n4. End Date \n5. Site Link \n6. Title \n7. Location \n8. Skills");
-        String editing = scanner.nextLine();
+        String[] editOptions = new String[]{"Pay Rate", "Description", "Start Date", "End Date", "Site Link", "Title", "Location", "Skills"};
+        int editing = readMenu(editOptions);
         switch (editing) { 
-            // PROBLEM: no exception handling here
-            case 1: System.out.println("Enter the new pay rate.");
-                    listing.setPayRate(scanner.nextLine());
+            case 1: listing.setPayRate(readDouble("Please give the pay rate of the listing as an hourly wage"));
                     break;
-            case 2: System.out.println("Add the new description.");
-                    listing.addDescription(scanner.nextLine())
+            case 2: // TODO - same problem as skills
                     // same question as for skills
                     break;
-            case 3: System.out.println("Enter the new start date.");
-                    listing.setStartDate(scanner.nextLine());
+            case 3: listing.setStartDate(readDate("Enter the new start date."));
                     break;
-            case 4: System.out.println("Enter the new end date.");
-                    listing.setEndDate(scanner.nextLine());
+            case 4: listing.setStartDate(readDate("Enter the new end date."));
                     break;
-            case 5: System.out.println("Enter the new site link.");
-                    listing.setSiteLink(scanner.nextLine());
+            case 5: listing.setSiteLink(readWord("Enter the new site link."));
                     break;
-            case 6: System.out.println("Enter the new title.");
-                    listing.setTitle(scanner.nextLine());
+            case 6: listing.setTitle(readString("Enter the new title."));
                     break;
-            case 7: System.out.println("Enter the new location.");
-                    listing.setLocation(scanner.nextLine());
+            case 7: listing.setLocation(readString("Enter the new location."));
                     break;
-            case 8: System.out.println("Enter the new skils.");
-                    listing.addSkills(scanner.nextLine());
+            case 8: // TODO
                     // Do we want to update skills by adding new ones, or wiping old ones?
                     break;
         }
