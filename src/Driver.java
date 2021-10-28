@@ -45,18 +45,18 @@ public class Driver {
             signingUp = false;
             System.out.println("Are you a:\n1) Student\n2) Employer\n3) Administrator");
             int input = Integer.parseInt(scanner.nextLine());
-            switch(input) {
-                case 1:
-                    userInterface = new StudentUI(scanner);
-                    break;
-                case 2:
-                    userInterface = new EmployerUI(scanner);
-                    break;
-                case 3:
-                    userInterface = new AdminUI(scanner);
-                    break;
-                default:
-                    signingUp = true;
+            switch (input) {
+            case 1:
+                userInterface = new StudentUI(scanner);
+                break;
+            case 2:
+                userInterface = new EmployerUI(scanner);
+                break;
+            case 3:
+                userInterface = new AdminUI(scanner);
+                break;
+            default:
+                signingUp = true;
             }
         } while (signingUp);
         userInterface.createUser();
@@ -66,7 +66,8 @@ public class Driver {
         flush();
         scanner = new Scanner(System.in);
 
-        // DataLoader.loadDatabase();
+        Database.fromJSON(DataLoader.getJSON());
+
         boolean loggingIn;
         do {
             loggingIn = false;
@@ -79,7 +80,8 @@ public class Driver {
                 login();
             else if (input.equalsIgnoreCase("n"))
                 signup();
-            else loggingIn = true;
+            else
+                loggingIn = true;
 
         } while (loggingIn);
 

@@ -1,5 +1,7 @@
 package src;
 
+import java.util.HashMap;
+
 /**
  * Reference Class Stores the data for a work reference
  * 
@@ -8,7 +10,7 @@ package src;
 public class Reference implements JSONable {
     private String firstName;
     private String lastName;
-    private int phoneNumber;
+    private String phoneNumber;
     private String email;
 
     /**
@@ -19,7 +21,7 @@ public class Reference implements JSONable {
      * @param phoneNumber phone number of the reference
      * @param email       email of the reference
      */
-    public Reference(String firstName, String lastName, int phoneNumber, String email) {
+    public Reference(String firstName, String lastName, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -67,7 +69,7 @@ public class Reference implements JSONable {
      * 
      * @return the phone number of the reference
      */
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
@@ -76,7 +78,7 @@ public class Reference implements JSONable {
      * 
      * @param phoneNumber the phone number of the reference
      */
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -104,7 +106,18 @@ public class Reference implements JSONable {
      * @return JSON representation of a reference
      */
     public String toJSON() {
-        return "{\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"phoneNumber\":"
-                + phoneNumber + ",\"email\":\"" + email + "\"}";
+        return "{\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"phoneNumber\":" + phoneNumber
+                + ",\"email\":\"" + email + "\"}";
+    }
+
+    /**
+     * Creates a Reference from a JSON object
+     * 
+     * @param json the json object
+     * @return a Reference created from the json object
+     */
+    public static Reference fromJSON(String json) {
+        HashMap<String, String> dict = DataLoader.dictFromBrace(json);
+        return new Reference(dict.get("firstName"), dict.get("lastName"), dict.get("phoneNumber"), dict.get("email"));
     }
 }

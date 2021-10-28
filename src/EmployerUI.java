@@ -88,7 +88,7 @@ public class EmployerUI extends InternshipUI {
             String title = readString("Provide a title for the job.");
             String location = readString("Provide the location for work.");
             if (readBoolean("Do you want to enter skills for this job?")) {
-                ArrayList<Skills> skills = readSkills(); // dependency: NM's readSkills method
+                ArrayList<Skills> skills = readSkills();
             }
             ArrayList<String> description = readStringArrayList("Add a description of the job listing.","Add an additional line of the job description.");
             Listing listing = new Listing(payRate, location, description, startDate, 
@@ -116,6 +116,7 @@ public class EmployerUI extends InternshipUI {
         }
         // BUG - if they delete the listing, that deletes all the applications associated with it in
         // our current UML
+        // when they delete does it remove from JSON?
     } // done
 
     /**

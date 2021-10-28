@@ -30,6 +30,9 @@ public class Date {
      * @return a date created from the string
      */
     public static Date fromString(String string) {
+        if (string.equals("")) {
+            return null;
+        }
         return new Date(Integer.parseInt(string.substring(0, 2)), Integer.parseInt(string.substring(3, 5)),
                 Integer.parseInt(string.substring(6, 8)));
     }
