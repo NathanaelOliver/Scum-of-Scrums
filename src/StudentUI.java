@@ -159,7 +159,8 @@ public class StudentUI extends InternshipUI {
         flush();
         String[] listingStrings = new String[listings.size() + additionalOptions.length];
         for (int i = 0; i < listingStrings.length; i++)
-            listingStrings[i] = /* listings.get(i).getEmployer().getTitle() + " - " + */ listings.get(i).getTitle();
+            listingStrings[i] = Database.getEmployerByID(listings.get(i).EMPLOYER_ID).getTitle() + " - "
+                    + listings.get(i).getTitle();
 
         for (int i = 0; i < additionalOptions.length; i++)
             listingStrings[listings.size() + i] = additionalOptions[i];
@@ -234,11 +235,13 @@ public class StudentUI extends InternshipUI {
      */
     private void viewApplication(Application app) {
         System.out.println(app.LISTING.toString(false));
-        /*
-         * if (readBoolean("Would you like to review this employer?")) {
-         * rateEmployer(app.LISTING.getEmployer()); flush();
-         * System.out.println("Success!"); }
-         */
+
+        if (readBoolean("Would you like to review this employer?")) {
+            rateEmployer(Database.getEmployerByID(app.LISTING.EMPLOYER_ID));
+            flush();
+            System.out.println("Success!");
+        }
+
         System.out.println("Returning to applications...");
         searchApplications();
     }

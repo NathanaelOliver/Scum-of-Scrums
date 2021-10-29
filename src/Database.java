@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 
-import javax.swing.plaf.synth.SynthEditorPaneUI;
-
 /**
  * Database class stores all users
  */
@@ -35,7 +33,6 @@ public class Database {
         for (String e : DataLoader.dictFromBracket(userLists.get("admins"))) {
             admins.add(Admin.fromJSON(e));
         }
-
         /*
          * for (String e : DataLoader.dictFromBracket(userLists.get("unverifiedUsers")))
          * { switch (e.charAt(e.indexOf("\"userType\": \"") +
@@ -232,6 +229,41 @@ public class Database {
      * @return the user with the specified id
      */
     public static User getUserByID(UUID id) {
+        for (User e : employers) {
+            if (e.ID.equals(id)) {
+                return e;
+            }
+        }
+        for (User e : students) {
+            if (e.ID.equals(id)) {
+                return e;
+            }
+        }
+        for (User e : admins) {
+            if (e.ID.equals(id)) {
+                return e;
+            }
+        }
+        for (User e : unverifiedUsers) {
+            if (e.ID.equals(id)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets a Employer by ID
+     * 
+     * @param id the id of the specified employer
+     * @return the employer with the specified id
+     */
+    public static Employer getEmployerByID(UUID id) {
+        for (Employer e : employers) {
+            if (e.ID.equals(id)) {
+                return e;
+            }
+        }
         return null;
     }
 

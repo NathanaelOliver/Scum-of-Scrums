@@ -81,7 +81,7 @@ public class Admin extends User {
     public static Admin fromJSON(String json) {
         HashMap<String, String> dict = DataLoader.dictFromBrace(json);
         return new Admin(UUID.fromString(dict.get("id")), dict.get("isVerified").equals("true"), dict.get("username"),
-                dict.get("password"), dict.get("firstname"), dict.get("lastName"));
+                dict.get("password"), dict.get("firstName"), dict.get("lastName"));
     }
 
     public String toString() {
