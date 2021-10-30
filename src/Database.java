@@ -88,6 +88,7 @@ public class Database {
                     break;
                 case "skills":
                     filterResumesBySkills(filterDetails[1], resumes);
+                    break;
                 default:
                 //TO-DO: YEAR
             }
@@ -166,8 +167,8 @@ public class Database {
     /**
      * Searches for resumes with a specific skill recommendation
      * 
-     * @param skill    the recommended skill
-     * @param listings the resumes to look through
+     * @param skillsToFilter    the recommended skills
+     * @param resumes the resumes to look through
      * @return the resumes with the specified skill
      */
     private static ArrayList<Resume> filterResumesBySkills(String skillsToFilter, ArrayList<Resume> resumes) {
@@ -239,7 +240,7 @@ public class Database {
     /**
      * Searches for job listings with a specific skill recommendation
      * 
-     * @param skill    the recommended skill
+     * @param skillsToFilter    the recommended skill
      * @param listings the listings to look through
      * @return the listings with the specified skill
      */
@@ -302,7 +303,6 @@ public class Database {
 
         // find user in system
         for (User unverified : unverifiedUsers) {
-            System.out.println(unverifiedUsers.size());
             if (unverified.getUsername().equals(username)) {
                 if (isCorrectPassword(unverified, password)) {
                     System.out.println("User verification is still pending.");
@@ -310,7 +310,6 @@ public class Database {
                 return null;
             }
         }
-        System.out.println(unverifiedUsers.size());
         for (Employer employer : employers) {
             if (employer.getUsername().equals(username)) {
                 if (isCorrectPassword(employer, password)) {
