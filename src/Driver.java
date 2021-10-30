@@ -68,6 +68,7 @@ public class Driver {
 
         // DataLoader.loadDatabase();
         boolean loggingIn;
+        boolean newUser = false;
         do {
             loggingIn = false;
             System.out.println("Hello. Do you have an account? (y/n) ");
@@ -77,14 +78,18 @@ public class Driver {
             // calls sign-up function, otherwise repeats for valid input.
             if (input.equalsIgnoreCase("y"))
                 login();
-            else if (input.equalsIgnoreCase("n"))
+            else if (input.equalsIgnoreCase("n")) {
                 signup();
+                newUser = true;
+            }
             else loggingIn = true;
 
         } while (loggingIn);
-
-        userInterface.run();
-        System.out.println("Thanks for using our service. Goodbye!");
+        
+        if (newUser || userInterface == null)
+            System.out.println("Your account must now be verified before it is activated. Thank you for signing up to our service!");
+        else    
+            userInterface.run();
     }
 
     private static void flush() {
