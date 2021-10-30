@@ -3,6 +3,11 @@ package src;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * Experience Class
+ * 
+ * @author Jack Oberman
+ */
 public abstract class Experience implements JSONable {
     public final UUID ID;
     protected String title;
@@ -18,6 +23,39 @@ public abstract class Experience implements JSONable {
         this.ID = UUID.randomUUID();
         this.title = title;
         details = new ArrayList<String>();
+    }
+
+    /**
+     * Protected Constructor for use in generating Experiences from JSON
+     * 
+     * @param id        the id
+     * @param title     the title
+     * @param details   the details of the experience
+     * @param startDate the start date
+     * @param endDate   the end date
+     */
+    protected Experience(UUID id, String title, ArrayList<String> details, Date startDate, Date endDate) {
+        this.ID = id;
+        this.title = title;
+        this.details = details;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    /**
+     * Constructor for Experience with all fields
+     * 
+     * @param title     the title of the experience
+     * @param details   details of the experience
+     * @param startDate start date of the experience
+     * @param endDate   end date of the experience
+     */
+    public Experience(String title, ArrayList<String> details, Date startDate, Date endDate) {
+        this.ID = UUID.randomUUID();
+        this.title = title;
+        this.details = details;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**

@@ -1,5 +1,7 @@
 package src;
 
+import java.util.HashMap;
+
 /**
  * Reference Class Stores the data for a work reference
  * 
@@ -104,7 +106,18 @@ public class Reference implements JSONable {
      * @return JSON representation of a reference
      */
     public String toJSON() {
-        return "{\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"phoneNumber\":"
-                + phoneNumber + ",\"email\":\"" + email + "\"}";
+        return "{\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"phoneNumber\":" + phoneNumber
+                + ",\"email\":\"" + email + "\"}";
+    }
+
+    /**
+     * Creates a Reference from a JSON object
+     * 
+     * @param json the json object
+     * @return a Reference created from the json object
+     */
+    public static Reference fromJSON(String json) {
+        HashMap<String, String> dict = DataLoader.dictFromBrace(json);
+        return new Reference(dict.get("firstName"), dict.get("lastName"), dict.get("phoneNumber"), dict.get("email"));
     }
 }

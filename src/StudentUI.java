@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 /**
  * Student User Interface Front-facing user commands for Student users.
+ * 
  * @author Noah MacBride, William Hobbs
  */
 public class StudentUI extends InternshipUI {
@@ -15,20 +16,21 @@ public class StudentUI extends InternshipUI {
 
     /**
      * Constructor for a student's user interface
+     * 
      * @param scanner is the scanner from the Driver
      */
     public StudentUI(Scanner scanner) {
         super(scanner);
-        this.mainMenuOptions = new String[]{"View Job Listings",
-                               "View Applications", "Edit Account Information",
-                               "Edit Resume", "Log Out"};
-        this.FILTER_MENU = new String[]{"Pay Rate", "Location", "Start Date",
-                           "End Date", "Skills", "Complete Filter", "Clear Filter"};
+        this.mainMenuOptions = new String[] { "View Job Listings", "View Applications", "Edit Account Information",
+                "Edit Resume", "Log Out" };
+        this.FILTER_MENU = new String[] { "Pay Rate", "Location", "Start Date", "End Date", "Skills", "Complete Filter",
+                "Clear Filter" };
         this.filter = "";
     }
 
     /**
      * Constructor for a student's user interface
+     * 
      * @param scanner is the scanner from the Driver
      * @param student the particular student using the program
      */
@@ -113,7 +115,9 @@ public class StudentUI extends InternshipUI {
 
     /**
      * Student searches for jobs of interest
-     * @param listings pre-determined arraylist of listings - useful for filtered listings lists
+     * 
+     * @param listings pre-determined arraylist of listings - useful for filtered
+     *                 listings lists
      */
     private void searchJobs(ArrayList<Listing> listings) {
         if (listings.isEmpty()) {
@@ -123,16 +127,18 @@ public class StudentUI extends InternshipUI {
 
         int input = readListingMenu(listings, new String[]{"Edit Filters", "Clear Filters", "Exit to Main Menu"});
 
-        if (input-1 < listings.size())
-            viewListing(listings.get(input-1), listings);
-        else if (input-1 == listings.size())
+        if (input - 1 < listings.size())
+            viewListing(listings.get(input - 1), listings);
+        else if (input - 1 == listings.size())
             searchJobs(filterListings(listings));
-        else if (input-1 == listings.size()+1)
+        else if (input - 1 == listings.size() + 1)
             searchJobs();
     }
 
     /**
-     * takes a list of applications and returns a list of the job listings applied to
+     * takes a list of applications and returns a list of the job listings applied
+     * to
+     * 
      * @return the job listings applied to by the student
      */
     private ArrayList<Listing> getListingsFromApps() {
@@ -143,9 +149,11 @@ public class StudentUI extends InternshipUI {
     }
 
     /**
-     * Processes the user looking at a menu of listings and selecting one to look at,
-     * or choose a different option
-     * @param listings list of jobs the student can apply to, possibly filtered
+     * Processes the user looking at a menu of listings and selecting one to look
+     * at, or choose a different option
+     * 
+     * @param listings          list of jobs the student can apply to, possibly
+     *                          filtered
      * @param additionalOptions extra options at the end of the listing, could be
      *                          "Exit to Main Menu" or "Edit Filter", etc
      * @return the int value corresponding to the option chosen by the user
@@ -154,10 +162,10 @@ public class StudentUI extends InternshipUI {
         flush();
         String[] listingStrings = new String[listings.size() + additionalOptions.length];
         for (int i = 0; i < listingStrings.length; i++)
-            listingStrings[i] = listings.get(i).getEmployer().getTitle() + " - " + listings.get(i).getTitle();
+            listingStrings[i] = /* listings.get(i).getEmployer().getTitle() + " - " + */ listings.get(i).getTitle();
 
         for (int i = 0; i < additionalOptions.length; i++)
-            listingStrings[listings.size()+i] = additionalOptions[i];
+            listingStrings[listings.size() + i] = additionalOptions[i];
 
         System.out.println("Select job listing to view by number:");
         return readMenu(listingStrings);
@@ -165,7 +173,8 @@ public class StudentUI extends InternshipUI {
 
     /**
      * Recursive method to process the user filtering a list of job listings
-     * @param filter the concatenated string of filters to go through
+     * 
+     * @param filter   the concatenated string of filters to go through
      * @param listings the list of job listings to filter
      * @return a filtered list of job listings
      */
@@ -199,38 +208,44 @@ public class StudentUI extends InternshipUI {
 
     /**
      * Processes the user entering his desired location for a filter
+     * 
      * @return filter representation of location
      */
     private String readLocation() {
-        return readString("Enter the city you want to work in:") + ", " + readString("Enter the state you want to work in");
+        return readString("Enter the city you want to work in:") + ", "
+                + readString("Enter the state you want to work in");
     }
 
     /**
      * Shows the student a listing and asks if they would like to apply for the job
-     * @param listing the job listing to be displayed
+     * 
+     * @param listing  the job listing to be displayed
      * @param listings a potentially filtered list of job listings
      */
     private void viewListing(Listing listing, ArrayList<Listing> listings) {
         System.out.println(listing.toString(false));
         if (readBoolean("Would you like to apply for this job?")) {
             apply(listing);
-            flush(); System.out.println("Success!");
+            flush();
+            System.out.println("Success!");
         }
         System.out.println("Returning to listings...");
         searchJobs(listings);
     }
 
     /**
-     * Shows the student a listing for a job they've already applied for and asks
-     * if they would like to give the employer a rating
+     * Shows the student a listing for a job they've already applied for and asks if
+     * they would like to give the employer a rating
+     * 
      * @param app application to be displayed
      */
     private void viewApplication(Application app) {
         System.out.println(app.LISTING.toString(false));
-        if (readBoolean("Would you like to review this employer?")) {
-            rateEmployer(app.LISTING.getEmployer());
-            flush(); System.out.println("Success!");
-        }
+        /*
+         * if (readBoolean("Would you like to review this employer?")) {
+         * rateEmployer(app.LISTING.getEmployer()); flush();
+         * System.out.println("Success!"); }
+         */
         System.out.println("Returning to applications...");
         searchApplications();
     }
@@ -340,21 +355,25 @@ public class StudentUI extends InternshipUI {
     }
 
     /**
-     * Reads a single experience, then kicks it back to the main experience loop method
+     * Reads a single experience, then kicks it back to the main experience loop
+     * method
+     * 
      * @param exp experience to be added to
      */
     private void readExperienceDates(Experience exp) {
         if (readBoolean("Would you like to enter when this experience occurred?")) {
             Date startDate = readDate("Please enter the date you started this experience");
             Date endDate = readDate("Please enter the date you ended this job");
-            exp.setStartDate(startDate); exp.setEndDate(endDate);
-        } 
+            exp.setStartDate(startDate);
+            exp.setEndDate(endDate);
+        }
         if (readBoolean("Would you like to add details about your experience?"))
             exp.setDetails(readStringArrayList("Enter a detail about your experience", "Would you like to add another detail abuot your experience?"));
     }
 
     /**
      * Prompts the user to add references, loops until the user is done
+     * 
      * @param exp experience for references to be added to
      */
     private void readReferences(WorkExperience exp) {
@@ -368,7 +387,9 @@ public class StudentUI extends InternshipUI {
     }
 
     /**
-     * Processes a single reference then kicks it back out too the main reference looping method
+     * Processes a single reference then kicks it back out too the main reference
+     * looping method
+     * 
      * @param exp experience for reference to be added to
      */
     private void readReference(WorkExperience exp) {
@@ -381,6 +402,7 @@ public class StudentUI extends InternshipUI {
 
     /**
      * Processes new skills to be added to a filter to filter through job listings
+     * 
      * @return a string representation of a list of skills to filter by
      */
     private String readSkillsFilter() {

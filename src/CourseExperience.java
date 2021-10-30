@@ -1,5 +1,9 @@
 package src;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
+
 /**
  * CourseExperience Class Contains the information related to a course
  * experience
@@ -10,6 +14,21 @@ public class CourseExperience extends Experience {
     private double grade;
 
     /**
+     * Constructor for course experience
+     * @param id the uuid of the course experience
+     * @param title the title of the course experience
+     * @param details the array list of details 
+     * @param startDate the start date of the course experience
+     * @param endDate the end date of the course experience
+     * @param grade the grade in the course
+     */
+    public CourseExperience(UUID id, String title, ArrayList<String> details, Date startDate, Date endDate,
+            double grade) {
+        super(id, title, details, startDate, endDate);
+        this.grade = grade;
+    }
+
+    /**
      * Constructor for Course Experience with only a title
      * 
      * @param title the title of the course experience
@@ -18,6 +37,10 @@ public class CourseExperience extends Experience {
         super(title);
     }
 
+    /**
+     * sets grade
+     * @param grade is the grade in the course as a double
+     */
     public void setGrade(Double grade) {
         this.grade = grade;
     }
@@ -38,8 +61,20 @@ public class CourseExperience extends Experience {
      */
     public String toJSON() {
         return "{\"id\":" + ID.toString() + "\",\"title\":\"" + title + "\",\"details\":"
-                + JSONhelper.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString()
-                + "\",\"endDate\":\"" + endDate.toString() + "\",\"grade\":" + grade + "}";
+                + DataWriter.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\""
+                + endDate.toString() + "\",\"grade\":" + grade + "}";
+    }
+
+    /**
+     * Creates a course experience from JSON
+     * @param json is JSON representation of course experience
+     * @return new course experience
+     */
+    public static CourseExperience fromJSON(String json) {
+        HashMap<String, String> dict = DataLoader.dictFromBrace(json);
+        return new CourseExperience(UUID.fromString(dict.get("id")), dict.get("title"),
+                DataLoader.dictFromBracket(dict.get("details")), Date.fromString(dict.get("startDate")),
+                Date.fromString(dict.get("endDate")), Double.parseDouble(dict.get("grade")));
     }
 
 }
