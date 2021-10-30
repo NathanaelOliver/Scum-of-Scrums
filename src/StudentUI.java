@@ -93,7 +93,7 @@ public class StudentUI extends InternshipUI {
      */
     private void searchApplications() {
         ArrayList<Listing> listings = getListingsFromApps();
-        if (listings.isEmpty()) {
+        if (listings == null || listings.isEmpty()) {
             System.out.println("You have not applied to any jobs.");
             return;
         }
@@ -120,7 +120,7 @@ public class StudentUI extends InternshipUI {
      *                 listings lists
      */
     private void searchJobs(ArrayList<Listing> listings) {
-        if (listings.isEmpty()) {
+        if (listings == null || listings.isEmpty()) {
             System.out.println("There are no available job listings at this time.");
             return;
         }
@@ -143,6 +143,10 @@ public class StudentUI extends InternshipUI {
      */
     private ArrayList<Listing> getListingsFromApps() {
         ArrayList<Listing> list = new ArrayList<>();
+        ArrayList<Application> apps = this.student.getApplications();
+        if (apps == null || apps.isEmpty()) {
+            return null;
+        }
         for (Application app : this.student.getApplications())
             list.add(app.LISTING);
         return list;
@@ -160,8 +164,9 @@ public class StudentUI extends InternshipUI {
      */
     private int readListingMenu(ArrayList<Listing> listings, String[] additionalOptions) {
         flush();
+
         String[] listingStrings = new String[listings.size() + additionalOptions.length];
-        for (int i = 0; i < listingStrings.length; i++)
+        for (int i = 0; i < listings.size(); i++)
             listingStrings[i] = /* listings.get(i).getEmployer().getTitle() + " - " + */ listings.get(i).getTitle();
 
         for (int i = 0; i < additionalOptions.length; i++)
@@ -247,7 +252,6 @@ public class StudentUI extends InternshipUI {
          * System.out.println("Success!"); }
          */
         System.out.println("Returning to applications...");
-        searchApplications();
     }
 
     /**
@@ -263,20 +267,24 @@ public class StudentUI extends InternshipUI {
      * editAccount Student can edit their account information
      */
     private void editAccount() {
-        student.setUsername(readUsername());
-        student.setPassword(readPassword());
-        student.setPhoneNumber(readWord("Please enter your phone number:"));
-        student.setEmail(readWord("Please enter your email:"));
-        student.setYear(readInt("Please enter your graduation year:"));
+        if (readBoolean("Would you like to change your username?"))
+            student.setUsername(readUsername());
+        if (readBoolean("Would you like to change your password?"))
+            student.setPassword(readPassword());
+        if (readBoolean("Would you like to change your phone number?"))
+            student.setPhoneNumber(readWord("Please enter your phone number:"));
+        if (readBoolean("Would you like to change your email?"))
+            student.setEmail(readWord("Please enter your email:"));
+        if (readBoolean("Would you like to change your graduation year?"))
+            student.setYear(readInt("Please enter your graduation year:"));
     }
 
     /**
      * editResume Student can edit their main resume
      */
     private void editResume() {
-        student.setFirstName(readWord("Please enter your first name:"));
-        student.setLastName(readWord("Please enter your last name:"));
-        student.setGPA(readDouble("Please enter your GPA:"));
+        if (readBoolean("Would you like to change your GPA?"))
+            student.setGPA(readDouble("Please enter your GPA:"));
         if (readBoolean("Would you like to add skills?"))
             readStudentSkills();
         if (readBoolean("Would you like to add experiences?"))

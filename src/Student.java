@@ -10,14 +10,8 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class Student extends User {
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private String email;
     private int year;
     private Resume resume;
-    private ArrayList<Skills> skills;
-    private ArrayList<Experience> experiences;
     private ArrayList<Application> applications;
 
     /**
@@ -31,8 +25,7 @@ public class Student extends User {
      */
     public Student(String username, String password, String firstName, String lastName, String email) {
         super(username, password, UserType.student);
-        this.email = email;
-        this.resume = new Resume(firstName, lastName);
+        this.resume = new Resume(firstName, lastName, email);
         this.applications = new ArrayList<>();
     }
 
@@ -51,9 +44,9 @@ public class Student extends User {
     public Student(String username, String password, String firstName, String lastName, String phoneNumber,
             String email, double gpa, int year) {
         this(username, password, firstName, lastName, email);
-        this.phoneNumber = phoneNumber;
+        this.setPhoneNumber(phoneNumber);;
         this.year = year;
-        this.resume.setGPA(gpa);
+        this.setGPA(gpa);
     }
 
     /**
@@ -62,26 +55,14 @@ public class Student extends User {
      * @param isVerified boolean if user if verified
      * @param username student's username
      * @param password student's password
-     * @param firstName student's first name
-     * @param lastName student's last name
-     * @param phoneNumber student's phone number
-     * @param email student's email
      * @param year student's grade level
-     * @param skills list of student's skills
-     * @param experiences list of student's experiences
      * @param resume student's resume
      */
-    public Student(UUID id, boolean isVerified, String username, String password, String firstName, String lastName,
-            String phoneNumber, String email, int year, ArrayList<Skills> skills, ArrayList<Experience> experiences,
-            Resume resume) {
+    public Student(UUID id, boolean isVerified, String username, String password,
+                   int year, Resume resume) {
         super(id, UserType.student, isVerified, username, password);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
+        this.applications = new ArrayList<>();
         this.year = year;
-        this.skills = skills;
-        this.experiences = experiences;
         this.resume = resume;
     }
 
@@ -92,9 +73,8 @@ public class Student extends User {
      */
     public String toJSON() {
         return "{\"id\":\"" + ID.toString() + "\",\"username\":\"" + username + "\",\"password\":\"" + password
-                + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified + ",\"firstName\":\""
-                + firstName + "\",\"lastName\":\"" + lastName + "\",\"phoneNumber\":" + phoneNumber + ",\"email\":\""
-                + email + "\",\"resume\":" + resume.toJSON() + "}";
+                + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified
+                + ",\"resume\":" + resume.toJSON() + "}";
     }
 
     /**
@@ -120,9 +100,7 @@ public class Student extends User {
             }
         }
         return new Student(UUID.fromString(dict.get("id")), dict.get("isVerified").equals("true"), dict.get("username"),
-                dict.get("password"), dict.get("firstName"), dict.get("lastName"), dict.get("phoneNumber"),
-                dict.get("email"), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")), skills,
-                experiences, Resume.fromJSON(dict.get("resume")));
+                dict.get("password"), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")), Resume.fromJSON(dict.get("resume")));
     }
 
     /**
@@ -167,7 +145,7 @@ public class Student extends User {
      * @return the phone number of the student
      */
     public String getPhoneNumber() {
-        return this.phoneNumber;
+        return this.resume.getPhoneNumber();
     }
 
     /**
@@ -176,7 +154,7 @@ public class Student extends User {
      * @param phoneNumber the new phone number of the student
      */
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.resume.setPhoneNumber(phoneNumber);
     }
 
     /**
@@ -185,7 +163,7 @@ public class Student extends User {
      * @return the student's email address
      */
     public String getEmail() {
-        return this.email;
+        return this.resume.getEmail();
     }
 
     /**
@@ -194,7 +172,7 @@ public class Student extends User {
      * @param email the student's email address
      */
     public void setEmail(String email) {
-        this.email = email;
+        this.resume.setEmail(email);
     }
 
     /**
@@ -278,6 +256,11 @@ public class Student extends User {
         return this.resume.getExperiences();
     }
 
+    /**
+     * Adds a work experience to a student's resume
+     * 
+     * @param e work experience to be added to resume
+     */
     public void addExperience(WorkExperience e) {
         this.resume.addExperience(e);
     }

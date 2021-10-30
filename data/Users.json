@@ -6,13 +6,12 @@
             "password": "hobbsman1",
             "userType": "student",
             "isVerified": true,
-            "firstName": "Bill",
-            "lastName": "Hobbs",
-            "phoneNumber": "4204206969",
-            "email": "williamhobbs@email.sc.edu",
             "resume": {
+                "firstName": "Bill",
+                "lastName": "Hobbs",
                 "gpa": 3.9,
-                "education": "BS Computer Science, BS Mathematics",
+                "phoneNumber": "4204206969",
+                "email": "williamhobbs@email.sc.edu",
                 "skills": [],
                 "workExperiences": [
                     {

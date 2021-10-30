@@ -218,8 +218,14 @@ public class Database {
      */
     public static ArrayList<Listing> getListings() {
         ArrayList<Listing> list = new ArrayList<>();
-        for (Employer e : employers)
-            list.addAll(e.getListings());
+        if (employers == null || employers.isEmpty())
+            return null;
+
+        for (Employer e : employers) {
+            ArrayList<Listing> listings = e.getListings();
+            if (listings != null && !listings.isEmpty())
+                list.addAll(listings);
+        }
         return list;
     }
 
