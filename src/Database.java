@@ -44,29 +44,41 @@ public class Database {
          */
     }
 
-    /**
-     * Filters through the users
-     * 
-     * @param userType the type of users to be filtered through
-     * @param filter   a string containing concatonated filters for the method to
-     *                 execute
-     * @return A string representation of the result of the filters
-     */
-    public String filter(UserType userType, String filter) {
-        return "";
-    }
+    // /**
+    //  * Filters through the users
+    //  * 
+    //  * @param userType the type of users to be filtered through
+    //  * @param filter   a string containing concatonated filters for the method to
+    //  *                 execute
+    //  * @return A string representation of the result of the filters
+    //  */
+    // public String filterUsers(UserType userType, String filter) {
+    //     //create list of filters
+    //     String[] filters = filter.split(";");
+    //     for (String newFilter: filters) {
+    //         String[] filterDetails = newFilter.split(":");
+    //         String attribute = filterDetails[0];
+    //         switch (attribute) {
+    //             case ""
+    //         }
+    //     }
+    //     System.out.println(filters[0]);
+    //     return filters[1];
+    // }
 
-    /**
-     * filters through the students who applied for a specific job
-     * 
-     * @param students the students who applied for the position
-     * @param filter   a string containing concatonated filters for the method to
-     *                 execute
-     * @return A string representation of the result of the filters
-     */
-    public String filterApplications(ArrayList<Student> students, String filter) {
-        return "";
-    }
+    // /**
+    //  * filters through the students who applied for a specific job
+    //  * 
+    //  * @param students the students who applied for the position
+    //  * @param filter   a string containing concatonated filters for the method to
+    //  *                 execute
+    //  * @return A string representation of the result of the filters
+    //  */
+    // public String filterApplicants(ArrayList<Student> students, String filter) {
+    //     String[] filters = filter.split(";");
+    //     String[] filterStrings
+    //     return "";
+    // }
 
     /**
      * filters through job listings students can apply for
@@ -78,6 +90,31 @@ public class Database {
      * @return An ArrayList of listings after the filters were applied
      */
     public static ArrayList<Listing> filterListings(ArrayList<Listing> listings, String filter) {
+        ArrayList<Listing> filteredListings = new ArrayList<>();
+        for (Listing oldListing: listings) filteredListings.add(oldListing);
+
+        String[] filters = filter.split(";");
+        for (String newFilter: filters) {
+            String[] filterDetails = newFilter.split(":");
+            String attribute = filterDetails[0];
+            switch (attribute) {
+                case "minpay":
+                    filteredListings = filterByPay(filterDetails[1], filteredListings);
+                    break;
+                case "location":
+                    filteredListings = filterByLocation(filterDetails[1], filteredListings);
+                    break;
+                case "startdate":
+                    filteredListings = filterByStartDate(filterDetails[1], filteredListings);
+                    break;
+                case "enddate":
+                    filteredListings = filterByEndDate(filterDetails[1], filteredListings); 
+                    break;
+                case "skills":
+                    filteredListings = filterBySkills(filterDetails[1], filteredListings);
+                    break;
+            }
+        }
         return listings;
     }
 
@@ -152,7 +189,7 @@ public class Database {
      * @param listings the listings to look through
      * @return the listings with the specified minimum pay rate
      */
-    private ArrayList<Listing> searchPayRate(String payRate, ArrayList<Listing> listings) {
+    private static ArrayList<Listing> filterByPay(String payRate, ArrayList<Listing> listings) {
         return new ArrayList<Listing>();
     }
 
@@ -163,7 +200,7 @@ public class Database {
      * @param listings the listings to look through
      * @return the listings with the specified location
      */
-    private ArrayList<Listing> searchLocation(String location, ArrayList<Listing> listings) {
+    private static ArrayList<Listing> filterByLocation(String location, ArrayList<Listing> listings) {
         return new ArrayList<Listing>();
     }
 
@@ -174,7 +211,7 @@ public class Database {
      * @param listings  the listings to look through
      * @return the listings with the specified earliest start date
      */
-    private ArrayList<Listing> searchStartDate(String startDate, ArrayList<Listing> listings) {
+    private static ArrayList<Listing> filterByStartDate(String startDate, ArrayList<Listing> listings) {
         return new ArrayList<Listing>();
     }
 
@@ -185,7 +222,7 @@ public class Database {
      * @param listings the listings to look through
      * @return the listings with the specified earliest end date
      */
-    private ArrayList<Listing> searchEndDate(String endDate, ArrayList<Listing> listings) {
+    private static ArrayList<Listing> filterByEndDate(String endDate, ArrayList<Listing> listings) {
         return new ArrayList<Listing>();
     }
 
@@ -196,8 +233,14 @@ public class Database {
      * @param listings the listings to look through
      * @return the listings with the specified skill
      */
-    private ArrayList<Listing> searchListingSkills(String skill, ArrayList<Listing> listings) {
-        return new ArrayList<Listing>();
+    private static ArrayList<Listing> filterBySkills(String skillsToFilter, ArrayList<Listing> listings) {
+        ArrayList<Listing> filteredListings = new ArrayList<>();
+        for (Listing listing: listings) filteredListings.add(listing);
+        String[] skills = skillsToFilter.split(",");
+        for (String skill: skills) {
+            filteredListings.removeIf(filteredListing -> !filteredListing.getSkills().contains(Skills.valueOf(skill)));
+        }
+        return filteredListings;
     }
 
     /**
@@ -248,6 +291,7 @@ public class Database {
 
         // find user in system
         for (User unverified : unverifiedUsers) {
+            System.out.println(unverifiedUsers.size());
             if (unverified.getUsername().equals(username)) {
                 if (isCorrectPassword(unverified, password)) {
                     System.out.println("User verification is still pending.");
@@ -255,6 +299,7 @@ public class Database {
                 return null;
             }
         }
+        System.out.println(unverifiedUsers.size());
         for (Employer employer : employers) {
             if (employer.getUsername().equals(username)) {
                 if (isCorrectPassword(employer, password)) {
