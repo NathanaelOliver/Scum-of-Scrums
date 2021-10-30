@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class Student extends User {
-    private int year;
     private Resume resume;
     private ArrayList<Application> applications;
 
@@ -44,8 +43,8 @@ public class Student extends User {
     public Student(String username, String password, String firstName, String lastName, String phoneNumber,
             String email, double gpa, int year) {
         this(username, password, firstName, lastName, email);
-        this.setPhoneNumber(phoneNumber);;
-        this.year = year;
+        this.setPhoneNumber(phoneNumber);
+        this.setYear(year);
         this.setGPA(gpa);
     }
 
@@ -62,8 +61,8 @@ public class Student extends User {
                    int year, Resume resume) {
         super(id, UserType.student, isVerified, username, password);
         this.applications = new ArrayList<>();
-        this.year = year;
         this.resume = resume;
+        this.setYear(year);
     }
 
     /**
@@ -181,7 +180,7 @@ public class Student extends User {
      * @return the student's graduation year
      */
     public int getYear() {
-        return this.year;
+        return this.resume.getYear();
     }
 
     /**
@@ -190,7 +189,7 @@ public class Student extends User {
      * @param year the year that the student graduates
      */
     public void setYear(int year) {
-        this.year = year;
+        this.resume.setYear(year);
     }
 
     /**

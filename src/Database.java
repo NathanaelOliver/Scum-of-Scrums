@@ -89,8 +89,9 @@ public class Database {
                 case "skills":
                     filterResumesBySkills(filterDetails[1], resumes);
                     break;
-                default:
-                //TO-DO: YEAR
+                case "year":
+                    filterResumesByYear(filterDetails[1], resumes);
+                    break;
             }
         }
         return resumes;
@@ -156,11 +157,10 @@ public class Database {
      * @param students the list of students to be looking through
      * @return the students with the specified graduation year
      */
-    private ArrayList<Resume> filterResumesByYear(String year, ArrayList<Resume> resumes) {
+    private static ArrayList<Resume> filterResumesByYear(String year, ArrayList<Resume> resumes) {
         ArrayList<Resume> filteredResumes = new ArrayList<>();
         for (Resume resume: resumes) filteredResumes.add(resume);
-        //TO-DO
-        // filteredResumes.removeIf(filteredResume -> filteredResume.getYear() < Integer.parseInt(year));
+        filteredResumes.removeIf(filteredResume -> filteredResume.getYear() < Integer.parseInt(year));
         return filteredResumes;
     }
 

@@ -12,6 +12,7 @@ import java.util.UUID;
 public class Resume implements JSONable {
     private String firstName, lastName, phoneNumber, email;
     private double gpa;
+    private int year;
     private ArrayList<Skills> skills;
     private ArrayList<WorkExperience> workExperiences;
     private ArrayList<CourseExperience> courseExperiences;
@@ -43,12 +44,13 @@ public class Resume implements JSONable {
      * @param courseExperiences list of course experiences
      * @param clubExperiences list of club experiences
      */
-    public Resume(String firstName, String lastName, double gpa, String phoneNumber, String email,
+    public Resume(String firstName, String lastName, double gpa, int year, String phoneNumber, String email,
             ArrayList<Skills> skills, ArrayList<WorkExperience> workExperiences,
             ArrayList<CourseExperience> courseExperiences, ArrayList<ClubExperience> clubExperiences) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gpa = gpa;
+        this.year = year;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.skills = skills;
@@ -143,6 +145,22 @@ public class Resume implements JSONable {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * get year
+     * @return year as an int
+     */
+    public int getYear() {
+        return this.year;
+    }
+
+    /**
+     * set year
+     * @param year new int year
+     */
+    public void setYear(int year) {
+        this.year = year;
     }
 
     /**
@@ -299,7 +317,7 @@ public class Resume implements JSONable {
             courseExperiences.add(CourseExperience.fromJSON(e));
         }
         return new Resume(dict.get("firstName"), dict.get("lastName"),
-                dict.get("gpa") == null ? 0 : Double.parseDouble(dict.get("gpa")), dict.get("phoneNumber"), dict.get("email"), skills,
+                dict.get("gpa") == null ? 0 : Double.parseDouble(dict.get("gpa")), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")), dict.get("phoneNumber"), dict.get("email"), skills,
                 workExperiences, courseExperiences, clubExperiences);
     }
 }
