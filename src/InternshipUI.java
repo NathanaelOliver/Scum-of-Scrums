@@ -330,10 +330,4 @@ public abstract class InternshipUI {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-
-    protected void unverifiedMessage() {
-        flush();
-        System.out.println("Your account must now be verified before it is activated. Thank you for signing up to our service!");
-    }
-
 }
