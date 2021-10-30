@@ -132,10 +132,10 @@ public class Resume implements JSONable {
         return this.skills;
     }
 
-    /**
-     * get experiences
-     * @return list of experiences
-     */
+    public void setSkills(ArrayList<Skills> skills) {
+        this.skills = skills;
+    }
+
     public ArrayList<Experience> getExperiences() {
         ArrayList<Experience> experiences = new ArrayList<Experience>();
         experiences.addAll(workExperiences);

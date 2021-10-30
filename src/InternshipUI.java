@@ -1,5 +1,6 @@
 package src;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -85,7 +86,30 @@ public abstract class InternshipUI {
         for (int i = 0; i < skills.length; i++)
             skills[i] = SKILLS_LIST[i].toString();
 
-        return SKILLS_LIST[readMenu(skills) + 1];
+        return SKILLS_LIST[readMenu(skills) - 1];
+    }
+
+    /**
+     * Processes new skills being added by the user until the user is done
+     */
+    protected ArrayList<Skills> readSkills(ArrayList<Skills> skills) {
+        ArrayList<Skills> list = skills;
+        boolean reading;
+        do {
+            reading = false;
+
+            Skills newSkill = readSkillMenu();
+            if (!list.contains(newSkill)) {
+                list.add(newSkill);
+                System.out.println(newSkill.toString() + " added");
+            } else {
+                System.out.println("This skill was already added");
+            }
+
+            reading = readBoolean("Would you like to enter another skill?");
+        } while (reading);
+
+        return skills;
     }
 
     /**
@@ -95,6 +119,7 @@ public abstract class InternshipUI {
      * @return String response
      */
     protected String readString(String message) {
+        flush();
         System.out.println(message);
         return scanner.nextLine();
     }
@@ -106,6 +131,7 @@ public abstract class InternshipUI {
      * @return int response
      */
     protected int readInt(String message) {
+        flush();
         System.out.println(message);
         return Integer.parseInt(scanner.nextLine());
     }
@@ -114,18 +140,19 @@ public abstract class InternshipUI {
      * reads an int response to a prompt, int must be in range
      * 
      * @param message is the prompt
-     * @param lower   the lower boundary of the acceptable range (inclusive)
-     * @param upper   the upper boundary of the acceptable range (non-inclusive)
+     * @param lower the lower boundary of the acceptable range (inclusive)
+     * @param upper the upper boundary of the acceptable range (inclusive)
      * @return int response in range
      */
     protected int readInt(String message, int lower, int upper) {
+        flush();
         boolean reading;
         int result;
         do {
             reading = false;
             System.out.println(message + " (" + lower + "-" + upper + ")");
             result = Integer.parseInt(scanner.nextLine());
-            reading = !(result >= lower && result < upper);
+            reading = !(result >= lower && result <= upper);
             if (reading)
                 error("Please enter a number in the range");
         } while (reading);
@@ -140,6 +167,7 @@ public abstract class InternshipUI {
      * @return double response
      */
     protected double readDouble(String message) {
+        flush();
         System.out.println(message);
         return Double.parseDouble(scanner.nextLine());
     }
@@ -151,6 +179,7 @@ public abstract class InternshipUI {
      * @return boolean response
      */
     protected boolean readBoolean(String message) {
+        flush();
         boolean reading;
         do {
             reading = false;
@@ -198,6 +227,7 @@ public abstract class InternshipUI {
      * @return is the string with no spaces
      */
     protected String readWord(String message) {
+        flush();
         boolean reading;
         String word;
 
@@ -213,6 +243,22 @@ public abstract class InternshipUI {
         } while (reading);
 
         return word;
+    }
+
+    protected ArrayList<String> readStringArrayList(String message, String loopPrompt) {
+        ArrayList<String> list = new ArrayList<>();
+        boolean reading;
+        do {
+            System.out.println(message);
+            reading = false;
+
+            String str = scanner.nextLine();
+            list.add(str);
+
+            reading = readBoolean(loopPrompt);
+        } while (reading);
+
+        return list;
     }
 
     /**
@@ -306,5 +352,4 @@ public abstract class InternshipUI {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-
 }
