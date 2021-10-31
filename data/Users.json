@@ -137,7 +137,7 @@
             "userType": "admin",
             "isVerified": true,
             "firstName": "Jasper",
-            "lastName": "John"
+            "lastName": "Johns"
         },
         {
             "id": "90d50390-d2b9-460c-aed4-1a606ca80ccf",
@@ -190,8 +190,7 @@
                     "endDate": "",
                     "siteLink": "",
                     "skills": [],
-                    "applicants": [
-                    ]
+                    "applicants": []
                 }
             ]
         },
