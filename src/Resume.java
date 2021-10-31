@@ -285,7 +285,19 @@ public class Resume implements JSONable {
      * @return the String representation of a student's resume
      */
     public String toString() {
-        return "";
+        String ret = this.getName() + "\n";
+        ret += "Phone Number: " + this.getPhoneNumber() + "\n";
+        ret += "Email: " + this.getEmail() + "\n";
+        ret += "GPA: " + this.getGPA() + "\n";
+        ret += "Year: " + this.getYear() + "\n";
+        ret += "Skills: ";
+        for (int i = 0; i < (this.skills.size() - 1); i++) {
+            ret += this.skills.get(i).toString() + ", ";
+        }
+        ret += this.skills.get(this.skills.size());
+        
+
+        return ret;
     }
 
     /**

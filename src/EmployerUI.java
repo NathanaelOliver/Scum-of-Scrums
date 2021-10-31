@@ -34,21 +34,21 @@ public class EmployerUI extends InternshipUI {
     public void run() {
         loggedIn = true;
         while (loggedIn) {
-                int mainMenuOption = readMenu(this.mainMenuOptions);
-                switch (mainMenuOption) {
-                    case 1: addDescription();
-                            break;
-                    case 2: addListing();
-                            break;
-                    case 3: editListing();
-                            break;
-                    case 4: viewListing();
-                            break;
-                    case 5: deleteListing();
-                            break;
-                    case 6: loggedIn = false;
-                            break;
-                }
+            int mainMenuOption = readMenu(this.mainMenuOptions);
+            switch (mainMenuOption) {
+                case 1: addDescription();
+                        break;
+                case 2: addListing();
+                        break;
+                case 3: editListing();
+                        break;
+                case 4: viewListing();
+                        break;
+                case 5: deleteListing();
+                        break;
+                case 6: loggedIn = false;
+                        break;
+            }
         }
     }
 
@@ -136,7 +136,7 @@ public class EmployerUI extends InternshipUI {
             }
             input = readInt("Which applicant would you like to view?", 1, 
                 listing.getApplicants().size());
-            System.out.println(listing.getApplicants().get(input - 1).getEmail());
+            System.out.println(listing.getApplicants().get(input - 1).toString());
             choosing = readBoolean("Would you like to view another applicant?");
             flush();
         } while(choosing);
