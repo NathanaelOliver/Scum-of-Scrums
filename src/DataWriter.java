@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class DataWriter {
     /**
@@ -38,6 +39,13 @@ public class DataWriter {
         for (Skills s : skills)
             str += "\"" + s.toString() + "\",";
         return str.substring(0, str.length() - 1) + "]";
+    }
+
+    public static String idsToJSON(ArrayList<UUID> ids) {
+        ArrayList<String> idStrings = new ArrayList<>();
+        for (UUID id : ids)
+            idStrings.add(id.toString());
+        return DataWriter.stringsToJSON(idStrings);
     }
 
     /**
