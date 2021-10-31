@@ -10,6 +10,7 @@ import java.util.UUID;
  * @author Nathanael Oliver
  */
 public class Resume implements JSONable {
+    public final UUID ID;
     private String firstName, lastName, phoneNumber, email;
     private double gpa;
     private int year;
@@ -24,6 +25,7 @@ public class Resume implements JSONable {
      * @param lastName last name of resume owner
      */
     public Resume(String firstName, String lastName, String email) {
+        this.ID = UUID.randomUUID();
         this.firstName = firstName;
         this.lastName = lastName;
         this.skills = new ArrayList<>();
@@ -47,6 +49,7 @@ public class Resume implements JSONable {
     public Resume(String firstName, String lastName, double gpa, int year, String phoneNumber, String email,
             ArrayList<Skills> skills, ArrayList<WorkExperience> workExperiences,
             ArrayList<CourseExperience> courseExperiences, ArrayList<ClubExperience> clubExperiences) {
+        this.ID = UUID.randomUUID();
         this.firstName = firstName;
         this.lastName = lastName;
         this.gpa = gpa;
