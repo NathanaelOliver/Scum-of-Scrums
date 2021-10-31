@@ -143,8 +143,7 @@ public class Listing implements JSONable {
                 DataLoader.dictFromBracket(dict.get("description")), Date.fromString(dict.get("startDate")),
                 Date.fromString(dict.get("endDate")), dict.get("siteLink"), skills,
                 UUID.fromString(dict.get("employerId")));
-        for (int i = 0; i < DataLoader.dictFromBracket(dict.get("applicants")).size(); i++) {
-            String e = DataLoader.dictFromBracket(dict.get("applicants")).get(i);
+        for (String e : DataLoader.dictFromBracket(dict.get("applicants"))) {
             listing.apply(UUID.fromString(e));
         }
         return listing;

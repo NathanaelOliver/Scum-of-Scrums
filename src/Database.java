@@ -384,7 +384,7 @@ public class Database {
 
     public static Resume getResumeByID(UUID id) {
         for (Student student: students) {
-            if (id.equals(student.getResume().ID) return student.getResume();
+            if (id.equals(student.getResume().ID)) return student.getResume();
         }
         return null;
     }

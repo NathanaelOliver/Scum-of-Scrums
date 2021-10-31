@@ -294,11 +294,9 @@ public class Resume implements JSONable {
         ret += "GPA: " + this.getGPA() + "\n";
         ret += "Year: " + this.getYear() + "\n";
         ret += "Skills: ";
-        for (int i = 0; i < (this.skills.size() - 1); i++) {
+        for (int i = 0; i < (this.skills.size()); i++) {
             ret += this.skills.get(i).toString() + ", ";
-        }
-        ret += this.skills.get(this.skills.size());
-        
+        }        
 
         return ret;
     }
