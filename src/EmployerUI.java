@@ -1,6 +1,7 @@
 package src;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * Employer User Interface Runs the front-end of the employer's experience with
@@ -31,8 +32,8 @@ public class EmployerUI extends InternshipUI {
         while (loggedIn) {
             // try {
                 int mainMenuOption = readMenu(this.mainMenuOptions);
-                switch (input) {
-                    case 1: editDescription();
+                switch (mainMenuOption) {
+                    case 1: addDescription();
                             break;
                     case 2: addListing();
                             break;
@@ -87,12 +88,13 @@ public class EmployerUI extends InternshipUI {
             String siteLink = readWord("Link a site for the job description.");
             String title = readString("Provide a title for the job.");
             String location = readString("Provide the location for work.");
+            ArrayList<Skills> skills = new ArrayList<Skills>();
             if (readBoolean("Do you want to enter skills for this job?")) {
-                ArrayList<Skills> skills = readSkills();
+                skills = readSkills(skills);
             }
             ArrayList<String> description = readStringArrayList("Add a description of the job listing.","Add an additional line of the job description.");
-            Listing listing = new Listing(payRate, location, description, startDate, 
-                endDate, siteLink, skills, this.employer.getTitle());
+            Listing listing = new Listing(title, payRate, location, description, startDate, 
+                endDate, siteLink, skills, this.employer.ID);
         } while (creatingListing);
     }
 
@@ -104,13 +106,13 @@ public class EmployerUI extends InternshipUI {
         // asks them for the index of which one they want to delete
         // deletes that listing from the arraylist, moves all the others up
         for (int i = 0; i < this.employer.getListings().size(); i++) {
-            System.out.println((i+1) + ". " + this.employer.getListings().get(i).getTitle());
-        }
-        System.out.println("Which listing would you like to delete?"); 
-        // go back and make this a while in case someone doesn't put a number
+            System.out.println((i) + ". " + this.employer.getListings().get(i).getTitle());
+        } // TODO - move to internshipUI 
         try {
-            int input = (Scanner.nextline() - 1);
-            this.employer.setListings(employer.getListings().remove(i));
+            int input = readInt("Which listing would you like to delete?");
+            ArrayList<Listing> tempListings = this.employer.getListings();
+            tempListings.remove(input);
+            this.employer.setListings(tempListings);
         } catch (Exception e) {
             System.out.println("Invalid entry");
         }
@@ -127,18 +129,8 @@ public class EmployerUI extends InternshipUI {
             System.out.println((i+1) + ". " + this.employer.getListings().get(i).getTitle());
         }
         boolean choosing = true;
-        Listing listing;
-        do {
-            try {
-                System.out.println("Which listing would you like to edit?");
-                int input = Scanner.nextline();
-                listing = this.employer.getListings().get(input);
-                choosing = false;
-                break; // necessary?
-            } catch(Exception e) {
-                System.out.println("Invalid entry! Try again.");
-            }
-        } while (choosing);
+        int input = readInt("Which listing would you like to edit?", 0, this.employer.getListings().size());
+        Listing listing = this.employer.getListings().get(input);
         System.out.println("What would you like to edit?");
         String[] editOptions = new String[]{"Pay Rate", "Description", "Start Date", "End Date", "Site Link", "Title", "Location", "Skills"};
         int editing = readMenu(editOptions);

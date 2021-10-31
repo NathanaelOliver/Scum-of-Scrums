@@ -16,16 +16,6 @@ public class Employer extends User {
     private ArrayList<Rating> ratings;
     
     /**
-<<<<<<< HEAD
-     * Creates an employer
-     * 
-     * @param username the login username
-     * @param password the password
-     * @param title the company title
-     */
-    public Employer(String username, String password, String title) {
-        super(username, password);
-=======
      * Employer Constructor
      * @param username employer's username
      * @param password employer's password
@@ -33,7 +23,6 @@ public class Employer extends User {
      */
     public Employer(String username, String password, String title) {
         super(username, password, UserType.employer);
->>>>>>> 893732354f0cc53c840aa8a8499479694ee2f263
         this.title = title;
         this.description = new ArrayList<String>();
         this.listings = new ArrayList<Listing>();
@@ -89,6 +78,10 @@ public class Employer extends User {
             }
         }
         return null;
+    }
+
+    public void setListings(ArrayList<Listing> listings) {
+        this.listings = listings;
     }
 
     /**
@@ -182,9 +175,9 @@ public class Employer extends User {
     public String toJSON() {
         // TODO - run this through a json validator, think it may be missing a comma
         String ret = "{\"title\":\"" + this.title + "\",";
-        ret += JSONhelper.stringsToJSON(this.description);
+        ret += DataWriter.stringsToJSON(this.description);
         ret += ",";
-        ret += JSONhelper.skillsToJSON(this.skills);
+        // TODO - this whole thing is broken due to changes in the architecture of Employer
         ret += ",";
         return ret;
     }
