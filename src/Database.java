@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 
+import javax.swing.plaf.synth.SynthEditorPaneUI;
+
 /**
  * Database class stores all users
  */
@@ -290,8 +292,8 @@ public class Database {
      * @param id the id of the specified user
      * @return the user with the specified id
      */
-    public static User getUserByID(String id) {
-        return new Admin("", "", "", "");
+    public static User getUserByID(UUID id) {
+        return null;
     }
 
     private static boolean isCorrectPassword(User user, String password) {
