@@ -382,4 +382,10 @@ public class Database {
         return true;
     }
 
+    public static Resume getResumeByID(UUID id) {
+        for (Student student: students) {
+            if (student.getResume().ID.equals(id)) return student.getResume();
+        }
+        return null;
+    }
 }

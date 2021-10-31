@@ -7,6 +7,7 @@
             "userType": "student",
             "isVerified": true,
             "resume": {
+                "id":"aae52f6d-08a1-4775-a2ac-ff7f631cd686",
                 "firstName": "Bill",
                 "lastName": "Hobbs",
                 "gpa": 3.9,
@@ -79,7 +80,7 @@
         {
             "id": "cd37b6a7-894a-4355-857c-ae582249fe6d",
             "username": "natoliver",
-            "password": "gamerBoi2",
+            "password": "g%merBoi2",
             "userType": "student",
             "isVerified": true,
             "firstName": "Nathanael",
@@ -87,6 +88,7 @@
             "phoneNumber": "1234567890",
             "email": "no2@email.sc.edu",
             "resume": {
+                "id": "b8dd1132-2be0-4ee4-a656-5275afb4f9ff",
                 "gpa": 3.9,
                 "education": "BS Computer Science, BS Mathematics",
                 "skills": [],
@@ -117,6 +119,7 @@
             "phoneNumber": "9287654167",
             "email": "macbride@email.sc.edu",
             "resume": {
+                "id": "6ab93632-f1c8-441f-bf57-e63384ae3c58",
                 "gpa": 1.0,
                 "education": "BS Computer Science",
                 "skills": [],
@@ -172,7 +175,6 @@
                     "siteLink": "",
                     "skills": [],
                     "applicants": [
-                        "L8327109"
                     ]
                 },
                 {
@@ -189,7 +191,8 @@
                     "endDate": "",
                     "siteLink": "",
                     "skills": [],
-                    "applicants": []
+                    "applicants": [
+                    ]
                 }
             ]
         },
@@ -218,40 +221,8 @@
                         "CSS"
                     ],
                     "applicants": [
-                        {
-                            "firstName": "Bill",
-                            "lastName": "Hobbs",
-                            "gpa": 3.9,
-                            "phoneNumber": "4204206969",
-                            "email": "williamhobbs@email.sc.edu",
-                            "skills": [],
-                            "workExperiences": [
-                                {
-                                    "id": "1c9d3f89-e1b7-4a73-8486-b4ad34c9ae14",
-                                    "title": "NERSC Lab Intern",
-                                    "details": [
-                                        "Serve as a Lab Intern at NERSC",
-                                        "Work with rather large computers"
-                                    ],
-                                    "startDate": "05/01/2021",
-                                    "endDate": "08/20/2021",
-                                    "references": [
-                                        {
-                                            "firstName": "Jeff",
-                                            "lastName": "Koons",
-                                            "phoneNumber": "7843098073",
-                                            "email": "jkoons@gmail.com"
-                                        },
-                                        {
-                                            "firstName": "Kara",
-                                            "lastName": "Walker",
-                                            "phoneNumber": "6723333333",
-                                            "email": "kwalker@gmail.com"
-                                        }
-                                    ]
-                                }
-                           ]
-                        } 
+                        "aae52f6d-08a1-4775-a2ac-ff7f631cd686",
+                        "6ab93632-f1c8-441f-bf57-e63384ae3c58" 
                     ]
                 }
             ]
@@ -280,7 +251,7 @@
         {
             "id": "0f01337c-13ea-45b7-8d2c-97085402fc58",
             "username": "joberman",
-            "password": "G@meCok7",
+            "password": "G#meCok7",
             "userType": "student",
             "isVerified": false,
             "firstName": "Jack",
@@ -288,6 +259,7 @@
             "phoneNumber": "3709012334",
             "email": "joberman@email.sc.edu",
             "resume": {
+                "id": "fe272a2d-f2fe-4717-b714-888a40a43960",
                 "gpa": 1.0,
                 "education": "BS Computer Science, BS Mathematics",
                 "skills": [],
