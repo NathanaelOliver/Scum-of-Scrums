@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 
-import javax.swing.plaf.synth.SynthEditorPaneUI;
-
 /**
  * Database class stores all users
  */
@@ -19,9 +17,7 @@ public class Database {
     /**
      * Private Constructor so it cannot be instantiated
      */
-    private Database() {
-
-    }
+    private Database() {}
 
     public static void fromJSON(String json) {
         HashMap<String, String> userLists = DataLoader.dictFromBrace(json);
