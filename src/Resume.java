@@ -280,6 +280,15 @@ public class Resume implements JSONable {
     }
 
     /**
+     * to String returns the resume in the form of a string
+     * 
+     * @return the String representation of a student's resume
+     */
+    public String toString() {
+        return "";
+    }
+
+    /**
      * Creates a JSON representation of the Resume
      * 
      * @return the JSON representation of the Resume

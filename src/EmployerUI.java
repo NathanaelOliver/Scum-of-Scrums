@@ -12,25 +12,28 @@ import java.util.ArrayList;
 public class EmployerUI extends InternshipUI {
     public Employer employer;
     private boolean loggedIn;
-    // QUESTION - reference employer or this.employer?
+    public String[] editOptions;
+
 
     public EmployerUI(Scanner scanner) {
         super(scanner);
-        this.mainMenuOptions = new String[]{"Edit your Company Profile", "Add a Job Listing", "Update a Job Listing","Delete a Job Listing","Log Out"};
+        this.mainMenuOptions = new String[]{"Edit your Company Profile", "Add a Job Listing", 
+            "Update a Job Listing","View a Job Listing","Delete a Job Listing","Log Out"};
+        this.editOptions = new String[]{"Pay Rate", "Description", "Start Date", 
+            "End Date", "Site Link", "Title", "Location", "Skills"};
     }
 
     public EmployerUI(Scanner scanner, Employer employer) {
         this(scanner);
         this.employer = employer;
     }
+
     /**
      * run runs the central framework of the UI for employers
      */
     public void run() {
-        // initialize?
         loggedIn = true;
         while (loggedIn) {
-            // try {
                 int mainMenuOption = readMenu(this.mainMenuOptions);
                 switch (mainMenuOption) {
                     case 1: addDescription();
@@ -39,16 +42,15 @@ public class EmployerUI extends InternshipUI {
                             break;
                     case 3: editListing();
                             break;
-                    case 4: deleteListing();
+                    case 4: viewListing();
                             break;
-                    case 5: loggedIn = false;
+                    case 5: deleteListing();
+                            break;
+                    case 6: loggedIn = false;
                             break;
                 }
-            //} catch(Exception e) {
-            //    System.out.println("Invalid entry! Try again.");
-            //}
         }
-    } // done
+    }
 
     public void createUser() {
         flush();
@@ -64,26 +66,23 @@ public class EmployerUI extends InternshipUI {
     /**
      * addProfile Helps an employer set up their Employer Profile for students to
      * search.
-     * - i like the idea of prompting a vim editor here so that they can edit it more easily
-     * - find a way to take a longer input and allow for formatting (?)
-     * - this is called profile in the UI but description in the Employer class, do we change?
      */
     private void addDescription() {
         ArrayList<String> description = this.employer.getDescription();
-        
+        description.addAll(readStringArrayList("Add another line of your company description.", 
+            "Would you like to add another line of your company description?"));
+        this.employer.setDescription(description);
     }
 
     /**
      * addListing Employer adds a new job listing for students to apply.
      */
     private void addListing() {
-        // loops through all the stuff it needs and adds it
-        // to their arraylist
         boolean creatingListing;
         do {
             creatingListing = false;
             double payRate = readDouble("Please give the pay rate of the listing as an hourly wage");
-            Date startDate = readDate("Add a start date for the job."); // does not print out
+            Date startDate = readDate("Add a start date for the job.");
             Date endDate = readDate("Add an end date for the job.");
             String siteLink = readWord("Link a site for the job description.");
             String title = readString("Provide a title for the job.");
@@ -92,9 +91,10 @@ public class EmployerUI extends InternshipUI {
             if (readBoolean("Do you want to enter skills for this job?")) {
                 skills = readSkills(skills);
             }
-            ArrayList<String> description = readStringArrayList("Add a description of the job listing.","Add an additional line of the job description.");
-            Listing listing = new Listing(title, payRate, location, description, startDate, 
-                endDate, siteLink, skills, this.employer.ID);
+            ArrayList<String> description = readStringArrayList("Add a description of the job listing.",
+                "Add an additional line of the job description.");
+            employer.addListing(new Listing(title, payRate, location, description, startDate, 
+                endDate, siteLink, skills, this.employer.ID));
         } while (creatingListing);
     }
 
@@ -116,10 +116,31 @@ public class EmployerUI extends InternshipUI {
         } catch (Exception e) {
             System.out.println("Invalid entry");
         }
-        // BUG - if they delete the listing, that deletes all the applications associated with it in
-        // our current UML
-        // when they delete does it remove from JSON?
-    } // done
+    } 
+
+    /**
+     * viewListing allows for an Employer to view the
+     * applicants associated with their job listings
+     */
+    private void viewListing() {
+        for (int i = 0; i < this.employer.getListings().size(); i++) {
+            System.out.println((i+1) + ". " + this.employer.getListings().get(i).getTitle());
+        }
+        int input = readInt("Which listing would you like to view applicants?", 1, 
+            (this.employer.getListings().size()));
+        Listing listing = this.employer.getListings().get(input - 1);
+        boolean choosing;
+        do {
+            for (int i = 0; i < listing.getApplicants().size(); i++) {
+                System.out.println((i+1) + ". " + listing.getApplicants().get(i).getName());
+            }
+            input = readInt("Which applicant would you like to view?", 1, 
+                listing.getApplicants().size());
+            System.out.println(listing.getApplicants().get(input - 1).getEmail());
+            choosing = readBoolean("Would you like to view another applicant?");
+            flush();
+        } while(choosing);
+    }
 
     /**
      * editListing Employer can edit their job listings
@@ -129,12 +150,10 @@ public class EmployerUI extends InternshipUI {
         for (int i = 0; i < this.employer.getListings().size(); i++) {
             System.out.println((i+1) + ". " + this.employer.getListings().get(i).getTitle());
         }
-        boolean choosing = true;
         int input = readInt("Which listing would you like to edit?", 1, (this.employer.getListings().size()));
         Listing listing = this.employer.getListings().get(input - 1);
         System.out.println("What would you like to edit?");
-        String[] editOptions = new String[]{"Pay Rate", "Description", "Start Date", "End Date", "Site Link", "Title", "Location", "Skills"};
-        int editing = readMenu(editOptions);
+        int editing = readMenu(this.editOptions);
         switch (editing) { 
             case 1: listing.setPayRate(readDouble("Please give the pay rate of the listing as an hourly wage"));
                     break;
@@ -150,8 +169,9 @@ public class EmployerUI extends InternshipUI {
                     break;
             case 7: listing.setLocation(readString("Enter the new location."));
                     break;
-            case 8: listing.setDescription(readStringArrayList(listing.getDescription(), "Would you like to add another line of the job description?"));
+            case 8: listing.setDescription((readStringArrayList("Please add another line of the job description.", 
+                        "Would you like to add another line of the job description?")));
                     break;
         }
     }
-} // done
+} 
