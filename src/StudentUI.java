@@ -246,11 +246,11 @@ public class StudentUI extends InternshipUI {
      */
     private void viewApplication(Application app) {
         System.out.println(app.LISTING.toString(false));
-        /*
-         * if (readBoolean("Would you like to review this employer?")) {
-         * rateEmployer(app.LISTING.getEmployer()); flush();
-         * System.out.println("Success!"); }
-         */
+        
+        if (readBoolean("Would you like to review this employer?")) {
+            rateEmployer(Database.getEmployerByID(app.LISTING.getEmployerId())); flush();
+            System.out.println("Success!");
+        }
         System.out.println("Returning to applications...");
     }
 
