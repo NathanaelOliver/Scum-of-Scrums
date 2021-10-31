@@ -46,10 +46,10 @@ public class Resume implements JSONable {
      * @param courseExperiences list of course experiences
      * @param clubExperiences list of club experiences
      */
-    public Resume(String firstName, String lastName, double gpa, int year, String phoneNumber, String email,
+    public Resume(UUID id, String firstName, String lastName, double gpa, int year, String phoneNumber, String email,
             ArrayList<Skills> skills, ArrayList<WorkExperience> workExperiences,
             ArrayList<CourseExperience> courseExperiences, ArrayList<ClubExperience> clubExperiences) {
-        this.ID = UUID.randomUUID();
+        this.ID = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gpa = gpa;
@@ -319,7 +319,7 @@ public class Resume implements JSONable {
         for (String e : DataLoader.dictFromBracket(dict.get("courseExperience"))) {
             courseExperiences.add(CourseExperience.fromJSON(e));
         }
-        return new Resume(dict.get("firstName"), dict.get("lastName"),
+        return new Resume(UUID.fromString(dict.get("id")), dict.get("firstName"), dict.get("lastName"),
                 dict.get("gpa") == null ? 0 : Double.parseDouble(dict.get("gpa")), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")), dict.get("phoneNumber"), dict.get("email"), skills,
                 workExperiences, courseExperiences, clubExperiences);
     }
