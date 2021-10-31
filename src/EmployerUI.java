@@ -83,7 +83,7 @@ public class EmployerUI extends InternshipUI {
         do {
             creatingListing = false;
             double payRate = readDouble("Please give the pay rate of the listing as an hourly wage");
-            Date startDate = readDate("Add a start date for the job.");
+            Date startDate = readDate("Add a start date for the job."); // does not print out
             Date endDate = readDate("Add an end date for the job.");
             String siteLink = readWord("Link a site for the job description.");
             String title = readString("Provide a title for the job.");
@@ -125,20 +125,20 @@ public class EmployerUI extends InternshipUI {
      * editListing Employer can edit their job listings
      */
     private void editListing() {
+        flush();
         for (int i = 0; i < this.employer.getListings().size(); i++) {
             System.out.println((i+1) + ". " + this.employer.getListings().get(i).getTitle());
         }
         boolean choosing = true;
-        int input = readInt("Which listing would you like to edit?", 0, this.employer.getListings().size());
-        Listing listing = this.employer.getListings().get(input);
+        int input = readInt("Which listing would you like to edit?", 1, (this.employer.getListings().size()));
+        Listing listing = this.employer.getListings().get(input - 1);
         System.out.println("What would you like to edit?");
         String[] editOptions = new String[]{"Pay Rate", "Description", "Start Date", "End Date", "Site Link", "Title", "Location", "Skills"};
         int editing = readMenu(editOptions);
         switch (editing) { 
             case 1: listing.setPayRate(readDouble("Please give the pay rate of the listing as an hourly wage"));
                     break;
-            case 2: // TODO - same problem as skills
-                    // same question as for skills
+            case 2: listing.setSkills(readSkills(listing.getSkills()));
                     break;
             case 3: listing.setStartDate(readDate("Enter the new start date."));
                     break;
@@ -150,8 +150,7 @@ public class EmployerUI extends InternshipUI {
                     break;
             case 7: listing.setLocation(readString("Enter the new location."));
                     break;
-            case 8: // TODO
-                    // Do we want to update skills by adding new ones, or wiping old ones?
+            case 8: listing.setDescription(readStringArrayList(listing.getDescription(), "Would you like to add another line of the job description?"));
                     break;
         }
     }

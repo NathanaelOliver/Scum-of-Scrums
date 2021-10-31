@@ -145,7 +145,7 @@ public abstract class InternshipUI {
      * @return int response in range
      */
     protected int readInt(String message, int lower, int upper) {
-        flush();
+        // flush();
         boolean reading;
         int result;
         do {
