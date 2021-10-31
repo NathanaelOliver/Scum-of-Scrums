@@ -44,17 +44,27 @@ public class Database {
          */
     }
 
-    /**
-     * Filters through the users
-     * 
-     * @param userType the type of users to be filtered through
-     * @param filter   a string containing concatonated filters for the method to
-     *                 execute
-     * @return A string representation of the result of the filters
-     */
-    public String filter(UserType userType, String filter) {
-        return "";
-    }
+    // /**
+    //  * Filters through the users
+    //  * 
+    //  * @param userType the type of users to be filtered through
+    //  * @param filter   a string containing concatonated filters for the method to
+    //  *                 execute
+    //  * @return A string representation of the result of the filters
+    //  */
+    // public String filterUsers(UserType userType, String filter) {
+    //     //create list of filters
+    //     String[] filters = filter.split(";");
+    //     for (String newFilter: filters) {
+    //         String[] filterDetails = newFilter.split(":");
+    //         String attribute = filterDetails[0];
+    //         switch (attribute) {
+    //             case ""
+    //         }
+    //     }
+    //     System.out.println(filters[0]);
+    //     return filters[1];
+    // }
 
     /**
      * filters through the students who applied for a specific job
@@ -64,8 +74,27 @@ public class Database {
      *                 execute
      * @return A string representation of the result of the filters
      */
-    public String filterApplications(ArrayList<Student> students, String filter) {
-        return "";
+    public static ArrayList<Resume> filterApplicants(ArrayList<Resume> resumesToFilter, String filter) {
+        ArrayList<Resume> resumes = new ArrayList<>();
+        for (Resume oldResume: resumesToFilter) resumes.add(oldResume);
+
+        String[] filters = filter.split(";");
+        for (String newFilter: filters) {
+            String[] filterDetails = newFilter.split(":");
+            String attribute = filterDetails[0];
+            switch (attribute) {
+                case "gpa":
+                    filterResumesByGPA(filterDetails[1], resumes);
+                    break;
+                case "skills":
+                    filterResumesBySkills(filterDetails[1], resumes);
+                    break;
+                case "year":
+                    filterResumesByYear(filterDetails[1], resumes);
+                    break;
+            }
+        }
+        return resumes;
     }
 
     /**
@@ -78,38 +107,33 @@ public class Database {
      * @return An ArrayList of listings after the filters were applied
      */
     public static ArrayList<Listing> filterListings(ArrayList<Listing> listings, String filter) {
+        ArrayList<Listing> filteredListings = new ArrayList<>();
+        for (Listing oldListing: listings) filteredListings.add(oldListing);
+
+        String[] filters = filter.split(";");
+        for (String newFilter: filters) {
+            String[] filterDetails = newFilter.split(":");
+            String attribute = filterDetails[0];
+            switch (attribute) {
+                case "minpay":
+                    filteredListings = filterByPay(filterDetails[1], filteredListings);
+                    break;
+                case "location":
+                    filteredListings = filterByLocation(filterDetails[1], filteredListings);
+                    break;
+                case "startdate":
+                    filteredListings = filterByStartDate(filterDetails[1], filteredListings);
+                    break;
+                case "enddate":
+                    filteredListings = filterByEndDate(filterDetails[1], filteredListings); 
+                    break;
+                case "skills":
+                    filteredListings = filterListingsBySkills(filterDetails[1], filteredListings);
+                    break;
+                default:
+            }
+        }
         return listings;
-    }
-
-    /**
-     * Gets the unverified employers
-     * 
-     * @return the unverified employers
-     */
-    public ArrayList<Employer> getUnverifiedEmployers() {
-        return new ArrayList<Employer>();
-    }
-
-    /**
-     * Gets the students based on their first name
-     * 
-     * @param firstName first name of the student
-     * @param students  the list of students to be looking through
-     * @return the students with the specified first name
-     */
-    private ArrayList<Student> searchFirstName(String firstName, ArrayList<Student> students) {
-        return new ArrayList<Student>();
-    }
-
-    /**
-     * Gets the students based on their last name
-     * 
-     * @param lastName last name of the student
-     * @param students the list of students to be looking through
-     * @return the students with the specified last name
-     */
-    private ArrayList<Student> searchLastName(String lastName, ArrayList<Student> students) {
-        return new ArrayList<Student>();
     }
 
     /**
@@ -119,8 +143,11 @@ public class Database {
      * @param students the list of students to be looking through
      * @return the students with the specified minimum GPA
      */
-    private ArrayList<Student> searchGPA(String GPA, ArrayList<Student> students) {
-        return new ArrayList<Student>();
+    private static ArrayList<Resume> filterResumesByGPA(String GPA, ArrayList<Resume> resumes) {
+        ArrayList<Resume> filteredResumes = new ArrayList<>();
+        for (Resume resume: resumes) filteredResumes.add(resume);
+        filteredResumes.removeIf(filteredResume -> filteredResume.getGPA() < Double.parseDouble(GPA));
+        return filteredResumes;
     }
 
     /**
@@ -130,19 +157,28 @@ public class Database {
      * @param students the list of students to be looking through
      * @return the students with the specified graduation year
      */
-    private ArrayList<Student> searchYear(String year, ArrayList<Student> students) {
-        return new ArrayList<Student>();
+    private static ArrayList<Resume> filterResumesByYear(String year, ArrayList<Resume> resumes) {
+        ArrayList<Resume> filteredResumes = new ArrayList<>();
+        for (Resume resume: resumes) filteredResumes.add(resume);
+        filteredResumes.removeIf(filteredResume -> filteredResume.getYear() < Integer.parseInt(year));
+        return filteredResumes;
     }
 
     /**
-     * Gets the students based on their skills
+     * Searches for resumes with a specific skill recommendation
      * 
-     * @param skill    skill of the student
-     * @param students the list of students to be looking through
-     * @return the students with the specified skill
+     * @param skillsToFilter    the recommended skills
+     * @param resumes the resumes to look through
+     * @return the resumes with the specified skill
      */
-    private ArrayList<Student> searchSkills(String skill, ArrayList<Student> students) {
-        return new ArrayList<Student>();
+    private static ArrayList<Resume> filterResumesBySkills(String skillsToFilter, ArrayList<Resume> resumes) {
+        ArrayList<Resume> filteredResumes = new ArrayList<>();
+        for (Resume resume: resumes) filteredResumes.add(resume);
+        String[] skills = skillsToFilter.split(",");
+        for (String skill: skills) {
+            filteredResumes.removeIf(filteredResume -> !filteredResume.getSkills().contains(Skills.valueOf(skill)));
+        }
+        return filteredResumes;
     }
 
     /**
@@ -152,8 +188,11 @@ public class Database {
      * @param listings the listings to look through
      * @return the listings with the specified minimum pay rate
      */
-    private ArrayList<Listing> searchPayRate(String payRate, ArrayList<Listing> listings) {
-        return new ArrayList<Listing>();
+    private static ArrayList<Listing> filterByPay(String payRate, ArrayList<Listing> listings) {
+        ArrayList<Listing> filteredListings = new ArrayList<>();
+        for (Listing listing: listings) filteredListings.add(listing);
+        filteredListings.removeIf(filteredListing -> filteredListing.getPayRate() < Double.parseDouble(payRate));
+        return filteredListings;
     }
 
     /**
@@ -163,8 +202,11 @@ public class Database {
      * @param listings the listings to look through
      * @return the listings with the specified location
      */
-    private ArrayList<Listing> searchLocation(String location, ArrayList<Listing> listings) {
-        return new ArrayList<Listing>();
+    private static ArrayList<Listing> filterByLocation(String location, ArrayList<Listing> listings) {
+        ArrayList<Listing> filteredListings = new ArrayList<>();
+        for (Listing listing: listings) filteredListings.add(listing);
+        filteredListings.removeIf(filteredListing -> !filteredListing.getLocation().equalsIgnoreCase(location));
+        return filteredListings;
     }
 
     /**
@@ -174,8 +216,11 @@ public class Database {
      * @param listings  the listings to look through
      * @return the listings with the specified earliest start date
      */
-    private ArrayList<Listing> searchStartDate(String startDate, ArrayList<Listing> listings) {
-        return new ArrayList<Listing>();
+    private static ArrayList<Listing> filterByStartDate(String startDate, ArrayList<Listing> listings) {
+        ArrayList<Listing> filteredListings = new ArrayList<>();
+        for (Listing listing: listings) filteredListings.add(listing);
+        filteredListings.removeIf(filteredListing -> filteredListing.getEndDate().compareTo(Date.fromString(startDate)) < 0);
+        return filteredListings;
     }
 
     /**
@@ -185,29 +230,39 @@ public class Database {
      * @param listings the listings to look through
      * @return the listings with the specified earliest end date
      */
-    private ArrayList<Listing> searchEndDate(String endDate, ArrayList<Listing> listings) {
-        return new ArrayList<Listing>();
+    private static ArrayList<Listing> filterByEndDate(String endDate, ArrayList<Listing> listings) {
+        ArrayList<Listing> filteredListings = new ArrayList<>();
+        for (Listing listing: listings) filteredListings.add(listing);
+        filteredListings.removeIf(filteredListing -> filteredListing.getEndDate().compareTo(Date.fromString(endDate)) > 0);
+        return filteredListings;
     }
 
     /**
      * Searches for job listings with a specific skill recommendation
      * 
-     * @param skill    the recommended skill
+     * @param skillsToFilter    the recommended skill
      * @param listings the listings to look through
      * @return the listings with the specified skill
      */
-    private ArrayList<Listing> searchListingSkills(String skill, ArrayList<Listing> listings) {
-        return new ArrayList<Listing>();
+    private static ArrayList<Listing> filterListingsBySkills(String skillsToFilter, ArrayList<Listing> listings) {
+        ArrayList<Listing> filteredListings = new ArrayList<>();
+        for (Listing listing: listings) filteredListings.add(listing);
+        String[] skills = skillsToFilter.split(",");
+        for (String skill: skills) {
+            filteredListings.removeIf(filteredListing -> !filteredListing.getSkills().contains(Skills.valueOf(skill)));
+        }
+        return filteredListings;
     }
 
     /**
-     * Searches for job listings with a specific id
-     * 
-     * @param id       the id of the listing
-     * @param listings the listings to look through
-     * @return the listing with the specified id
+     * get employer by id
+     * @param id is id of employer
+     * @return employer
      */
-    public Listing getListingByID(UUID id) {
+    public static Employer getEmployerByID(UUID id) {
+        for (Employer employer: employers) {
+            if (employer.ID.equals(id)) return employer;
+        }
         return null;
     }
 
@@ -218,8 +273,14 @@ public class Database {
      */
     public static ArrayList<Listing> getListings() {
         ArrayList<Listing> list = new ArrayList<>();
-        for (Employer e : employers)
-            list.addAll(e.getListings());
+        if (employers == null || employers.isEmpty())
+            return null;
+
+        for (Employer e : employers) {
+            ArrayList<Listing> listings = e.getListings();
+            if (listings != null && !listings.isEmpty())
+                list.addAll(listings);
+        }
         return list;
     }
 

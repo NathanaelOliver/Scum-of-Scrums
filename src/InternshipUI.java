@@ -119,6 +119,7 @@ public abstract class InternshipUI {
      * @return String response
      */
     protected String readString(String message) {
+        flush();
         System.out.println(message);
         return scanner.nextLine();
     }
@@ -130,6 +131,7 @@ public abstract class InternshipUI {
      * @return int response
      */
     protected int readInt(String message) {
+        flush();
         System.out.println(message);
         return Integer.parseInt(scanner.nextLine());
     }
@@ -138,18 +140,19 @@ public abstract class InternshipUI {
      * reads an int response to a prompt, int must be in range
      * 
      * @param message is the prompt
-     * @param lower   the lower boundary of the acceptable range (inclusive)
-     * @param upper   the upper boundary of the acceptable range (non-inclusive)
+     * @param lower the lower boundary of the acceptable range (inclusive)
+     * @param upper the upper boundary of the acceptable range (inclusive)
      * @return int response in range
      */
     protected int readInt(String message, int lower, int upper) {
+        flush();
         boolean reading;
         int result;
         do {
             reading = false;
             System.out.println(message + " (" + lower + "-" + upper + ")");
             result = Integer.parseInt(scanner.nextLine());
-            reading = !(result >= lower && result < upper);
+            reading = !(result >= lower && result <= upper);
             if (reading)
                 error("Please enter a number in the range");
         } while (reading);
@@ -164,6 +167,7 @@ public abstract class InternshipUI {
      * @return double response
      */
     protected double readDouble(String message) {
+        flush();
         System.out.println(message);
         return Double.parseDouble(scanner.nextLine());
     }
@@ -175,6 +179,7 @@ public abstract class InternshipUI {
      * @return boolean response
      */
     protected boolean readBoolean(String message) {
+        flush();
         boolean reading;
         do {
             reading = false;
@@ -222,6 +227,7 @@ public abstract class InternshipUI {
      * @return is the string with no spaces
      */
     protected String readWord(String message) {
+        flush();
         boolean reading;
         String word;
 
@@ -240,10 +246,10 @@ public abstract class InternshipUI {
     }
 
     protected ArrayList<String> readStringArrayList(String message, String loopPrompt) {
-        System.out.println(message);
         ArrayList<String> list = new ArrayList<>();
         boolean reading;
         do {
+            System.out.println(message);
             reading = false;
 
             String str = scanner.nextLine();
@@ -346,5 +352,4 @@ public abstract class InternshipUI {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-
 }
