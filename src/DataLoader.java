@@ -37,7 +37,7 @@ public class DataLoader {
             System.out.println(e.getStackTrace());
             return null;
         }
-        return jsonText.replaceAll("[\\t\\n ]", "");
+        return jsonText.replaceAll("[\\t\\n]", "");
     }
 
     /**
@@ -66,7 +66,7 @@ public class DataLoader {
                 i++;
             } while (json.charAt(i) == ' ' || json.charAt(i) == '\t' || json.charAt(i) == '\n'
                     || json.charAt(i) == ':');
-            int vStart = i, vEnd;
+            int vStart = i;
             int count = 0;
             switch (json.charAt(i)) {
             case '"':
@@ -74,14 +74,12 @@ public class DataLoader {
                 do {
                     i++;
                 } while (json.charAt(i) != '"');
-                vEnd = i;
                 break;
             case 'f':
-                i++;
-                vEnd = i;
+                i += 5;
+                break;
             case 't':
                 i += 4;
-                vEnd = i;
                 break;
             case '{':
                 count = 0;
@@ -93,7 +91,6 @@ public class DataLoader {
                     }
                     i++;
                 } while (count != 0);
-                vEnd = i;
                 break;
             case '[':
                 count = 0;
@@ -105,13 +102,11 @@ public class DataLoader {
                     }
                     i++;
                 } while (count != 0);
-                vEnd = i;
                 break;
             default:
                 do {
                     i++;
                 } while (json.charAt(i) != ',');
-                vEnd = i;
             }
             dict.put(json.substring(kStart, kEnd).trim(), json.substring(vStart, i).trim());
             i++;
@@ -130,11 +125,11 @@ public class DataLoader {
         if (json == null || json.length() <= 2) {
             return dict;
         }
-        json = json.substring(1, json.length() - 1);
+        json = json.substring(1, json.length() - 1).trim();
         switch (json.charAt(0)) {
         case '"':
             for (String e : json.split(",")) {
-                dict.add(e.substring(1, e.length() - 1).trim());
+                dict.add(e.trim().substring(1, e.trim().length() - 1));
             }
             break;
         case '{':
@@ -161,34 +156,4 @@ public class DataLoader {
         }
         return dict;
     }
-
-    /**
-     * Gets the specified value from the JSON
-     * 
-     * @param json the JSON to get the value from
-     * @param key  the key that is being searched for
-     * @return the value corresponding to the key in the JSON
-     *
-     *         public static String getValue(String json, String key) { key = "\"" +
-     *         key + "\":"; return json.substring(json.indexOf(key) + key.length(),
-     *         json.substring(json.indexOf(key) + key.length()).indexOf("\",") +
-     *         json.indexOf(key) + key.length()); }
-     * 
-     *         public static String[] arrayFromJSON(String json, String key) { key =
-     *         "\"" + key + "\":["; return json.substring(json.indexOf(key) +
-     *         key.length(), json.substring(json.indexOf(key) +
-     *         key.length()).indexOf("]") + json.indexOf(key) + key.length())
-     *         .split("},{"); }
-     * 
-     *         public static ArrayList<String> stringArrayFromJSON(String json,
-     *         String key) { key = "\"" + key + "\":["; return (ArrayList<String>)
-     *         Arrays.asList(json.substring(json.indexOf(key) + key.length(),
-     *         json.substring(json.indexOf(key) + key.length()).indexOf("]") +
-     *         json.indexOf(key) + key.length()) .split("\",\"")); }
-     * 
-     *         public static int getIntValue(String json, String key) { key = "\"" +
-     *         key + "\":"; return Integer.parseInt(json.substring(json.indexOf(key)
-     *         + key.length(), json.substring(json.indexOf(key) +
-     *         key.length()).indexOf(",") + json.indexOf(key) + key.length())); }
-     */
 }

@@ -17,9 +17,7 @@ public class Database {
     /**
      * Private Constructor so it cannot be instantiated
      */
-    private Database() {
-
-    }
+    private Database() {}
 
     public static void fromJSON(String json) {
         HashMap<String, String> userLists = DataLoader.dictFromBrace(json);
@@ -290,8 +288,8 @@ public class Database {
      * @param id the id of the specified user
      * @return the user with the specified id
      */
-    public static User getUserByID(String id) {
-        return new Admin("", "", "", "");
+    public static User getUserByID(UUID id) {
+        return null;
     }
 
     private static boolean isCorrectPassword(User user, String password) {

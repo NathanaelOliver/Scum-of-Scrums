@@ -217,7 +217,42 @@
                         "Linux",
                         "CSS"
                     ],
-                    "applicants": []
+                    "applicants": [
+                        {
+                            "firstName": "Bill",
+                            "lastName": "Hobbs",
+                            "gpa": 3.9,
+                            "phoneNumber": "4204206969",
+                            "email": "williamhobbs@email.sc.edu",
+                            "skills": [],
+                            "workExperiences": [
+                                {
+                                    "id": "1c9d3f89-e1b7-4a73-8486-b4ad34c9ae14",
+                                    "title": "NERSC Lab Intern",
+                                    "details": [
+                                        "Serve as a Lab Intern at NERSC",
+                                        "Work with rather large computers"
+                                    ],
+                                    "startDate": "05/01/2021",
+                                    "endDate": "08/20/2021",
+                                    "references": [
+                                        {
+                                            "firstName": "Jeff",
+                                            "lastName": "Koons",
+                                            "phoneNumber": "7843098073",
+                                            "email": "jkoons@gmail.com"
+                                        },
+                                        {
+                                            "firstName": "Kara",
+                                            "lastName": "Walker",
+                                            "phoneNumber": "6723333333",
+                                            "email": "kwalker@gmail.com"
+                                        }
+                                    ]
+                                }
+                           ]
+                        } 
+                    ]
                 }
             ]
         }
