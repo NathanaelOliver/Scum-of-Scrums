@@ -100,6 +100,10 @@ public class Reference implements JSONable {
         this.email = email;
     }
 
+    public String toString() {
+        return firstName + " " + lastName + "\n" + email + "\n" + phoneNumber;
+    }
+
     /**
      * Converts a Reference to a JSON object
      * 
