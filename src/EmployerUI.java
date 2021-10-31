@@ -136,7 +136,8 @@ public class EmployerUI extends InternshipUI {
             }
             input = readInt("Which applicant would you like to view?", 1, 
                 listing.getApplicants().size());
-            System.out.println(listing.getApplicants().get(input - 1).toString());
+            Resume resume = Database.getResumeByID(listing.getApplicants().get(input - 1));
+            System.out.println(resume.toString());
             choosing = readBoolean("Would you like to view another applicant?");
             flush();
         } while(choosing);

@@ -179,7 +179,7 @@ public abstract class InternshipUI {
      * @return boolean response
      */
     protected boolean readBoolean(String message) {
-        flush();
+        // flush();
         boolean reading;
         do {
             reading = false;
