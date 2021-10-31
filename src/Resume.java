@@ -336,15 +336,15 @@ public class Resume implements JSONable {
             skills.add(Skills.valueOf(e));
         }
         ArrayList<WorkExperience> workExperiences = new ArrayList<WorkExperience>();
-        for (String e : DataLoader.dictFromBracket(dict.get("workExperience"))) {
+        for (String e : DataLoader.dictFromBracket(dict.get("workExperiences"))) {
             workExperiences.add(WorkExperience.fromJSON(e));
         }
         ArrayList<ClubExperience> clubExperiences = new ArrayList<ClubExperience>();
-        for (String e : DataLoader.dictFromBracket(dict.get("clubExperience"))) {
+        for (String e : DataLoader.dictFromBracket(dict.get("clubExperiences"))) {
             clubExperiences.add(ClubExperience.fromJSON(e));
         }
         ArrayList<CourseExperience> courseExperiences = new ArrayList<CourseExperience>();
-        for (String e : DataLoader.dictFromBracket(dict.get("courseExperience"))) {
+        for (String e : DataLoader.dictFromBracket(dict.get("courseExperiences"))) {
             courseExperiences.add(CourseExperience.fromJSON(e));
         }
         return new Resume(UUID.fromString(dict.get("id")), dict.get("firstName"), dict.get("lastName"),
