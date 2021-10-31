@@ -138,4 +138,10 @@ public abstract class Experience implements JSONable {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
+    /**
+     * Returns a string representation of an experience
+     * @return string representation
+     */
+    public abstract String toString();
 }

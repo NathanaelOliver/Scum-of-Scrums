@@ -75,4 +75,17 @@ public class ClubExperience extends Experience {
                 DataLoader.dictFromBracket(dict.get("details")), Date.fromString(dict.get("startDate")),
                 Date.fromString(dict.get("endDate")), dict.get("role"));
     }
+
+    /**
+     * String representation of a club experience
+     * @return string representation
+     */
+    public String toString() {
+        String str = "";
+        str += title + "\n" + startDate + " - " + endDate + "\n" + role;
+        for (String detail: details) {
+            str += "\n *  " + detail;
+        }
+        return str;
+    }
 }
