@@ -83,6 +83,19 @@ public class WorkExperience extends Experience {
         return references;
     }
 
+    public String toString() {
+        String str = "";
+        str += title + "\n" + startDate + " - " + endDate;
+        for (String detail : details)
+            str += "\n * " + detail;
+
+        str += "\nReferences:";
+        for (Reference ref : references)
+            str += "\n" + ref;
+        
+        return str;
+    }
+
     /**
      * Converts a Work Experience to a JSON object
      * 
@@ -111,3 +124,4 @@ public class WorkExperience extends Experience {
     }
 
 }
+

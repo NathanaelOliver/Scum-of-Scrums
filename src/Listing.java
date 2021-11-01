@@ -17,7 +17,7 @@ public class Listing implements JSONable {
     private Date startDate, endDate;
     private String siteLink, title, location;
     private ArrayList<Skills> skills;
-    private ArrayList<Resume> applicants;
+    private ArrayList<UUID> applicants;
 
     /**
      * Creates an empty Listing with only an id
@@ -26,9 +26,10 @@ public class Listing implements JSONable {
      * @param employerName the name of the employer offering the job
      */
     public Listing(String title, UUID employerId) {
+        this.title = title;
         this.ID = UUID.randomUUID();
         this.EMPLOYER_ID = employerId;
-        this.applicants = new ArrayList<Resume>();
+        this.applicants = new ArrayList<UUID>();
     }
 
     /**
@@ -47,13 +48,13 @@ public class Listing implements JSONable {
         this.title = listing.getTitle();
         this.location = listing.getLocation();
         this.skills = listing.getSkills();
-        this.applicants = null;
+        this.applicants = listing.getApplicants();
     }
 
     /**
      * Creates a listing with all propeerties
      * 
-     * @parma title the title of the job listing
+     * @param title the title of the job listing
      * @param payRate      the pay rate of the job listing
      * @param location     the location of the job
      * @param description  a description of the job
@@ -75,14 +76,14 @@ public class Listing implements JSONable {
         this.siteLink = siteLink;
         this.skills = skills;
         this.EMPLOYER_ID = employerId;
-        this.applicants = new ArrayList<Resume>();
+        this.applicants = new ArrayList<UUID>();
     }
 
     /**
      * Creates a listing with all propeerties
      * 
      * @param id the id of the job listing
-     * @parma title the title of the job listing
+     * @par title the title of the job listing
      * @param payRate      the pay rate of the job listing
      * @param location     the location of the job
      * @param description  a description of the job
@@ -105,7 +106,7 @@ public class Listing implements JSONable {
         this.title = title;
         this.skills = skills;
         this.EMPLOYER_ID = employerId;
-        this.applicants = new ArrayList<Resume>();
+        this.applicants = new ArrayList<UUID>();
     }
 
     /**
@@ -122,7 +123,7 @@ public class Listing implements JSONable {
                 + "\",\"title\":\"" + title + "\",\"description\":" + DataWriter.stringsToJSON(description)
                 + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\"" + endDate.toString()
                 + "\",\"siteLink\":\"" + siteLink + "\",\"skills\":" + DataWriter.skillsToJSON(skills)
-                + "\",\"applicants\":" + DataWriter.toJSON(applicants) + "}";
+                + "\",\"applicants\":" + DataWriter.idsToJSON(applicants) + "}";
     }
 
     /**
@@ -143,7 +144,7 @@ public class Listing implements JSONable {
                 Date.fromString(dict.get("endDate")), dict.get("siteLink"), skills,
                 UUID.fromString(dict.get("employerId")));
         for (String e : DataLoader.dictFromBracket(dict.get("applicants"))) {
-            listing.apply(Resume.fromJSON(e));
+            listing.apply(UUID.fromString(e));
         }
         return listing;
     }
@@ -306,17 +307,25 @@ public class Listing implements JSONable {
      * 
      * @return the students who have applied for the job
      */
-    public ArrayList<Resume> getApplicants() {
+    public ArrayList<UUID> getApplicants() {
         return this.applicants;
     }
 
     /**
      * Adds a resume id to the list of applicants
      * 
-     * @param student the student to be added to the list of applicants
+     * @param resume the student resume to be added to the list of applicants
      */
     public void apply(Resume resume) {
-        this.applicants.add(resume);
+        this.applicants.add(resume.ID);
+    }
+
+    /**
+     * Adds a resume id to the list of applicants
+     * @param resumeId is id of the resume to be added to the list of applicants
+     */
+    public void apply(UUID resumeId) {
+        this.applicants.add(resumeId);
     }
 
     /**
@@ -335,8 +344,8 @@ public class Listing implements JSONable {
 
         if (isEmployer && applicants.size() > 0) {
             result += "\nApplicants:";
-            for (Resume r : applicants)
-                result += "\n" + r;
+            for (UUID id : applicants)
+                result += "\n" + id;
             result += "\n";
         }
 

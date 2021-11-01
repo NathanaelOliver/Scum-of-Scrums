@@ -97,10 +97,11 @@ public class AdminUI extends InternshipUI {
             System.out.println("Your current last name is " + this.admin.getLastName());
             admin.setLastName(readWord("Please enter your last name"));
             break;
-        case 3: // TODO Do we want a y/n prompt to make sure they're sure they want to delete? -
-                // Jack
-            Database.removeAdmin(this.admin.ID);
-            this.loggedIn = false;
+        case 3: 
+            if (readBoolean("Are you sure you would like to delete your account?")) {
+                Database.removeAdmin(this.admin.ID);
+                this.loggedIn = false;
+            } else editAccount();
             break;
         default:
             flush();

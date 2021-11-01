@@ -12,6 +12,7 @@ public class StudentUI extends InternshipUI {
     public Student student;
     private final String[] FILTER_MENU;
     private String filter;
+    private boolean running;
 
     /**
      * Constructor for a student's user interface
@@ -42,20 +43,27 @@ public class StudentUI extends InternshipUI {
      * Runs the main logic of the student's user interface
      */
     public void run() {
-        flush();
-        int mainMenuOption = readMenu(this.mainMenuOptions);
-        switch (mainMenuOption) {
-        case 1:
-            searchJobs(); // "View Job Listings"
-        case 2:
-            searchApplications(); // "View Applications"
-        case 3:
-            editAccount(); // "Edit Account Information"
-        case 4:
-            editResume(); // "Edit Resume"
-        case 5:
-            logout(); // "Log Out"
-        }
+        do {
+            running = true;
+            int selection = readMenu(this.mainMenuOptions);
+            switch (selection) {
+            case 1:
+                searchJobs();
+                break; // "View Job Listings"
+            case 2:
+                searchApplications();
+                break; // "View Applications"
+            case 3:
+                editAccount();
+                break; // "Edit Account Information"
+            case 4:
+                editResume();
+                break; // "Edit Resume"
+            case 5:
+                logout();
+                break; // "Log Out"
+            }
+        } while (running);
     }
 
     /**
@@ -73,14 +81,13 @@ public class StudentUI extends InternshipUI {
             int year = readInt("Please enter your graduation year:");
 
             student = new Student(username, password, firstName, lastName, phoneNumber, email, gpa, year);
+
+            if (readBoolean("Would you like to enter a list of skills?"))
+                readStudentSkills();
+            if (readBoolean("Would you like to add a relevant experience to your profile"))
+                readExperiences();
         } else
             student = new Student(username, password, firstName, lastName, email);
-
-        if (readBoolean("Would you like to enter a list of skills?"))
-            readSkills();
-
-        if (readBoolean("Would you like to add a relevant experience to your profile?"))
-            readExperiences();
     }
 
     /**
@@ -96,12 +103,15 @@ public class StudentUI extends InternshipUI {
      */
     private void searchApplications() {
         ArrayList<Listing> listings = getListingsFromApps();
+        if (listings == null || listings.isEmpty()) {
+            System.out.println("You have not applied to any jobs.");
+            return;
+        }
+
         int input = readListingMenu(listings, new String[] { "Exit to Main Menu" });
 
         if (input - 1 < this.student.getApplications().size())
             viewApplication(this.student.getApplications().get(input - 1));
-        else
-            run();
     }
 
     /**
@@ -120,6 +130,11 @@ public class StudentUI extends InternshipUI {
      *                 listings lists
      */
     private void searchJobs(ArrayList<Listing> listings) {
+        if (listings == null || listings.isEmpty()) {
+            System.out.println("There are no available job listings at this time.");
+            return;
+        }
+
         int input = readListingMenu(listings, new String[] { "Edit Filters", "Clear Filters", "Exit to Main Menu" });
 
         if (input - 1 < listings.size())
@@ -128,8 +143,6 @@ public class StudentUI extends InternshipUI {
             searchJobs(filterListings(listings));
         else if (input - 1 == listings.size() + 1)
             searchJobs();
-        else
-            run();
     }
 
     /**
@@ -140,6 +153,10 @@ public class StudentUI extends InternshipUI {
      */
     private ArrayList<Listing> getListingsFromApps() {
         ArrayList<Listing> list = new ArrayList<>();
+        ArrayList<Application> apps = this.student.getApplications();
+        if (apps == null || apps.isEmpty()) {
+            return null;
+        }
         for (Application app : this.student.getApplications())
             list.add(app.LISTING);
         return list;
@@ -157,6 +174,7 @@ public class StudentUI extends InternshipUI {
      */
     private int readListingMenu(ArrayList<Listing> listings, String[] additionalOptions) {
         flush();
+
         String[] listingStrings = new String[listings.size() + additionalOptions.length];
         for (int i = 0; i < listingStrings.length; i++)
             listingStrings[i] = Database.getEmployerByID(listings.get(i).EMPLOYER_ID).getTitle() + " - "
@@ -182,14 +200,19 @@ public class StudentUI extends InternshipUI {
         switch (input) {
         case 1: // "Pay Rate"
             this.filter += "minpay:" + readInt("Enter a minimum hourly pay rate:") + ";";
+            break;
         case 2: // "Location"
             this.filter += "location:" + readLocation() + ";";
+            break;
         case 3: // "Start Date"
             this.filter += "startdate:" + readDate("Enter the first day you are able to work:").toString() + ";";
+            break;
         case 4: // "End Date"
             this.filter += "enddate:" + readDate("Enter the final day you are able to work:").toString() + ";";
+            break;
         case 5: // "Skills"
             this.filter += "skills:" + readSkillsFilter() + ";";
+            break;
         case 6: // "Complete Filter"
             return Database.filterListings(listings, this.filter);
         case 7: // "Clear Filter"
@@ -243,7 +266,6 @@ public class StudentUI extends InternshipUI {
         }
 
         System.out.println("Returning to applications...");
-        searchApplications();
     }
 
     /**
@@ -259,24 +281,33 @@ public class StudentUI extends InternshipUI {
      * editAccount Student can edit their account information
      */
     private void editAccount() {
-        student.setUsername(readUsername());
-        student.setPassword(readPassword());
-        student.setPhoneNumber(readWord("Please enter your phone number:"));
-        student.setEmail(readWord("Please enter your email:"));
-        student.setYear(readInt("Please enter your graduation year:"));
+        if (readBoolean("Would you like to change your username?"))
+            student.setUsername(readUsername());
+        if (readBoolean("Would you like to change your password?"))
+            student.setPassword(readPassword());
+        if (readBoolean("Would you like to change your phone number?"))
+            student.setPhoneNumber(readWord("Please enter your phone number:"));
+        if (readBoolean("Would you like to change your email?"))
+            student.setEmail(readWord("Please enter your email:"));
+        if (readBoolean("Would you like to change your graduation year?"))
+            student.setYear(readInt("Please enter your graduation year:"));
     }
 
     /**
      * editResume Student can edit their main resume
      */
     private void editResume() {
-        student.setFirstName(readWord("Please enter your first name:"));
-        student.setLastName(readWord("Please enter your last name:"));
-        student.setGPA(readDouble("Please enter your GPA:"));
+        if (readBoolean("Would you like to change your GPA?"))
+            student.setGPA(readDouble("Please enter your GPA:"));
         if (readBoolean("Would you like to add skills?"))
-            readSkills();
+            readStudentSkills();
         if (readBoolean("Would you like to add experiences?"))
             readExperiences();
+    }
+
+    private void readStudentSkills() {
+        ArrayList<Skills> skills = this.student.getResume().getSkills();
+        this.student.getResume().setSkills(readSkills(skills));
     }
 
     /**
@@ -284,19 +315,28 @@ public class StudentUI extends InternshipUI {
      */
     private void readExperiences() {
         boolean reading;
+        String[] experienceMenu = new String[] { "Work Experience", "Course Experience", "Club Experience", "Cancel" };
         do {
+            System.out.println("Which type of experience would you like to add?");
+
             reading = false;
-            mainMenuOptions = new String[] { "Work Experience", "Course Experience", "Club Experience" };
-            int input = readMenu(mainMenuOptions);
+            int input = readMenu(experienceMenu);
 
             switch (input) {
             case 1:
-                readWorkExperience(); // "Work Experience"
+                readWorkExperience();
+                break; // "Work Experience"
             case 2:
-                readCourseExperience(); // "Course Experience"
+                readCourseExperience();
+                break; // "Course Experience"
             case 3:
-                readClubExperience(); // "Club Experience"
+                readClubExperience();
+                break; // "Club Experience"
+            case 4:
+                return; // "Cancel"
             }
+
+            reading = readBoolean("Would you like to enter another experience?");
 
         } while (reading);
     }
@@ -307,7 +347,7 @@ public class StudentUI extends InternshipUI {
     private void readWorkExperience() {
         String title = readString("Please enter the name of your employer:");
         WorkExperience exp = new WorkExperience(title);
-        readExperience(exp);
+        readExperienceDates(exp);
         if (readBoolean("Would you like to add references?")) {
             flush();
             readReferences(exp);
@@ -321,7 +361,7 @@ public class StudentUI extends InternshipUI {
     private void readCourseExperience() {
         String title = readString("Please enter the title of the course taken:");
         CourseExperience exp = new CourseExperience(title);
-        readExperience(exp);
+        readExperienceDates(exp);
         if (readBoolean("Would you like to add your grade in the class?")) {
             flush();
             exp.setGrade(readDouble("Please enter the grade you received in this class in decimal form:"));
@@ -335,7 +375,7 @@ public class StudentUI extends InternshipUI {
     private void readClubExperience() {
         String title = readString("Please enter the title of the club:");
         ClubExperience exp = new ClubExperience(title);
-        readExperience(exp);
+        readExperienceDates(exp);
         if (readBoolean("Would you like to add your role in the club?")) {
             flush();
             exp.setRole(readString("Please enter your role in this club"));
@@ -349,32 +389,16 @@ public class StudentUI extends InternshipUI {
      * 
      * @param exp experience to be added to
      */
-    private void readExperience(Experience exp) {
-        if (readBoolean("Would you like to enter timing information related to your experience?")) {
+    private void readExperienceDates(Experience exp) {
+        if (readBoolean("Would you like to enter when this experience occurred?")) {
             Date startDate = readDate("Please enter the date you started this experience");
             Date endDate = readDate("Please enter the date you ended this job");
             exp.setStartDate(startDate);
             exp.setEndDate(endDate);
         }
         if (readBoolean("Would you like to add details about your experience?"))
-            readDetails(exp);
-    }
-
-    /**
-     * Processes the user inputting the details of his experience
-     * 
-     * @param exp experience to be modified
-     */
-    private void readDetails(Experience exp) {
-        boolean reading;
-        do {
-            reading = false;
-
-            String detail = scanner.nextLine();
-            exp.addDetail(detail);
-
-            reading = readBoolean("Would you like to add another detail?");
-        } while (reading);
+            exp.setDetails(readStringArrayList("Enter a detail about your experience",
+                    "Would you like to add another detail abuot your experience?"));
     }
 
     /**
@@ -407,28 +431,13 @@ public class StudentUI extends InternshipUI {
     }
 
     /**
-     * Processes new skills being added by the user until the user is done
-     */
-    private void readSkills() {
-        boolean reading;
-        do {
-            reading = false;
-
-            Skills newSkill = readSkillMenu();
-            this.student.addSkill(newSkill);
-
-            reading = readBoolean("Would you like to enter another skill?");
-        } while (reading);
-    }
-
-    /**
      * Processes new skills to be added to a filter to filter through job listings
      * 
      * @return a string representation of a list of skills to filter by
      */
     private String readSkillsFilter() {
         boolean reading;
-        String str = "{";
+        String str = "";
         do {
             reading = false;
 
@@ -438,6 +447,6 @@ public class StudentUI extends InternshipUI {
             reading = readBoolean("Would you like to enter another skill?");
         } while (reading);
 
-        return str.substring(0, str.length() - 1) + "}";
+        return str.substring(0, str.length() - 1);
     }
 }

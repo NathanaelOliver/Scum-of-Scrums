@@ -13,6 +13,15 @@ import java.util.UUID;
 public class CourseExperience extends Experience {
     private double grade;
 
+    /**
+     * Constructor for course experience
+     * @param id the uuid of the course experience
+     * @param title the title of the course experience
+     * @param details the array list of details 
+     * @param startDate the start date of the course experience
+     * @param endDate the end date of the course experience
+     * @param grade the grade in the course
+     */
     public CourseExperience(UUID id, String title, ArrayList<String> details, Date startDate, Date endDate,
             double grade) {
         super(id, title, details, startDate, endDate);
@@ -28,6 +37,10 @@ public class CourseExperience extends Experience {
         super(title);
     }
 
+    /**
+     * sets grade
+     * @param grade is the grade in the course as a double
+     */
     public void setGrade(Double grade) {
         this.grade = grade;
     }
@@ -42,6 +55,18 @@ public class CourseExperience extends Experience {
     }
 
     /**
+     * @return the string representation of the Course Experience
+     */
+    public String toString() {
+        String ret = this.title + "\n" + this.startDate + " - " + this.endDate + "\n" + 
+            "Grade: " + this.grade;
+        for (int i = 0; i < this.details.size(); i++) {
+            ret += "\n * " + this.details.get(i);
+        }
+        return ret;
+    }
+
+    /**
      * Converts a Course Experience to a JSON object
      * 
      * @return Course Experience as a JSON object
@@ -52,6 +77,11 @@ public class CourseExperience extends Experience {
                 + endDate.toString() + "\",\"grade\":" + grade + "}";
     }
 
+    /**
+     * Creates a course experience from JSON
+     * @param json is JSON representation of course experience
+     * @return new course experience
+     */
     public static CourseExperience fromJSON(String json) {
         HashMap<String, String> dict = DataLoader.dictFromBrace(json);
         return new CourseExperience(UUID.fromString(dict.get("id")), dict.get("title"),

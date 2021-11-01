@@ -7,21 +7,22 @@ import java.util.UUID;
 /**
  * Employer Class The profile for the Employer
  * 
- * @author Nathanael Oliver
+ * @author Nathanael Oliver, William Hobbs
  */
 public class Employer extends User {
     private String title;
     private ArrayList<String> description;
     private ArrayList<Listing> listings;
     private ArrayList<Rating> ratings;
-
+    
     /**
-     * Creates an employer
-     * 
-     * @param title the company title
+     * Employer Constructor
+     * @param username employer's username
+     * @param password employer's password
+     * @param title employer's title
      */
-    public Employer(String title) {
-        super();
+    public Employer(String username, String password, String title) {
+        super(username, password, UserType.employer);
         this.title = title;
         this.description = new ArrayList<String>();
         this.listings = new ArrayList<Listing>();
@@ -29,10 +30,14 @@ public class Employer extends User {
     }
 
     /**
-     * Creates an employer
-     * 
-     * @param id    the id for the employer
-     * @param title the company title
+     * Employer Constructor
+     * @param id employer's user id
+     * @param isVerified boolean for if employer is verified
+     * @param username employer's username
+     * @param password employer's password
+     * @param title employer's title
+     * @param description employer's description
+     * @param listings employer's list of listings
      */
     public Employer(UUID id, boolean isVerified, String username, String password, String title,
             ArrayList<String> description, ArrayList<Listing> listings) {
@@ -73,6 +78,10 @@ public class Employer extends User {
             }
         }
         return null;
+    }
+
+    public void setListings(ArrayList<Listing> listings) {
+        this.listings = listings;
     }
 
     /**
@@ -164,7 +173,13 @@ public class Employer extends User {
      * @return JSON representation of an Employer
      */
     public String toJSON() {
-        return null;
+        // TODO - run this through a json validator, think it may be missing a comma
+        String ret = "{\"title\":\"" + this.title + "\",";
+        ret += DataWriter.stringsToJSON(this.description);
+        ret += ",";
+        // TODO - this whole thing is broken due to changes in the architecture of Employer
+        ret += ",";
+        return ret;
     }
 
     /**
