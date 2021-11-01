@@ -144,7 +144,7 @@ public class Listing implements JSONable {
                 Date.fromString(dict.get("endDate")), dict.get("siteLink"), skills,
                 UUID.fromString(dict.get("employerId")));
         for (String e : DataLoader.dictFromBracket(dict.get("applicants"))) {
-            listing.apply(Resume.fromJSON(e));
+            listing.apply(UUID.fromString(e));
         }
         return listing;
     }

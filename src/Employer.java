@@ -7,14 +7,14 @@ import java.util.UUID;
 /**
  * Employer Class The profile for the Employer
  * 
- * @author Nathanael Oliver
+ * @author Nathanael Oliver, William Hobbs
  */
 public class Employer extends User {
     private String title;
     private ArrayList<String> description;
     private ArrayList<Listing> listings;
     private ArrayList<Rating> ratings;
-
+    
     /**
      * Employer Constructor
      * @param username employer's username
@@ -78,6 +78,10 @@ public class Employer extends User {
             }
         }
         return null;
+    }
+
+    public void setListings(ArrayList<Listing> listings) {
+        this.listings = listings;
     }
 
     /**
@@ -169,7 +173,13 @@ public class Employer extends User {
      * @return JSON representation of an Employer
      */
     public String toJSON() {
-        return null;
+        // TODO - run this through a json validator, think it may be missing a comma
+        String ret = "{\"title\":\"" + this.title + "\",";
+        ret += DataWriter.stringsToJSON(this.description);
+        ret += ",";
+        // TODO - this whole thing is broken due to changes in the architecture of Employer
+        ret += ",";
+        return ret;
     }
 
     /**

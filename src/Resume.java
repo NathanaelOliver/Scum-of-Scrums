@@ -283,6 +283,44 @@ public class Resume implements JSONable {
     }
 
     /**
+     * to String returns the resume in the form of a string
+     * 
+     * @return the String representation of a student's resume
+     */
+    public String toString() {
+        String ret = this.getName() + "\n";
+        ret += "Phone Number: " + this.getPhoneNumber() + "\n";
+        ret += "Email: " + this.getEmail() + "\n";
+        ret += "GPA: " + this.getGPA() + "\n";
+        ret += "Year: " + this.getYear() + "\n";
+        if (this.skills.size() > 0) {
+            ret += "Skills: ";
+            for (int i = 0; i < (this.skills.size()); i++) {
+                ret += this.skills.get(i).toString() + ", ";
+            }
+        }
+        if (this.workExperiences.size() > 0) {
+            ret += "\n\nWork Experiences\n";
+            for (int i = 0; i < (this.workExperiences.size()); i++) {
+                ret += this.workExperiences.get(i).toString() + "\n";
+            }
+        }
+        if (this.clubExperiences.size() > 0) {
+            ret += "\nClub Experiences\n";
+            for (int i = 0; i < (this.clubExperiences.size()); i++) {
+                ret += this.clubExperiences.get(i).toString() + "\n";
+            }
+        }
+        if (this.courseExperiences.size() > 0) {
+            ret += "\nCourse Experiences\n";
+            for (int i = 0; i < (this.courseExperiences.size()); i++) {
+                ret += this.courseExperiences.get(i).toString() + "\n";
+            }
+        }
+        return ret;
+    }
+
+    /**
      * Creates a JSON representation of the Resume
      * 
      * @return the JSON representation of the Resume
@@ -316,9 +354,10 @@ public class Resume implements JSONable {
             clubExperiences.add(ClubExperience.fromJSON(e));
         }
         ArrayList<CourseExperience> courseExperiences = new ArrayList<CourseExperience>();
-        for (String e : DataLoader.dictFromBracket(dict.get("courseExperiences"))) {
-            courseExperiences.add(CourseExperience.fromJSON(e));
-        }
+        //for (String e : DataLoader.dictFromBracket(dict.get("courseExperiences"))) {
+        //    courseExperiences.add(CourseExperience.fromJSON(e));
+        //}
+
         return new Resume(UUID.fromString(dict.get("id")), dict.get("firstName"), dict.get("lastName"),
                 dict.get("gpa") == null ? 0 : Double.parseDouble(dict.get("gpa")), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")), dict.get("phoneNumber"), dict.get("email"), skills,
                 workExperiences, courseExperiences, clubExperiences);

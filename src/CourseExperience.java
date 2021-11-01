@@ -55,6 +55,18 @@ public class CourseExperience extends Experience {
     }
 
     /**
+     * @return the string representation of the Course Experience
+     */
+    public String toString() {
+        String ret = this.title + "\n" + this.startDate + " - " + this.endDate + "\n" + 
+            "Grade: " + this.grade;
+        for (int i = 0; i < this.details.size(); i++) {
+            ret += "\n * " + this.details.get(i);
+        }
+        return ret;
+    }
+
+    /**
      * Converts a Course Experience to a JSON object
      * 
      * @return Course Experience as a JSON object

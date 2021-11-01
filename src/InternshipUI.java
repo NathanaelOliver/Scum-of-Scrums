@@ -131,7 +131,7 @@ public abstract class InternshipUI {
      * @return int response
      */
     protected int readInt(String message) {
-        flush();
+        // flush();
         System.out.println(message);
         return Integer.parseInt(scanner.nextLine());
     }
@@ -145,7 +145,7 @@ public abstract class InternshipUI {
      * @return int response in range
      */
     protected int readInt(String message, int lower, int upper) {
-        flush();
+        //flush();
         boolean reading;
         int result;
         do {
@@ -179,7 +179,7 @@ public abstract class InternshipUI {
      * @return boolean response
      */
     protected boolean readBoolean(String message) {
-        flush();
+        // flush();
         boolean reading;
         do {
             reading = false;
