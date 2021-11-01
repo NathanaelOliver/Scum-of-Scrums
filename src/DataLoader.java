@@ -125,7 +125,8 @@ public class DataLoader {
         if (json == null || json.length() <= 2) {
             return dict;
         }
-        json = json.substring(1, json.length() - 1).trim();
+
+        json = json.trim().substring(1, json.trim().length() - 1).trim();
         switch (json.charAt(0)) {
         case '"':
             for (String e : json.split(",")) {
@@ -137,7 +138,14 @@ public class DataLoader {
             int count = 0, i = 0;
             boolean flag = true;
             do {
+                while (!(json.charAt(i) == '"' || json.charAt(i) == '{')) {
+                    i++;
+                    if (i == json.length()) {
+                        return dict;
+                    }
+                }
                 do {
+
                     switch (json.charAt(i)) {
                     case '"':
                         flag = !flag;

@@ -50,15 +50,15 @@ public class Student extends User {
 
     /**
      * Student Constructor
-     * @param id student user id
+     * 
+     * @param id         student user id
      * @param isVerified boolean if user if verified
-     * @param username student's username
-     * @param password student's password
-     * @param year student's grade level
-     * @param resume student's resume
+     * @param username   student's username
+     * @param password   student's password
+     * @param year       student's grade level
+     * @param resume     student's resume
      */
-    public Student(UUID id, boolean isVerified, String username, String password,
-                   int year, Resume resume) {
+    public Student(UUID id, boolean isVerified, String username, String password, int year, Resume resume) {
         super(id, UserType.student, isVerified, username, password);
         this.applications = new ArrayList<>();
         this.resume = resume;
@@ -72,8 +72,8 @@ public class Student extends User {
      */
     public String toJSON() {
         return "{\"id\":\"" + ID.toString() + "\",\"username\":\"" + username + "\",\"password\":\"" + password
-                + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified
-                + ",\"resume\":" + resume.toJSON() + "}";
+                + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified + ",\"resume\":"
+                + resume.toJSON() + "}";
     }
 
     /**
@@ -84,22 +84,9 @@ public class Student extends User {
      */
     public static Student fromJSON(String json) {
         HashMap<String, String> dict = DataLoader.dictFromBrace(json);
-        ArrayList<Skills> skills = new ArrayList<Skills>();
-        for (String e : DataLoader.dictFromBracket(dict.get("skills"))) {
-            skills.add(Skills.valueOf(e));
-        }
-        ArrayList<Experience> experiences = new ArrayList<Experience>();
-        for (String e : DataLoader.dictFromBracket(dict.get("experience"))) {
-            if (e.contains("\"references\"")) {
-                experiences.add(WorkExperience.fromJSON(e));
-            } else if (e.contains("\"grade\"")) {
-                experiences.add(CourseExperience.fromJSON(e));
-            } else {
-                experiences.add(ClubExperience.fromJSON(e));
-            }
-        }
         return new Student(UUID.fromString(dict.get("id")), dict.get("isVerified").equals("true"), dict.get("username"),
-                dict.get("password"), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")), Resume.fromJSON(dict.get("resume")));
+                dict.get("password"), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")),
+                Resume.fromJSON(dict.get("resume")));
     }
 
     /**
