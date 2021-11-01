@@ -415,4 +415,12 @@ public class Database {
         }
         return null;
     }
+
+    public static Listing getListingByID(UUID id) {
+        for (Employer employer: employers) {
+            for (Listing listing: employer.getListings())
+                if (listing.ID.equals(id)) return listing;
+        }
+        return null;
+    }
 }

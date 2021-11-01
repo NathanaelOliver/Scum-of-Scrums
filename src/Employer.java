@@ -13,7 +13,6 @@ public class Employer extends User {
     private String title;
     private ArrayList<String> description;
     private ArrayList<Listing> listings;
-    private ArrayList<Rating> ratings;
 
     /**
      * Employer Constructor
@@ -27,7 +26,6 @@ public class Employer extends User {
         this.title = title;
         this.description = new ArrayList<String>();
         this.listings = new ArrayList<Listing>();
-        this.ratings = new ArrayList<Rating>();
     }
 
     /**
@@ -132,35 +130,6 @@ public class Employer extends User {
     }
 
     /**
-     * Adds a rating to the employer's list of ratings
-     * 
-     * @param rating the rating being added to this employer
-     */
-    public void addRating(Rating rating) {
-        this.ratings.add(rating);
-    }
-
-    /**
-     * Adds a rating to the employer's list of ratings
-     * 
-     * @param score   the score (out of 5) the rating received
-     * @param comment a note from the student about this employer
-     * @param student the student reviewing this employer
-     */
-    public void addRating(int score, String comment, Student student) {
-        this.ratings.add(new Rating(comment, score, student.ID, this.ID));
-    }
-
-    /**
-     * Gets all of this employer's ratings
-     * 
-     * @return this employer's ratings
-     */
-    public ArrayList<Rating> getRatings() {
-        return this.ratings;
-    }
-
-    /**
      * Deletes a listing
      * 
      * @param listing the listing to get deleted
@@ -175,7 +144,10 @@ public class Employer extends User {
      * @return JSON representation of an Employer
      */
     public String toJSON() {
-        return "";
+        return "{\"id\":\"" + ID.toString() + "\",\"username\":\"" + username + "\",\"password\":\"" + password
+                + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified
+                + ",\"title\":\"" + title + "\",\"description\":" + DataWriter.stringsToJSON(description)
+                + ",\"listings\":" + DataWriter.toJSON(listings) + "}";
     }
 
     /**
@@ -196,11 +168,14 @@ public class Employer extends User {
     }
 
     /**
-     * Represents an employer as a string
-     * 
-     * @return a string representation of the employer
+     * return a string representation
+     * @return string representation
      */
     public String toString() {
-        return "Employer toString result";
+        String ret = "Title: " + title;
+        for (String detail: description) {
+            ret += "\n * " + detail;
+        }
+        return ret;
     }
 }
