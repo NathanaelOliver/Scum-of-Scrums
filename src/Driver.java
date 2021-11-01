@@ -82,14 +82,15 @@ public class Driver {
             else if (input.equalsIgnoreCase("n")) {
                 signup();
                 newUser = true;
-            }
-            else loggingIn = true;
+            } else
+                loggingIn = true;
 
         } while (loggingIn);
-        
+
         if (newUser || userInterface == null)
-            System.out.println("Your account must now be verified before it is activated. Thank you for signing up to our service!");
-        else    
+            System.out.println(
+                    "Your account must now be verified before it is activated. Thank you for signing up to our service!");
+        else
             userInterface.run();
     }
 

@@ -1,5 +1,8 @@
 package src;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -21,8 +24,9 @@ public class Resume implements JSONable {
 
     /**
      * Resume Constructor
+     * 
      * @param firstName first name of resume owner
-     * @param lastName last name of resume owner
+     * @param lastName  last name of resume owner
      */
     public Resume(String firstName, String lastName, String email) {
         this.ID = UUID.randomUUID();
@@ -36,15 +40,16 @@ public class Resume implements JSONable {
 
     /**
      * Full Constructor for Resume
-     * @param firstName first name of resume owner
-     * @param lastName last name of resume owner
-     * @param gpa double gpa
-     * @param phoneNumber phoneNumber of resume owner
-     * @param email email of resume owner
-     * @param skills list of skills
-     * @param workExperiences list of work experiences
+     * 
+     * @param firstName         first name of resume owner
+     * @param lastName          last name of resume owner
+     * @param gpa               double gpa
+     * @param phoneNumber       phoneNumber of resume owner
+     * @param email             email of resume owner
+     * @param skills            list of skills
+     * @param workExperiences   list of work experiences
      * @param courseExperiences list of course experiences
-     * @param clubExperiences list of club experiences
+     * @param clubExperiences   list of club experiences
      */
     public Resume(UUID id, String firstName, String lastName, double gpa, int year, String phoneNumber, String email,
             ArrayList<Skills> skills, ArrayList<WorkExperience> workExperiences,
@@ -64,6 +69,7 @@ public class Resume implements JSONable {
 
     /**
      * Set first name
+     * 
      * @param firstName new first name
      */
     public void setFirstName(String firstName) {
@@ -72,6 +78,7 @@ public class Resume implements JSONable {
 
     /**
      * Get first name
+     * 
      * @return first name
      */
     public String getFirstName() {
@@ -80,6 +87,7 @@ public class Resume implements JSONable {
 
     /**
      * set last name
+     * 
      * @param lastName new last name
      */
     public void setLastName(String lastName) {
@@ -88,6 +96,7 @@ public class Resume implements JSONable {
 
     /**
      * get last name
+     * 
      * @return last name
      */
     public String getLastName() {
@@ -96,6 +105,7 @@ public class Resume implements JSONable {
 
     /**
      * get name
+     * 
      * @return string representation of full name
      */
     public String getName() {
@@ -104,6 +114,7 @@ public class Resume implements JSONable {
 
     /**
      * set gpa
+     * 
      * @param gpa new double gpa
      */
     public void setGPA(double gpa) {
@@ -112,6 +123,7 @@ public class Resume implements JSONable {
 
     /**
      * get gpa
+     * 
      * @return gpa as double
      */
     public double getGPA() {
@@ -120,6 +132,7 @@ public class Resume implements JSONable {
 
     /**
      * get phone number
+     * 
      * @return phone number as a string
      */
     public String getPhoneNumber() {
@@ -128,6 +141,7 @@ public class Resume implements JSONable {
 
     /**
      * set phone number
+     * 
      * @param phoneNumber new string phone number
      */
     public void setPhoneNumber(String phoneNumber) {
@@ -136,6 +150,7 @@ public class Resume implements JSONable {
 
     /**
      * get email
+     * 
      * @return email as a string
      */
     public String getEmail() {
@@ -144,6 +159,7 @@ public class Resume implements JSONable {
 
     /**
      * set email
+     * 
      * @param email new string email
      */
     public void setEmail(String email) {
@@ -152,6 +168,7 @@ public class Resume implements JSONable {
 
     /**
      * get year
+     * 
      * @return year as an int
      */
     public int getYear() {
@@ -160,6 +177,7 @@ public class Resume implements JSONable {
 
     /**
      * set year
+     * 
      * @param year new int year
      */
     public void setYear(int year) {
@@ -168,6 +186,7 @@ public class Resume implements JSONable {
 
     /**
      * get list of skills
+     * 
      * @return list of skills
      */
     public ArrayList<Skills> getSkills() {
@@ -283,6 +302,25 @@ public class Resume implements JSONable {
     }
 
     /**
+     * downloads a copy of the student's resume into their downloads folder
+     */
+    public void downloadResume() {
+        String home = System.getProperty("user.home");
+        try {
+            File file = new File(home + "/Downloads/resume.txt");
+            file.createNewFile();
+            System.out.println("File created.");
+            FileWriter writer = new FileWriter(home + "/Downloads/resume.txt");
+            String resume = this.toString();
+            writer.write(resume);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * to String returns the resume in the form of a string
      * 
      * @return the String representation of a student's resume
@@ -328,11 +366,11 @@ public class Resume implements JSONable {
      * @return the JSON representation of the Resume
      */
     public String toJSON() {
-        return "{\"firstName\":" + firstName + "\",\"lastName\":" + lastName + "\",\"gpa\":" + gpa + ",\"phoneNumber\":\""
-                + phoneNumber + "\",\"email\":\"" + email + "\",\"skills\":" + DataWriter.skillsToJSON(skills)
-                + ",\"workExperiences\":" + DataWriter.toJSON(workExperiences) + ",\"courseExperiences\":"
-                + DataWriter.toJSON(courseExperiences) + ",\"clubExperiences\":" + DataWriter.toJSON(clubExperiences)
-                + "}";
+        return "{\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"gpa\":" + gpa
+                + ",\"phoneNumber\":\"" + phoneNumber + "\",\"email\":\"" + email + "\",\"skills\":"
+                + DataWriter.skillsToJSON(skills) + ",\"workExperiences\":" + DataWriter.toJSON(workExperiences)
+                + ",\"courseExperiences\":" + DataWriter.toJSON(courseExperiences) + ",\"clubExperiences\":"
+                + DataWriter.toJSON(clubExperiences) + "}";
     }
 
     /**
@@ -356,12 +394,13 @@ public class Resume implements JSONable {
             clubExperiences.add(ClubExperience.fromJSON(e));
         }
         ArrayList<CourseExperience> courseExperiences = new ArrayList<CourseExperience>();
-        //for (String e : DataLoader.dictFromBracket(dict.get("courseExperiences"))) {
-        //    courseExperiences.add(CourseExperience.fromJSON(e));
-        //}
+        // for (String e : DataLoader.dictFromBracket(dict.get("courseExperiences"))) {
+        // courseExperiences.add(CourseExperience.fromJSON(e));
+        // }
 
         return new Resume(UUID.fromString(dict.get("id")), dict.get("firstName"), dict.get("lastName"),
-                dict.get("gpa") == null ? 0 : Double.parseDouble(dict.get("gpa")), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")), dict.get("phoneNumber"), dict.get("email"), skills,
-                workExperiences, courseExperiences, clubExperiences);
+                dict.get("gpa") == null ? 0 : Double.parseDouble(dict.get("gpa")),
+                dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")), dict.get("phoneNumber"),
+                dict.get("email"), skills, workExperiences, courseExperiences, clubExperiences);
     }
 }
