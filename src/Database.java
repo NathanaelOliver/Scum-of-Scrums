@@ -53,9 +53,6 @@ public class Database {
             }
         }
         ArrayList<User> u = unverifiedUsers;
-        ArrayList<Employer> e = employers;
-        ArrayList<Student> s = students;
-        ArrayList<Admin> a = admins;
         System.out.println("Success?");
     }
 

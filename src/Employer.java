@@ -14,12 +14,13 @@ public class Employer extends User {
     private ArrayList<String> description;
     private ArrayList<Listing> listings;
     private ArrayList<Rating> ratings;
-    
+
     /**
      * Employer Constructor
+     * 
      * @param username employer's username
      * @param password employer's password
-     * @param title employer's title
+     * @param title    employer's title
      */
     public Employer(String username, String password, String title) {
         super(username, password, UserType.employer);
@@ -31,13 +32,14 @@ public class Employer extends User {
 
     /**
      * Employer Constructor
-     * @param id employer's user id
-     * @param isVerified boolean for if employer is verified
-     * @param username employer's username
-     * @param password employer's password
-     * @param title employer's title
+     * 
+     * @param id          employer's user id
+     * @param isVerified  boolean for if employer is verified
+     * @param username    employer's username
+     * @param password    employer's password
+     * @param title       employer's title
      * @param description employer's description
-     * @param listings employer's list of listings
+     * @param listings    employer's list of listings
      */
     public Employer(UUID id, boolean isVerified, String username, String password, String title,
             ArrayList<String> description, ArrayList<Listing> listings) {
@@ -173,13 +175,7 @@ public class Employer extends User {
      * @return JSON representation of an Employer
      */
     public String toJSON() {
-        // TODO - run this through a json validator, think it may be missing a comma
-        String ret = "{\"title\":\"" + this.title + "\",";
-        ret += DataWriter.stringsToJSON(this.description);
-        ret += ",";
-        // TODO - this whole thing is broken due to changes in the architecture of Employer
-        ret += ",";
-        return ret;
+        return "";
     }
 
     /**
