@@ -32,7 +32,6 @@ public class Database {
         for (String e : DataLoader.dictFromBracket(userLists.get("admins"))) {
             admins.add(Admin.fromJSON(e));
         }
-
         for (String e : DataLoader.dictFromBracket(userLists.get("unverifiedUsers"))) {
             switch (e.charAt(e.indexOf("\"userType\": \"") + "\"userType\": \"".length())) {
             case 'E':
@@ -49,30 +48,7 @@ public class Database {
                 break;
             }
         }
-
     }
-
-    // /**
-    // * Filters through the users
-    // *
-    // * @param userType the type of users to be filtered through
-    // * @param filter a string containing concatonated filters for the method to
-    // * execute
-    // * @return A string representation of the result of the filters
-    // */
-    // public String filterUsers(UserType userType, String filter) {
-    // //create list of filters
-    // String[] filters = filter.split(";");
-    // for (String newFilter: filters) {
-    // String[] filterDetails = newFilter.split(":");
-    // String attribute = filterDetails[0];
-    // switch (attribute) {
-    // case ""
-    // }
-    // }
-    // System.out.println(filters[0]);
-    // return filters[1];
-    // }
 
     /**
      * filters through the students who applied for a specific job

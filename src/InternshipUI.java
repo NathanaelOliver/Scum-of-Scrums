@@ -1,5 +1,6 @@
 package src;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,7 +37,11 @@ public abstract class InternshipUI {
      * Logs a user out of the system and clears data
      */
     protected void logout() {
-        // TO-DO: DataWriter.save();
+        try {
+            DataWriter.save();
+        } catch (IOException e) {
+            System.out.println(e.getStackTrace());
+        }
     }
 
     /**
@@ -140,12 +145,12 @@ public abstract class InternshipUI {
      * reads an int response to a prompt, int must be in range
      * 
      * @param message is the prompt
-     * @param lower the lower boundary of the acceptable range (inclusive)
-     * @param upper the upper boundary of the acceptable range (inclusive)
+     * @param lower   the lower boundary of the acceptable range (inclusive)
+     * @param upper   the upper boundary of the acceptable range (inclusive)
      * @return int response in range
      */
     protected int readInt(String message, int lower, int upper) {
-        //flush();
+        // flush();
         boolean reading;
         int result;
         do {

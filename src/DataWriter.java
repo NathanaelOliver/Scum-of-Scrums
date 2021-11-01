@@ -21,7 +21,7 @@ public class DataWriter {
      * @return the concatenated list as JSON objects
      */
     public static String toJSON(ArrayList<? extends JSONable> list) {
-        String str = "[";
+        String str = "[ ";
         for (JSONable j : list)
             str += j.toJSON() + ",";
         return str.substring(0, str.length() - 1) + "]";
@@ -35,7 +35,7 @@ public class DataWriter {
      * @return the concatenated list as JSON objects
      */
     public static String skillsToJSON(ArrayList<Skills> skills) {
-        String str = "[";
+        String str = "[ ";
         for (Skills s : skills)
             str += "\"" + s.toString() + "\",";
         return str.substring(0, str.length() - 1) + "]";
@@ -63,9 +63,9 @@ public class DataWriter {
      * Saves all things in database to JSON files
      */
     public static void save() throws IOException {
-        String users = "{\"unverifiedUsers\":[" + toJSON(Database.unverifiedUsers) + "],\"students\":["
-                + toJSON(Database.students) + "],\"employers\":[" + toJSON(Database.employers) + "],\"admins\":["
-                + toJSON(Database.admins) + "]}";
+        String users = "{\"unverifiedUsers\":" + toJSON(Database.unverifiedUsers) + ",\"students\":"
+                + toJSON(Database.students) + ",\"employers\":" + toJSON(Database.employers) + ",\"admins\":"
+                + toJSON(Database.admins) + "}";
 
         BufferedWriter writer = new BufferedWriter(new FileWriter("data/Users2.json"));
         writer.write(users);
