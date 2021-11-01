@@ -14,10 +14,11 @@ public class Admin extends User {
 
     /**
      * Constructor for admin
-     * @param username is the admin's username
-     * @param password is the admin's password 
+     * 
+     * @param username  is the admin's username
+     * @param password  is the admin's password
      * @param firstName is the admin's first name
-     * @param lastName is the admin's last name
+     * @param lastName  is the admin's last name
      */
     public Admin(String username, String password, String firstName, String lastName) {
         super(username, password, UserType.admin);
@@ -27,12 +28,13 @@ public class Admin extends User {
 
     /**
      * Constructor for admin
-     * @param id is the admin's user id
+     * 
+     * @param id         is the admin's user id
      * @param isVerified boolean for whether the admin is verified
-     * @param username is the admin's username
-     * @param password is the admin's password
-     * @param firstname is the admin's first name
-     * @param lastName is the admin's last name
+     * @param username   is the admin's username
+     * @param password   is the admin's password
+     * @param firstname  is the admin's first name
+     * @param lastName   is the admin's last name
      */
     public Admin(UUID id, boolean isVerified, String username, String password, String firstname, String lastName) {
         super(id, UserType.admin, isVerified, username, password);
@@ -51,6 +53,7 @@ public class Admin extends User {
 
     /**
      * Sets admin's first name
+     * 
      * @param firstName admin's new first name
      */
     public void setFirstName(String firstName) {
@@ -68,6 +71,7 @@ public class Admin extends User {
 
     /**
      * Sets admin's last name
+     * 
      * @param lastName admin's new last name
      */
     public void setLastName(String lastName) {
@@ -80,7 +84,7 @@ public class Admin extends User {
      * @return the JSON representation of the admin
      */
     public String toJSON() {
-        return "\"id\":\"" + ID.toString() + "\",\"username\":\"" + getUsername() + "\",\"password\":\"" + password
+        return "{\"id\":\"" + ID.toString() + "\",\"username\":\"" + getUsername() + "\",\"password\":\"" + password
                 + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified + ",\"firstName\":\""
                 + firstName + "\",\"lastName\":\"" + lastName + "\"}";
     }
@@ -94,14 +98,15 @@ public class Admin extends User {
     public static Admin fromJSON(String json) {
         HashMap<String, String> dict = DataLoader.dictFromBrace(json);
         return new Admin(UUID.fromString(dict.get("id")), dict.get("isVerified").equals("true"), dict.get("username"),
-                dict.get("password"), dict.get("firstname"), dict.get("lastName"));
+                dict.get("password"), dict.get("firstName"), dict.get("lastName"));
     }
 
     /**
      * Gets a string representation of the admin
+     * 
      * @return string representation of admin
      */
     public String toString() {
-        return "This is a string representing the admin";
+        return firstName + " " + lastName;
     }
 }

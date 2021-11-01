@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class Listing implements JSONable {
     public final UUID ID;
-    private final UUID EMPLOYER_ID;
+    public final UUID EMPLOYER_ID;
     private double payRate;
     private ArrayList<String> description;
     private Date startDate, endDate;

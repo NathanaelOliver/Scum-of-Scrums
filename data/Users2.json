@@ -1,0 +1,154 @@
+{
+    "unverifiedUsers": [
+        {
+            "id": "7d0b6bde-3d68-4241-8230-525f5c086a7f",
+            "username": "jamieWhistler",
+            "password": "H$mno90sd",
+            "userType": "admin",
+            "isVerified": false,
+            "firstName": "James",
+            "lastName": "Whistler"
+        },
+        {
+            "id": "452d4ff2-b3c3-46ad-8392-b1c6bd075123",
+            "username": "lesgoooo",
+            "password": "@d@F%gplmz",
+            "userType": "admin",
+            "isVerified": false,
+            "firstName": "James",
+            "lastName": "Whistler"
+        },
+        {
+            "id": "0f01337c-13ea-45b7-8d2c-97085402fc58",
+            "username": "joberman",
+            "password": "G#meCok7",
+            "userType": "admin",
+            "isVerified": false,
+            "firstName": "James",
+            "lastName": "Whistler"
+        }
+    ],
+    "students": [
+        {
+            "id": "c67dd783-0f91-4a9e-b337-794768fd9ba3",
+            "username": "wihobbs",
+            "password": "hobbsman1",
+            "userType": "student",
+            "isVerified": true,
+            "resume": {
+                "firstName": "Bill",
+                "lastName": "Hobbs",
+                "gpa": 3.9,
+                "phoneNumber": "4204206969",
+                "email": "williamhobbs@email.sc.edu",
+                "skills": [],
+                "workExperiences": [
+                    {
+                        "id": "f278fb51-61d7-4c83-be07-4c75e62657c6",
+                        "title": "NERSC Lab Intern",
+                        "details": [
+                            "Serve as a Lab Intern at NERSC",
+                            "Work with rather large computers"
+                        ],
+                        "startDate": "05/01/20",
+                        "endDate": "08/20/20",
+                        "references": [
+                            {
+                                "firstName": "Jeff",
+                                "lastName": "Koons",
+                                "phoneNumber": 7843098073,
+                                "email": "jkoons@gmail.com"
+                            },
+                            {
+                                "firstName": "Kara",
+                                "lastName": "Walker",
+                                "phoneNumber": 6723333333,
+                                "email": "kwalker@gmail.com"
+                            }
+                        ]
+                    }
+                ],
+                "courseExperiences": [],
+                "clubExperiences": [
+                    {
+                        "id": "741690ea-c168-4211-9b75-bcba8c6fd1ea",
+                        "title": "Association for Computing Machinery UofSC Branch",
+                        "details": [
+                            ""
+                        ],
+                        "startDate": "08/05/20",
+                        "endDate": "12/20/20",
+                        "role": "Club President"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "cd37b6a7-894a-4355-857c-ae582249fe6d",
+            "username": "natoliver",
+            "password": "g%merBoi2",
+            "userType": "student",
+            "isVerified": true,
+            "resume": {
+                "firstName": "Nathanael",
+                "lastName": "Oliver",
+                "gpa": 3.9,
+                "phoneNumber": "1234567890",
+                "email": "no2@email.sc.edu",
+                "skills": [],
+                "workExperiences": [],
+                "courseExperiences": [],
+                "clubExperiences": [
+                    {
+                        "id": "741690ea-c168-4211-9b75-bcba8c6fd1ea",
+                        "title": "Association for Computing Machinery UofSC Branch",
+                        "details": [
+                            "Showed up regularly and ate pizza"
+                        ],
+                        "startDate": "08/05/20",
+                        "endDate": "12/20/20",
+                        "role": "Member"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "162bcc1c-b0a2-41be-8d19-ed36bdb407ec",
+            "username": "brideguy9",
+            "password": "tacoB3llH$ll",
+            "userType": "student",
+            "isVerified": true,
+            "resume": {
+                "firstName": "Noah",
+                "lastName": "MacBride",
+                "gpa": 1.0,
+                "phoneNumber": "9287654167",
+                "email": "macbride@email.sc.edu",
+                "skills": [],
+                "workExperiences": [],
+                "courseExperiences": [],
+                "clubExperiences": []
+            }
+        }
+    ],
+    "admins": [
+        {
+            "id": "37e75b8c-532d-40fe-b23c-a8d8a68b9c78",
+            "username": "qwertyui",
+            "password": "u93@2u4q98",
+            "userType": "admin",
+            "isVerified": true,
+            "firstName": "Jasper",
+            "lastName": "Johns"
+        },
+        {
+            "id": "90d50390-d2b9-460c-aed4-1a606ca80ccf",
+            "username": "aqsdfgh",
+            "password": "5679hf45!2",
+            "userType": "admin",
+            "isVerified": true,
+            "firstName": "Gustav",
+            "lastName": "Klimt"
+        }
+    ]
+}
