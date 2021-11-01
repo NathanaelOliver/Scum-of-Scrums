@@ -15,12 +15,13 @@ public class CourseExperience extends Experience {
 
     /**
      * Constructor for course experience
-     * @param id the uuid of the course experience
-     * @param title the title of the course experience
-     * @param details the array list of details 
+     * 
+     * @param id        the uuid of the course experience
+     * @param title     the title of the course experience
+     * @param details   the array list of details
      * @param startDate the start date of the course experience
-     * @param endDate the end date of the course experience
-     * @param grade the grade in the course
+     * @param endDate   the end date of the course experience
+     * @param grade     the grade in the course
      */
     public CourseExperience(UUID id, String title, ArrayList<String> details, Date startDate, Date endDate,
             double grade) {
@@ -39,6 +40,7 @@ public class CourseExperience extends Experience {
 
     /**
      * sets grade
+     * 
      * @param grade is the grade in the course as a double
      */
     public void setGrade(Double grade) {
@@ -58,8 +60,7 @@ public class CourseExperience extends Experience {
      * @return the string representation of the Course Experience
      */
     public String toString() {
-        String ret = this.title + " (" + this.startDate + " - " + this.endDate + ")\n" + 
-            "Grade: " + this.grade;
+        String ret = this.title + " (" + this.startDate + " - " + this.endDate + ")\n" + "Grade: " + this.grade;
         for (int i = 0; i < this.details.size(); i++) {
             ret += "\n * " + this.details.get(i);
         }
@@ -72,13 +73,14 @@ public class CourseExperience extends Experience {
      * @return Course Experience as a JSON object
      */
     public String toJSON() {
-        return "{\"id\":" + ID.toString() + "\",\"title\":\"" + title + "\",\"details\":"
-                + DataWriter.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\""
-                + endDate.toString() + "\",\"grade\":" + grade + "}";
+        return "{\"id\":\"" + ID.toString() + "\",\"title\":\"" + title + "\",\"details\":"
+                + DataWriter.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString() + "\",\"grade\":"
+                + grade + ",\"endDate\":\"" + endDate.toString() + "\"}";
     }
 
     /**
      * Creates a course experience from JSON
+     * 
      * @param json is JSON representation of course experience
      * @return new course experience
      */

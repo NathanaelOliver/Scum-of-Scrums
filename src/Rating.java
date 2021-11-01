@@ -85,22 +85,6 @@ public class Rating {
     }
 
     /**
-     * Displays the rating
-     * 
-     * @return the rating as a string
-     */
-    public String toString() {
-        /**
-         * TODO - display rating method We are going to run into a problem displaying
-         * the title/name of the writer and the reciever as we do not know what type of
-         * user they are, and they do not share a common name from the parent User
-         * class. Unless we want to display the username, we are probably going to have
-         * to change something, or I could just make a complicated workaround.
-         */
-        return "Displays a rating";
-    }
-
-    /**
      * Converts the Rating to a JSON object
      * 
      * @return JSON representation of a rating
