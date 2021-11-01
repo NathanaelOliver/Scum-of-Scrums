@@ -73,7 +73,7 @@ public class CourseExperience extends Experience {
      * @return Course Experience as a JSON object
      */
     public String toJSON() {
-        return "{\"id\":" + ID.toString() + "\",\"title\":\"" + title + "\",\"details\":"
+        return "{\"id\":\"" + ID.toString() + "\",\"title\":\"" + title + "\",\"details\":"
                 + DataWriter.stringsToJSON(details) + ",\"startDate\":\"" + startDate.toString() + "\",\"grade\":"
                 + grade + ",\"endDate\":\"" + endDate.toString() + "\"}";
     }
