@@ -101,7 +101,7 @@ public class Reference implements JSONable {
     }
 
     public String toString() {
-        return firstName + " " + lastName + "\n" + email + "\n" + phoneNumber;
+        return firstName + " " + lastName + "\n" + email + "\n" + Database.phoneNumberToString(phoneNumber);
     }
 
     /**
