@@ -32,7 +32,11 @@ public class Database {
         for (String e : DataLoader.dictFromBracket(userLists.get("admins"))) {
             admins.add(Admin.fromJSON(e));
         }
+        String nw = userLists.get("unverifiedUsers");
+        ArrayList<String> n = DataLoader.dictFromBracket(userLists.get("unverifiedUsers"));
+
         for (String e : DataLoader.dictFromBracket(userLists.get("unverifiedUsers"))) {
+            System.out.println(e + "\n\n");
             switch (e.charAt(e.indexOf("\"userType\": \"") + "\"userType\": \"".length())) {
             case 'E':
             case 'e':
@@ -48,6 +52,11 @@ public class Database {
                 break;
             }
         }
+        ArrayList<User> u = unverifiedUsers;
+        ArrayList<Employer> e = employers;
+        ArrayList<Student> s = students;
+        ArrayList<Admin> a = admins;
+        System.out.println("Success?");
     }
 
     /**

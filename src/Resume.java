@@ -392,9 +392,9 @@ public class Resume implements JSONable {
             clubExperiences.add(ClubExperience.fromJSON(e));
         }
         ArrayList<CourseExperience> courseExperiences = new ArrayList<CourseExperience>();
-        // for (String e : DataLoader.dictFromBracket(dict.get("courseExperiences"))) {
-        // courseExperiences.add(CourseExperience.fromJSON(e));
-        // }
+        for (String e : DataLoader.dictFromBracket(dict.get("courseExperiences"))) {
+            courseExperiences.add(CourseExperience.fromJSON(e));
+        }
 
         return new Resume(UUID.fromString(dict.get("id")), dict.get("firstName"), dict.get("lastName"),
                 dict.get("gpa") == null ? 0 : Double.parseDouble(dict.get("gpa")),

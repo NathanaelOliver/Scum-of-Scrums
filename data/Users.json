@@ -7,7 +7,7 @@
             "userType": "student",
             "isVerified": true,
             "resume": {
-                "id":"aae52f6d-08a1-4775-a2ac-ff7f631cd686",
+                "id": "aae52f6d-08a1-4775-a2ac-ff7f631cd686",
                 "firstName": "Bill",
                 "lastName": "Hobbs",
                 "gpa": 3.9,
@@ -49,8 +49,8 @@
                             "Employed SCRUM/Agile development to create a functioning product"
                         ],
                         "startDate": "05/01/2021",
-                        "endDate": "08/20/2021",
-                        "grade": 4.0
+                        "grade": 4.0,
+                        "endDate": "08/20/2021"
                     },
                     {
                         "id": "7c6ac4e2-4010-47b6-9074-f580fac6d47c",
@@ -59,8 +59,8 @@
                             "Coded advanced C++ programs"
                         ],
                         "startDate": "01/05/2021",
-                        "endDate": "05/10/2021",
-                        "grade": 94.3
+                        "grade": 94.3,
+                        "endDate": "05/10/2021"
                     }
                 ],
                 "clubExperiences": [
@@ -220,7 +220,7 @@
                     ],
                     "applicants": [
                         "aae52f6d-08a1-4775-a2ac-ff7f631cd686",
-                        "6ab93632-f1c8-441f-bf57-e63384ae3c58" 
+                        "6ab93632-f1c8-441f-bf57-e63384ae3c58"
                     ]
                 }
             ]
