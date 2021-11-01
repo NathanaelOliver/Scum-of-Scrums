@@ -62,6 +62,10 @@ public class Driver {
         userInterface.createUser();
     }
 
+    /**
+     * main method
+     * @param args n/a
+     */
     public static void main(String[] args) {
         flush();
         scanner = new Scanner(System.in);
@@ -92,8 +96,14 @@ public class Driver {
                     "Your account must now be verified before it is activated. Thank you for signing up to our service!");
         else
             userInterface.run();
+           
+        flush();
+        System.out.println("Thank you for using our service!");    
     }
 
+    /**
+     * flushes the terminal
+     */
     private static void flush() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
