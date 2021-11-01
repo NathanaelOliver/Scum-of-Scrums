@@ -200,11 +200,14 @@ public class Employer extends User {
     }
 
     /**
-     * Represents an employer as a string
-     * 
-     * @return a string representation of the employer
+     * return a string representation
+     * @return string representation
      */
     public String toString() {
-        return "Employer toString result";
+        String ret = "Title: " + title;
+        for (String detail: description) {
+            ret += "\n * " + detail;
+        }
+        return ret;
     }
 }
