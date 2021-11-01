@@ -2,6 +2,7 @@ package src;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
 /**
  * Student User Interface Front-facing user commands for Student users.
@@ -86,7 +87,7 @@ public class StudentUI extends InternshipUI {
      */
     private void apply(Listing listing) {
         listing.apply(this.student.getResume());
-        this.student.addApplication(new Application(listing, student));
+        this.student.addApplication(listing.ID);
     }
 
     /**
@@ -144,12 +145,12 @@ public class StudentUI extends InternshipUI {
      */
     private ArrayList<Listing> getListingsFromApps() {
         ArrayList<Listing> list = new ArrayList<>();
-        ArrayList<Application> apps = this.student.getApplications();
+        ArrayList<UUID> apps = this.student.getApplications();
         if (apps == null || apps.isEmpty()) {
             return null;
         }
-        for (Application app : this.student.getApplications())
-            list.add(app.LISTING);
+        for (UUID id : this.student.getApplications())
+            list.add(Database.getListingByID(id));
         return list;
     }
 
@@ -245,11 +246,11 @@ public class StudentUI extends InternshipUI {
      * 
      * @param app application to be displayed
      */
-    private void viewApplication(Application app) {
-        System.out.println(app.LISTING.toString(false));
+    private void viewApplication(UUID id) {
+        System.out.println(Database.getListingByID(id).toString(false));
         
         if (readBoolean("Would you like to review this employer?")) {
-            rateEmployer(Database.getEmployerByID(app.LISTING.getEmployerId())); flush();
+            rateEmployer(Database.getEmployerByID(Database.getListingByID(id).getEmployerId())); flush();
             System.out.println("Success!");
         }
         System.out.println("Returning to applications...");

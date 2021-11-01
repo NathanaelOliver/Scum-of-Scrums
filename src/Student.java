@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class Student extends User {
     private Resume resume;
-    private ArrayList<Application> applications;
+    private ArrayList<UUID> applications;
 
     /**
      * Constructor for a student
@@ -233,8 +233,8 @@ public class Student extends User {
      * 
      * @param app the new application to be added
      */
-    public void addApplication(Application app) {
-        this.applications.add(app);
+    public void addApplication(UUID listingId) {
+        this.applications.add(listingId);
     }
 
     /**
@@ -242,7 +242,7 @@ public class Student extends User {
      * 
      * @return the student's applications
      */
-    public ArrayList<Application> getApplications() {
+    public ArrayList<UUID> getApplications() {
         return this.applications;
     }
 
@@ -290,7 +290,13 @@ public class Student extends User {
         this.resume = resume;
     }
 
+    /**
+     * return a string representation
+     * @return string representation
+     */
     public String toString() {
-        return "Student toString result";
+        return "First Name: " + resume.getFirstName() +
+            "\nLast Name: " + resume.getLastName() +
+            "\nUsername: " + username;
     }
 }

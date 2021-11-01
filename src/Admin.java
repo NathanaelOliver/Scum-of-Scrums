@@ -98,10 +98,12 @@ public class Admin extends User {
     }
 
     /**
-     * Gets a string representation of the admin
-     * @return string representation of admin
+     * return a string representation
+     * @return string representation
      */
     public String toString() {
-        return "This is a string representing the admin";
+        return "First Name: " + firstName +
+            "\nLast Name: " + lastName +
+            "\nUsername: " + username;
     }
 }

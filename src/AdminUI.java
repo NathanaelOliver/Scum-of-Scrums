@@ -101,6 +101,7 @@ public class AdminUI extends InternshipUI {
             if (readBoolean("Are you sure you would like to delete your account?")) {
                 Database.removeAdmin(this.admin.ID);
                 this.loggedIn = false;
+                logout();
             } else editAccount();
             break;
         default:
