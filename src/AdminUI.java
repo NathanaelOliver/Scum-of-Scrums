@@ -63,7 +63,7 @@ public class AdminUI extends InternshipUI {
      * runs sub menu for viewing unverified users
      */
     private void viewUnverifiedUsers() {
-            for (User user : Database.unverifiedUsers) {
+        for (User user : Database.unverifiedUsers) {
             flush();
             System.out.println(user);
             int menuOption = readMenu(this.UNVERIFIED_USERS_MENU);
