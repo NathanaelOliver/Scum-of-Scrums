@@ -123,23 +123,27 @@ public class EmployerUI extends InternshipUI {
      * applicants associated with their job listings
      */
     private void viewListing() {
-        for (int i = 0; i < this.employer.getListings().size(); i++) {
-            System.out.println((i+1) + ". " + this.employer.getListings().get(i).getTitle());
-        }
-        int input = readInt("Which listing would you like to view applicants?", 1, 
-            (this.employer.getListings().size()));
-        Listing listing = this.employer.getListings().get(input - 1);
-        boolean choosing = (listing.getApplicants().size() > 0);
-        while (choosing) {
-            for (int i = 0; i < listing.getApplicants().size(); i++) {
-                System.out.println((i+1) + ". " + Database.getResumeByID(listing.getApplicants().get(i)).getName());
+        if (this.employer.getListings().size() > 0) {
+            for (int i = 0; i < this.employer.getListings().size(); i++) {
+                System.out.println((i+1) + ". " + this.employer.getListings().get(i).getTitle());
             }
-            input = readInt("Which applicant would you like to view?", 1, 
+            int input = readInt("For which listing would you like to view applicants?", 1, 
+                (this.employer.getListings().size()));
+            Listing listing = this.employer.getListings().get(input - 1);
+            boolean choosing = (listing.getApplicants().size() > 0);
+            while (choosing) {
+                for (int i = 0; i < listing.getApplicants().size(); i++) {
+                    System.out.println((i+1) + ". " + Database.getResumeByID(listing.getApplicants().get(i)).getName());
+                }
+                input = readInt("Which applicant would you like to view?", 1, 
                 listing.getApplicants().size());
-            Resume resume = Database.getResumeByID(listing.getApplicants().get(input - 1));
-            System.out.println(resume.toString());
-            choosing = readBoolean("Would you like to view another applicant?");
-            flush();
+                Resume resume = Database.getResumeByID(listing.getApplicants().get(input - 1));
+                System.out.println(resume.toString());
+                choosing = readBoolean("Would you like to view another applicant?");
+                flush();
+            }
+        } else {
+            System.out.println("There are no listings to view.");
         }
     }
 
