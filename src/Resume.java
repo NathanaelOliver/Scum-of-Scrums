@@ -327,16 +327,18 @@ public class Resume implements JSONable {
      */
     public String toString() {
         String ret = this.getName() + "\n";
-        ret += "Phone Number: " + this.getPhoneNumber() + "\n";
-        ret += "Email: " + this.getEmail() + "\n";
+        ret += Database.phoneNumberToString(this.getPhoneNumber()) + "\n";
+        ret += this.getEmail() + "\n";
         ret += "GPA: " + this.getGPA() + "\n";
-        ret += "Year: " + this.getYear() + "\n";
+        ret += "Graduation Year: " + this.getYear() + "\n";
         if (this.skills.size() > 0) {
             ret += "Skills: ";
             for (int i = 0; i < (this.skills.size()); i++) {
                 ret += this.skills.get(i).toString() + ", ";
             }
+            ret = ret.substring(0, -2);
         }
+        ret += "\nEducation:\n * University of South Carolina\n * Bachelors in Computer Information Systems\n * Expected Graduation: " + this.year;
         if (this.workExperiences.size() > 0) {
             ret += "\n\nWork Experiences\n";
             for (int i = 0; i < (this.workExperiences.size()); i++) {

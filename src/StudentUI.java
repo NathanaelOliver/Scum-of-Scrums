@@ -21,7 +21,7 @@ public class StudentUI extends InternshipUI {
      */
     public StudentUI(Scanner scanner) {
         super(scanner);
-        this.mainMenuOptions = new String[] { "View Job Listings", "View Applications", "Edit Account Information",
+        this.mainMenuOptions = new String[] { "View Job Listings", "Edit Account Information",
                 "Edit Resume", "Download Resume", "Log Out" };
         this.FILTER_MENU = new String[] { "Pay Rate", "Location", "Start Date", "End Date", "Skills", "Complete Filter",
                 "Clear Filter" };
@@ -46,22 +46,13 @@ public class StudentUI extends InternshipUI {
         do {
             running = true;
             int selection = readMenu(this.mainMenuOptions);
-            switch (selection) {
-            case 1:
-                searchJobs();
-                break; // "View Job Listings"
-            case 2:
-                searchApplications();
-                break; // "View Applications"
-            case 3:
-                editAccount();
-                break; // "Edit Account Information"
-            case 4:
-                editResume();
-                break; // "Edit Resume"
-            case 5:
-                logout();
-                break; // "Log Out"
+            switch(selection) {
+                case 1:  searchJobs(); break;  // "View Job Listings"
+                case 2:  editAccount(); break;  // "Edit Account Information"
+                case 3:  editResume(); break;  // "Edit Resume"
+                case 4:  this.student.getResume().downloadResume(); break; // "Download Resume"
+                case 5:  running = false;
+                         logout(); break;   // "Log Out"
             }
         } while (running);
     }
@@ -95,23 +86,7 @@ public class StudentUI extends InternshipUI {
      */
     private void apply(Listing listing) {
         listing.apply(this.student.getResume());
-        this.student.addApplication(new Application(listing, student));
-    }
-
-    /**
-     * searchApplications Student searches for jobs already applied to
-     */
-    private void searchApplications() {
-        ArrayList<Listing> listings = getListingsFromApps();
-        if (listings == null || listings.isEmpty()) {
-            System.out.println("You have not applied to any jobs.");
-            return;
-        }
-
-        int input = readListingMenu(listings, new String[] { "Exit to Main Menu" });
-
-        if (input - 1 < this.student.getApplications().size())
-            viewApplication(this.student.getApplications().get(input - 1));
+        this.student.addApplication(listing.ID);
     }
 
     /**
@@ -143,23 +118,6 @@ public class StudentUI extends InternshipUI {
             searchJobs(filterListings(listings));
         else if (input - 1 == listings.size() + 1)
             searchJobs();
-    }
-
-    /**
-     * takes a list of applications and returns a list of the job listings applied
-     * to
-     * 
-     * @return the job listings applied to by the student
-     */
-    private ArrayList<Listing> getListingsFromApps() {
-        ArrayList<Listing> list = new ArrayList<>();
-        ArrayList<Application> apps = this.student.getApplications();
-        if (apps == null || apps.isEmpty()) {
-            return null;
-        }
-        for (Application app : this.student.getApplications())
-            list.add(app.LISTING);
-        return list;
     }
 
     /**
@@ -248,33 +206,6 @@ public class StudentUI extends InternshipUI {
         }
         System.out.println("Returning to listings...");
         searchJobs(listings);
-    }
-
-    /**
-     * Shows the student a listing for a job they've already applied for and asks if
-     * they would like to give the employer a rating
-     * 
-     * @param app application to be displayed
-     */
-    private void viewApplication(Application app) {
-        System.out.println(app.LISTING.toString(false));
-
-        if (readBoolean("Would you like to review this employer?")) {
-            rateEmployer(Database.getEmployerByID(app.LISTING.EMPLOYER_ID));
-            flush();
-            System.out.println("Success!");
-        }
-
-        System.out.println("Returning to applications...");
-    }
-
-    /**
-     * rateEmployer Student can rate employers based on their experiences
-     */
-    private void rateEmployer(Employer employer) {
-        int score = readInt("Out of 5, what would you rate this employer?");
-        String comment = readString("Enter a comment about your experience with this employer");
-        employer.addRating(score, comment, student);
     }
 
     /**
