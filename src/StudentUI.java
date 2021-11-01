@@ -86,7 +86,7 @@ public class StudentUI extends InternshipUI {
      */
     private void apply(Listing listing) {
         listing.apply(this.student.getResume());
-        this.student.addApplication(new Application(listing, student));
+        this.student.addApplication(listing.ID);
     }
 
     /**
