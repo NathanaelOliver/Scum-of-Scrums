@@ -13,12 +13,13 @@ public class Employer extends User {
     private String title;
     private ArrayList<String> description;
     private ArrayList<Listing> listings;
-    
+
     /**
      * Employer Constructor
+     * 
      * @param username employer's username
      * @param password employer's password
-     * @param title employer's title
+     * @param title    employer's title
      */
     public Employer(String username, String password, String title) {
         super(username, password, UserType.employer);
@@ -29,13 +30,14 @@ public class Employer extends User {
 
     /**
      * Employer Constructor
-     * @param id employer's user id
-     * @param isVerified boolean for if employer is verified
-     * @param username employer's username
-     * @param password employer's password
-     * @param title employer's title
+     * 
+     * @param id          employer's user id
+     * @param isVerified  boolean for if employer is verified
+     * @param username    employer's username
+     * @param password    employer's password
+     * @param title       employer's title
      * @param description employer's description
-     * @param listings employer's list of listings
+     * @param listings    employer's list of listings
      */
     public Employer(UUID id, boolean isVerified, String username, String password, String title,
             ArrayList<String> description, ArrayList<Listing> listings) {
@@ -143,9 +145,9 @@ public class Employer extends User {
      */
     public String toJSON() {
         return "{\"id\":\"" + ID.toString() + "\",\"username\":\"" + username + "\",\"password\":\"" + password
-                + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified
-                + ",\"title\":\"" + title + "\",\"description\":" + DataWriter.stringsToJSON(description)
-                + ",\"listings\":" + DataWriter.toJSON(listings) + "}";
+                + "\",\"userType\":\"" + userType.toString() + "\",\"isVerified\":" + isVerified + ",\"title\":\""
+                + title + "\",\"description\":" + DataWriter.stringsToJSON(description) + ",\"listings\":"
+                + DataWriter.toJSON(listings) + "}";
     }
 
     /**
@@ -167,11 +169,12 @@ public class Employer extends User {
 
     /**
      * return a string representation
+     * 
      * @return string representation
      */
     public String toString() {
         String ret = "Title: " + title;
-        for (String detail: description) {
+        for (String detail : description) {
             ret += "\n * " + detail;
         }
         return ret;
