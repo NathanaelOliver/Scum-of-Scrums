@@ -297,13 +297,15 @@ public class Resume implements JSONable {
         for (int i = 0; i < (this.skills.size()); i++) {
             ret += this.skills.get(i).toString() + ", ";
         }
-        System.out.println(this.workExperiences.size());
+        ret += "\n\nWork Experiences\n";
         for (int i = 0; i < (this.workExperiences.size()); i++) {
             ret += this.workExperiences.get(i).toString() + "\n";
         }
+        ret += "\nClub Experiences\n";
         for (int i = 0; i < (this.clubExperiences.size()); i++) {
             ret += this.clubExperiences.get(i).toString() + "\n";
         }
+        ret += "\nCourse Experiences\n";
         for (int i = 0; i < (this.courseExperiences.size()); i++) {
             ret += this.courseExperiences.get(i).toString() + "\n";
         }
@@ -344,9 +346,10 @@ public class Resume implements JSONable {
             clubExperiences.add(ClubExperience.fromJSON(e));
         }
         ArrayList<CourseExperience> courseExperiences = new ArrayList<CourseExperience>();
-        for (String e : DataLoader.dictFromBracket(dict.get("courseExperiences"))) {
-            courseExperiences.add(CourseExperience.fromJSON(e));
-        }
+        //for (String e : DataLoader.dictFromBracket(dict.get("courseExperiences"))) {
+        //    courseExperiences.add(CourseExperience.fromJSON(e));
+        //}
+
         return new Resume(UUID.fromString(dict.get("id")), dict.get("firstName"), dict.get("lastName"),
                 dict.get("gpa") == null ? 0 : Double.parseDouble(dict.get("gpa")), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")), dict.get("phoneNumber"), dict.get("email"), skills,
                 workExperiences, courseExperiences, clubExperiences);
