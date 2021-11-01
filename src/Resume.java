@@ -1,5 +1,8 @@
 package src;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -296,6 +299,25 @@ public class Resume implements JSONable {
      */
     public void removeSkill(Skills skill) {
         this.skills.remove(skill);
+    }
+
+    /**
+     * downloads a copy of the student's resume into their downloads folder
+     */
+    public void downloadResume() {
+        String home = System.getProperty("user.home");
+        try {
+            File file = new File(home + "/Downloads/resume.txt");
+            file.createNewFile();
+            System.out.println("File created.");
+            FileWriter writer = new FileWriter(home + "/Downloads/resume.txt");
+            String resume = this.toString();
+            writer.write(resume);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     /**

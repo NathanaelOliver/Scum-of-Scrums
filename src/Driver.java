@@ -26,9 +26,9 @@ public class Driver {
         do {
             loggingIn = false;
             System.out.println("Please enter your username:");
-            username = scanner.nextLine();
+            username = scanner.nextLine().trim();
             System.out.println("Please enter your password:");
-            password = scanner.nextLine();
+            password = scanner.nextLine().trim();
 
             userInterface = Database.verifyLoginCredentials(scanner, username, password);
             loggingIn = (userInterface == null);

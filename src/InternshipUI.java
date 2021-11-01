@@ -280,12 +280,12 @@ public abstract class InternshipUI {
             reading = false;
             System.out.println("Please enter a username:");
             username = scanner.nextLine();
-            reading = !Database.isAvailable(username);
+            reading = !Database.isAvailable(username.trim());
             if (reading)
                 error("Your username is taken, please enter another username:");
         } while (reading);
 
-        return username;
+        return username.trim();
     }
 
     /**
