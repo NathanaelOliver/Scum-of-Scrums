@@ -22,7 +22,7 @@ public class StudentUI extends InternshipUI {
     public StudentUI(Scanner scanner) {
         super(scanner);
         this.mainMenuOptions = new String[] { "View Job Listings", "View Applications", "Edit Account Information",
-                "Edit Resume", "Log Out" };
+                "Edit Resume", "Download Resume", "Log Out" };
         this.FILTER_MENU = new String[] { "Pay Rate", "Location", "Start Date", "End Date", "Skills", "Complete Filter",
                 "Clear Filter" };
         this.filter = "";
@@ -51,7 +51,8 @@ public class StudentUI extends InternshipUI {
                 case 2:  searchApplications(); break;  // "View Applications"
                 case 3:  editAccount(); break;  // "Edit Account Information"
                 case 4:  editResume(); break;  // "Edit Resume"
-                case 5:  logout(); break;   // "Log Out"
+                case 5:  this.student.getResume().downloadResume(); break; // "Download Resume"
+                case 6:  logout(); break;   // "Log Out"
             }
         } while (running);
     }
