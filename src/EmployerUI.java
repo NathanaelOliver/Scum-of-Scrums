@@ -106,12 +106,12 @@ public class EmployerUI extends InternshipUI {
         // asks them for the index of which one they want to delete
         // deletes that listing from the arraylist, moves all the others up
         for (int i = 0; i < this.employer.getListings().size(); i++) {
-            System.out.println((i) + ". " + this.employer.getListings().get(i).getTitle());
-        } // TODO - move to internshipUI 
+            System.out.println((i + 1) + ". " + this.employer.getListings().get(i).getTitle());
+        }
         try {
             int input = readInt("Which listing would you like to delete?");
             ArrayList<Listing> tempListings = this.employer.getListings();
-            tempListings.remove(input);
+            tempListings.remove(input - 1);
             this.employer.setListings(tempListings);
         } catch (Exception e) {
             System.out.println("Invalid entry");
@@ -129,8 +129,8 @@ public class EmployerUI extends InternshipUI {
         int input = readInt("Which listing would you like to view applicants?", 1, 
             (this.employer.getListings().size()));
         Listing listing = this.employer.getListings().get(input - 1);
-        boolean choosing; // bug: if 0 applicants
-        do {
+        boolean choosing = (listing.getApplicants().size() > 0);
+        while (choosing) {
             for (int i = 0; i < listing.getApplicants().size(); i++) {
                 System.out.println((i+1) + ". " + Database.getResumeByID(listing.getApplicants().get(i)).getName());
             }
@@ -140,7 +140,7 @@ public class EmployerUI extends InternshipUI {
             System.out.println(resume.toString());
             choosing = readBoolean("Would you like to view another applicant?");
             flush();
-        } while(choosing);
+        }
     }
 
     /**
