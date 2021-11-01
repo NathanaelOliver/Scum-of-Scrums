@@ -131,7 +131,7 @@ public abstract class InternshipUI {
      * @return int response
      */
     protected int readInt(String message) {
-        flush();
+        // flush();
         System.out.println(message);
         return Integer.parseInt(scanner.nextLine());
     }
