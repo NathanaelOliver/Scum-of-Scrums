@@ -85,13 +85,15 @@ public class WorkExperience extends Experience {
 
     public String toString() {
         String str = "";
-        str += title + "\n" + startDate + " - " + endDate;
+        str += title + " (" + startDate + " - " + endDate + ")";
         for (String detail : details)
             str += "\n * " + detail;
 
-        str += "\nReferences:";
-        for (Reference ref : references)
-            str += "\n" + ref;
+        str += "\n\nReferences:";
+        for (int i = 0; i < references.size(); i++) {
+            str += "\n--------------------";
+            str += "\n" + references.get(i);
+        }
         
         return str;
     }
