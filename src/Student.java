@@ -16,8 +16,6 @@ public class Student extends User {
     private String email;
     private int year;
     private Resume resume;
-    private ArrayList<Skills> skills;
-    private ArrayList<Experience> experiences;
     private ArrayList<Application> applications;
 
     /**
@@ -57,16 +55,13 @@ public class Student extends User {
     }
 
     public Student(UUID id, boolean isVerified, String username, String password, String firstName, String lastName,
-            String phoneNumber, String email, int year, ArrayList<Skills> skills, ArrayList<Experience> experiences,
-            Resume resume) {
+            String phoneNumber, String email, int year, Resume resume) {
         super(id, UserType.student, isVerified, username, password);
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.year = year;
-        this.skills = skills;
-        this.experiences = experiences;
         this.resume = resume;
     }
 
@@ -90,24 +85,10 @@ public class Student extends User {
      */
     public static Student fromJSON(String json) {
         HashMap<String, String> dict = DataLoader.dictFromBrace(json);
-        ArrayList<Skills> skills = new ArrayList<Skills>();
-        for (String e : DataLoader.dictFromBracket(dict.get("skills"))) {
-            skills.add(Skills.valueOf(e));
-        }
-        ArrayList<Experience> experiences = new ArrayList<Experience>();
-        for (String e : DataLoader.dictFromBracket(dict.get("experience"))) {
-            if (e.contains("\"references\"")) {
-                experiences.add(WorkExperience.fromJSON(e));
-            } else if (e.contains("\"grade\"")) {
-                experiences.add(CourseExperience.fromJSON(e));
-            } else {
-                experiences.add(ClubExperience.fromJSON(e));
-            }
-        }
         return new Student(UUID.fromString(dict.get("id")), dict.get("isVerified").equals("true"), dict.get("username"),
                 dict.get("password"), dict.get("firstName"), dict.get("lastName"), dict.get("phoneNumber"),
-                dict.get("email"), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")), skills,
-                experiences, Resume.fromJSON(dict.get("resume")));
+                dict.get("email"), dict.get("year") == null ? 0 : Integer.parseInt(dict.get("year")),
+                Resume.fromJSON(dict.get("resume")));
     }
 
     /**
