@@ -84,7 +84,7 @@ public class ClubExperience extends Experience {
      */
     public String toString() {
         String str = "";
-        str += title + "\n" + startDate + " - " + endDate + "\n" + role;
+        str += title + " (" + startDate + " - " + endDate + ")\n" + role;
         for (String detail : details) {
             str += "\n *  " + detail;
         }

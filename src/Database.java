@@ -417,4 +417,8 @@ public class Database {
         }
         return null;
     }
+
+    public static String phoneNumberToString(String number) {
+        return "(" + number.substring(0,3) + ")" + number.substring(3,6) + "-" + number.substring(6);
+    }
 }
