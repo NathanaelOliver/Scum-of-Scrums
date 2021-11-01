@@ -90,9 +90,9 @@ public class WorkExperience extends Experience {
             str += "\n * " + detail;
 
         str += "\n\nReferences:";
-        for (int i = 0; i < references.size(); i++) {
+        for (Reference ref : references) {
             str += "\n--------------------";
-            str += "\n" + references.get(i);
+            str += "\n" + ref;
         }
         
         return str;

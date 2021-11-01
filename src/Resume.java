@@ -339,21 +339,24 @@ public class Resume implements JSONable {
         }
         ret += "\nEducation:\n * University of South Carolina\n * Bachelors in Computer Information Systems\n * Expected Graduation: " + this.year;
         if (this.workExperiences.size() > 0) {
-            ret += "\n\nWork Experiences:\n";
-            for (int i = 0; i < (this.workExperiences.size()); i++) {
-                ret += this.workExperiences.get(i).toString() + "\n";
+            ret += "\n\nWork Experiences\n";
+            for (WorkExperience we : workExperiences) {
+                ret += "----------------------------------------\n";
+                ret += we + "\n";
             }
         }
         if (this.clubExperiences.size() > 0) {
-            ret += "\nClub Experiences:\n";
-            for (int i = 0; i < (this.clubExperiences.size()); i++) {
-                ret += this.clubExperiences.get(i).toString() + "\n";
+            ret += "\nClub Experiences\n";
+            for (ClubExperience ce : clubExperiences) {
+                ret += "----------------------------------------\n";
+                ret += ce + "\n";
             }
         }
         if (this.courseExperiences.size() > 0) {
-            ret += "\nCourse Experiences:\n";
-            for (int i = 0; i < (this.courseExperiences.size()); i++) {
-                ret += this.courseExperiences.get(i).toString() + "\n";
+            ret += "\nCourse Experiences\n";
+            for (CourseExperience ce : courseExperiences) {
+                ret += "----------------------------------------\n";
+                ret += ce + "\n";
             }
         }
         return ret;
