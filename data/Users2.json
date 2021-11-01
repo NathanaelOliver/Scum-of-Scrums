@@ -44,7 +44,7 @@
                 "skills": [],
                 "workExperiences": [
                     {
-                        "id": "f278fb51-61d7-4c83-be07-4c75e62657c6",
+                        "id": "9dee4f3a-f179-4393-9834-b0c3d17c7bba",
                         "title": "NERSC Lab Intern",
                         "details": [
                             "Serve as a Lab Intern at NERSC",
@@ -68,7 +68,29 @@
                         ]
                     }
                 ],
-                "courseExperiences": [],
+                "courseExperiences": [
+                    {
+                        "id": "ae5d1f8c-1350-4036-b5d7-7ac693cdf0b0",
+                        "title": "Software Engineering",
+                        "details": [
+                            "Developed a software project in Java with a group of peers",
+                            "Employed SCRUM/Agile development to create a functioning product"
+                        ],
+                        "startDate": "05/01/20",
+                        "grade": 4.0,
+                        "endDate": "08/20/20"
+                    },
+                    {
+                        "id": "7c6ac4e2-4010-47b6-9074-f580fac6d47c",
+                        "title": "Advanced Programming Techniques",
+                        "details": [
+                            "Coded advanced C++ programs"
+                        ],
+                        "startDate": "01/05/20",
+                        "grade": 94.3,
+                        "endDate": "05/10/20"
+                    }
+                ],
                 "clubExperiences": [
                     {
                         "id": "741690ea-c168-4211-9b75-bcba8c6fd1ea",
@@ -135,7 +157,7 @@
         {
             "id": "37e75b8c-532d-40fe-b23c-a8d8a68b9c78",
             "username": "qwertyui",
-            "password": "u93@2u4q98",
+            "password": "aaa",
             "userType": "admin",
             "isVerified": true,
             "firstName": "Jasper",
