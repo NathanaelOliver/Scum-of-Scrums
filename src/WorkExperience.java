@@ -89,10 +89,12 @@ public class WorkExperience extends Experience {
         for (String detail : details)
             str += "\n * " + detail;
 
-        str += "\n\nReferences:";
-        for (Reference ref : references) {
-            str += "\n--------------------";
-            str += "\n" + ref;
+        if (references != null && references.size() > 0) {
+            str += "\n\nReferences:";
+            for (Reference ref : references) {
+                str += "\n--------------------";
+                str += "\n" + ref;
+            }
         }
         
         return str;

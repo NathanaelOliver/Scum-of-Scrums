@@ -134,7 +134,7 @@ public class StudentUI extends InternshipUI {
         flush();
 
         String[] listingStrings = new String[listings.size() + additionalOptions.length];
-        for (int i = 0; i < listingStrings.length; i++)
+        for (int i = 0; i < listings.size(); i++)
             listingStrings[i] = Database.getEmployerByID(listings.get(i).EMPLOYER_ID).getTitle() + " - "
                     + listings.get(i).getTitle();
 
@@ -199,7 +199,7 @@ public class StudentUI extends InternshipUI {
      */
     private void viewListing(Listing listing, ArrayList<Listing> listings) {
         System.out.println(listing.toString(false));
-        if (readBoolean("Would you like to apply for this job?")) {
+        if (readBoolean("\nWould you like to apply for this job?")) {
             apply(listing);
             flush();
             System.out.println("Success!");
