@@ -276,8 +276,9 @@ public class StudentUI extends InternshipUI {
      * Processes the user inputting a new work experience
      */
     private void readWorkExperience() {
-        String title = readString("Please enter the name of your employer:");
-        WorkExperience exp = new WorkExperience(title);
+        String title = readString("What was the name of the company you worked for?");
+        String position = readString("What was your position in this company?");
+        WorkExperience exp = new WorkExperience(title, position);
         readExperienceDates(exp);
         if (readBoolean("Would you like to add references?")) {
             flush();
@@ -329,7 +330,7 @@ public class StudentUI extends InternshipUI {
         }
         if (readBoolean("Would you like to add details about your experience?"))
             exp.setDetails(readStringArrayList("Enter a detail about your experience",
-                    "Would you like to add another detail abuot your experience?"));
+                    "Would you like to add another detail about your experience?"));
     }
 
     /**

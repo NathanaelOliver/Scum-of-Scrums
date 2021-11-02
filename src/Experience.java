@@ -22,7 +22,20 @@ public abstract class Experience implements JSONable {
     public Experience(String title) {
         this.ID = UUID.randomUUID();
         this.title = title;
-        details = new ArrayList<String>();
+        this.details = new ArrayList<>();
+    }
+
+    /**
+     * Constructor for Experience with only title and a position
+     * 
+     * @param title the title of the experience
+     * @param position the position of the user in a company (for work experience)
+     */
+    public Experience(String title, String position) {
+        this.ID = UUID.randomUUID();
+        this.title = title;
+        this.details = new ArrayList<String>();
+        this.details.add(position);
     }
 
     /**

@@ -17,8 +17,8 @@ public class WorkExperience extends Experience {
      * 
      * @param title the title of the work experience
      */
-    public WorkExperience(String title) {
-        super(title);
+    public WorkExperience(String title, String position) {
+        super(title, position);
         references = new ArrayList<Reference>();
     }
 
@@ -33,7 +33,7 @@ public class WorkExperience extends Experience {
      * @param references the reference for the work experience
      */
     private WorkExperience(UUID id, String title, ArrayList<String> details, Date startDate, Date endDate,
-            ArrayList<Reference> references) {
+            ArrayList<Reference> references, String position) {
         super(id, title, details, startDate, endDate);
         this.references = references;
     }

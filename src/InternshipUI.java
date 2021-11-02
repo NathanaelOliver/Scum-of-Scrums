@@ -72,6 +72,7 @@ public abstract class InternshipUI {
             reading = false;
             System.out.println(displayMenu(menuOptions));
             option = Integer.parseInt(scanner.nextLine());
+            flush();
             if (option < 1 || option > menuOptions.length)
                 reading = !error("Please enter a valid number from 1 through " + menuOptions.length);
         } while (reading);
@@ -124,9 +125,10 @@ public abstract class InternshipUI {
      * @return String response
      */
     protected String readString(String message) {
-        flush();
         System.out.println(message);
-        return scanner.nextLine();
+        String str = scanner.nextLine();
+        flush();
+        return str;
     }
 
     /**
@@ -136,9 +138,10 @@ public abstract class InternshipUI {
      * @return int response
      */
     protected int readInt(String message) {
-        // flush();
         System.out.println(message);
-        return Integer.parseInt(scanner.nextLine());
+        String str = scanner.nextLine();
+        flush();
+        return Integer.parseInt(str);
     }
 
     /**
@@ -150,13 +153,13 @@ public abstract class InternshipUI {
      * @return int response in range
      */
     protected int readInt(String message, int lower, int upper) {
-        // flush();
         boolean reading;
         int result;
         do {
             reading = false;
             System.out.println(message + " (" + lower + "-" + upper + ")");
             result = Integer.parseInt(scanner.nextLine());
+            flush();
             reading = !(result >= lower && result <= upper);
             if (reading)
                 error("Please enter a number in the range");
@@ -184,12 +187,12 @@ public abstract class InternshipUI {
      * @return boolean response
      */
     protected boolean readBoolean(String message) {
-        // flush();
         boolean reading;
         do {
             reading = false;
             System.out.println(message + " (y/n)");
             String input = scanner.nextLine();
+            flush();
 
             if (input.equalsIgnoreCase("y"))
                 return true;
@@ -232,7 +235,6 @@ public abstract class InternshipUI {
      * @return is the string with no spaces
      */
     protected String readWord(String message) {
-        flush();
         boolean reading;
         String word;
 
@@ -240,6 +242,7 @@ public abstract class InternshipUI {
             reading = false;
             System.out.println(message);
             word = scanner.nextLine();
+            flush();
 
             if (word.contains(" "))
                 reading = !error("Please enter only a single word");
@@ -258,6 +261,7 @@ public abstract class InternshipUI {
             reading = false;
 
             String str = scanner.nextLine();
+            flush();
             list.add(str);
 
             reading = readBoolean(loopPrompt);
@@ -272,7 +276,6 @@ public abstract class InternshipUI {
      * @return a valid username
      */
     protected String readUsername() {
-        flush();
         boolean reading;
         String username;
 
@@ -280,6 +283,7 @@ public abstract class InternshipUI {
             reading = false;
             System.out.println("Please enter a username:");
             username = scanner.nextLine();
+            flush();
             reading = !Database.isAvailable(username.trim());
             if (reading)
                 error("Your username is taken, please enter another username:");
@@ -294,7 +298,6 @@ public abstract class InternshipUI {
      * @return a valid password
      */
     protected String readPassword() {
-        flush();
         boolean reading;
         String password;
 
@@ -302,6 +305,7 @@ public abstract class InternshipUI {
             reading = false;
             System.out.println("Please enter a password:");
             password = scanner.nextLine();
+            flush();
             reading = !isValidPassword(password);
         } while (reading);
 
