@@ -56,6 +56,8 @@ public class DataWriter {
      * @return the concatenated list as JSON objects
      */
     public static String stringsToJSON(ArrayList<String> strings) {
+        if (strings.size() == 0)
+            return "[]";
         return "[\"" + String.join("\",\"", strings) + "\"]";
     }
 
@@ -67,7 +69,7 @@ public class DataWriter {
                 + toJSON(Database.students) + ",\"employers\":" + toJSON(Database.employers) + ",\"admins\":"
                 + toJSON(Database.admins) + "}";
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter("data/Users2.json"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("data/Users.json"));
         writer.write(users);
         writer.close();
     }

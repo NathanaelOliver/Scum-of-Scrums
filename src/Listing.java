@@ -54,7 +54,7 @@ public class Listing implements JSONable {
     /**
      * Creates a listing with all propeerties
      * 
-     * @param title the title of the job listing
+     * @param title        the title of the job listing
      * @param payRate      the pay rate of the job listing
      * @param location     the location of the job
      * @param description  a description of the job
@@ -119,11 +119,11 @@ public class Listing implements JSONable {
      * @return the JSON representation of a job listing
      */
     public String toJSON() {
-        return "{\"id\":\"" + ID.toString() + "\",\"payRate\":" + payRate + ",\"location\":\"" + location
-                + "\",\"title\":\"" + title + "\",\"description\":" + DataWriter.stringsToJSON(description)
-                + ",\"startDate\":\"" + startDate.toString() + "\",\"endDate\":\"" + endDate.toString()
-                + "\",\"siteLink\":\"" + siteLink + "\",\"skills\":" + DataWriter.skillsToJSON(skills)
-                + "\",\"applicants\":" + DataWriter.idsToJSON(applicants) + "}";
+        return "{\"id\":\"" + ID.toString() + "\",\"employerId\":\"" + EMPLOYER_ID + "\",\"payRate\":" + payRate
+                + ",\"location\":\"" + location + "\",\"title\":\"" + title + "\",\"description\":"
+                + DataWriter.stringsToJSON(description) + ",\"startDate\":\"" + startDate.toString()
+                + "\",\"endDate\":\"" + endDate.toString() + "\",\"siteLink\":\"" + siteLink + "\",\"skills\":"
+                + DataWriter.skillsToJSON(skills) + ",\"applicants\":" + DataWriter.idsToJSON(applicants) + "}";
     }
 
     /**
@@ -322,6 +322,7 @@ public class Listing implements JSONable {
 
     /**
      * Adds a resume id to the list of applicants
+     * 
      * @param resumeId is id of the resume to be added to the list of applicants
      */
     public void apply(UUID resumeId) {
