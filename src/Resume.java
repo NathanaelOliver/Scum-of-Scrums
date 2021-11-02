@@ -337,7 +337,8 @@ public class Resume implements JSONable {
             }
             ret = ret.substring(0, -2);
         }
-        ret += "\nEducation:\n * University of South Carolina\n * Bachelors in Computer Information Systems\n * Expected Graduation: " + this.year;
+        ret += "\nEducation:\n * University of South Carolina\n * Bachelors in Computer Information Systems\n * Expected Graduation: "
+                + this.year;
         if (this.workExperiences.size() > 0) {
             ret += "\n\nWork Experiences\n";
             for (WorkExperience we : workExperiences) {
@@ -368,8 +369,8 @@ public class Resume implements JSONable {
      * @return the JSON representation of the Resume
      */
     public String toJSON() {
-        return "{\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"gpa\":" + gpa
-                + ",\"phoneNumber\":\"" + phoneNumber + "\",\"email\":\"" + email + "\",\"skills\":"
+        return "{\"id\":\"" + ID + "\",\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"gpa\":"
+                + gpa + ",\"phoneNumber\":\"" + phoneNumber + "\",\"email\":\"" + email + "\",\"skills\":"
                 + DataWriter.skillsToJSON(skills) + ",\"workExperiences\":" + DataWriter.toJSON(workExperiences)
                 + ",\"courseExperiences\":" + DataWriter.toJSON(courseExperiences) + ",\"clubExperiences\":"
                 + DataWriter.toJSON(clubExperiences) + "}";
