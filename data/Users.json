@@ -68,7 +68,7 @@
                     {
                         "id": "741690ea-c168-4211-9b75-bcba8c6fd1ea",
                         "title": "Association for Computing Machinery UofSC Branch",
-                        "description": [
+                        "details": [
                             "Served as club president"
                         ],
                         "startDate": "08/05/2021",
@@ -190,7 +190,7 @@
                         "Respond to technology requests from students and staff"
                     ],
                     "startDate": "11/15/2021",
-                    "endDate": "",
+                    "endDate": "12/15/2021",
                     "siteLink": "",
                     "skills": [],
                     "applicants": []

@@ -319,6 +319,12 @@ public class Database {
         return null;
     }
 
+    /**
+     * verifies password is correct
+     * @param user the user with a password
+     * @param password password inputted
+     * @return true if password is correct, false otherwise
+     */
     private static boolean isCorrectPassword(User user, String password) {
         if (!user.checkPassword(password)) {
             System.out.println("Incorrect password");
@@ -327,6 +333,13 @@ public class Database {
         return true;
     }
 
+    /**
+     * verifies that the username and password correspond to a valid user
+     * @param scanner scanner to accept user information
+     * @param username inputted username
+     * @param password inputted password
+     * @return true if valid user, false otherwise
+     */
     public static InternshipUI verifyLoginCredentials(Scanner scanner, String username, String password) {
         // erase dialog up to this point
         System.out.print("\033[H\033[2J");
@@ -371,6 +384,10 @@ public class Database {
         return null;
     }
 
+    /**
+     * removes an unverified user
+     * @param id id of unverified user
+     */
     public static void removeUnverifiedUser(UUID id) {
         for (int i = 0; i < unverifiedUsers.size(); ++i) {
             if (unverifiedUsers.get(i).ID.equals(id)) {
@@ -380,6 +397,10 @@ public class Database {
         }
     }
 
+    /**
+     * deletes an admin
+     * @param id id of admin
+     */
     public static void removeAdmin(UUID id) {
         for (int i = 0; i < admins.size(); ++i) {
             if (admins.get(i).ID.equals(id)) {
@@ -389,6 +410,11 @@ public class Database {
         }
     }
 
+    /**
+     * checks if username is available
+     * @param username to be checked
+     * @return true if username is available, false otherwise
+     */
     public static boolean isAvailable(String username) {
         for (User unverified : unverifiedUsers)
             if (unverified.getUsername().equals(username))
@@ -409,6 +435,11 @@ public class Database {
         return true;
     }
 
+    /**
+     * gets resume based on resume id
+     * @param id id of resume
+     * @return resume
+     */
     public static Resume getResumeByID(UUID id) {
         for (Student student : students) {
             if (id.equals(student.getResume().ID))
@@ -417,6 +448,11 @@ public class Database {
         return null;
     }
 
+    /**
+     * gets a listing by its id
+     * @param id id of listing
+     * @return listing
+     */
     public static Listing getListingByID(UUID id) {
         for (Employer employer: employers) {
             for (Listing listing: employer.getListings())
@@ -425,6 +461,11 @@ public class Database {
         return null;
     }
 
+    /**
+     * formats a phone number like a phone number
+     * @param number is number to be formatted
+     * @return string as phone number, e.g. (***)***-****
+     */
     public static String phoneNumberToString(String number) {
         return "(" + number.substring(0,3) + ")" + number.substring(3,6) + "-" + number.substring(6);
     }
