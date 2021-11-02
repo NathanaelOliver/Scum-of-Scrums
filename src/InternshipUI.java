@@ -57,16 +57,24 @@ public abstract class InternshipUI {
      * displays a menu and reads integer response, repeating until it receives a
      * valid response
      * 
+     * Exception handling: asserts that an integer must be present, will loop until
+     * it gets one.
+     * 
      * @param menuOptions is a String[] for menu options with a corresponding int
      * @return integer response for menu option
      */
     protected int readMenu(String[] menuOptions) {
         boolean reading;
-        int option;
+        int option = 0;
         do {
             reading = false;
             System.out.println(displayMenu(menuOptions));
-            option = Integer.parseInt(scanner.nextLine());
+            try {
+                option = Integer.parseInt(scanner.nextLine());
+            } catch (Exception e) {
+                reading = true;
+                System.out.println("You did not enter a number, try again.");
+            }
             if (option < 1 || option > menuOptions.length)
                 reading = !error("Please enter a valid number from 1 through " + menuOptions.length);
         } while (reading);
@@ -115,6 +123,8 @@ public abstract class InternshipUI {
     /**
      * reads a string response to a prompt
      * 
+     * Exception handling: should not need any, will only throw if no line exists.
+     * 
      * @param message is the prompt
      * @return String response
      */
@@ -133,11 +143,15 @@ public abstract class InternshipUI {
     protected int readInt(String message) {
         // flush();
         System.out.println(message);
+        
         return Integer.parseInt(scanner.nextLine());
     }
 
     /**
      * reads an int response to a prompt, int must be in range
+     * 
+     * Exception handling: result defaults outside the valid range and can
+     * only be changed to an integer inside the valid range.
      * 
      * @param message is the prompt
      * @param lower the lower boundary of the acceptable range (inclusive)
@@ -147,11 +161,15 @@ public abstract class InternshipUI {
     protected int readInt(String message, int lower, int upper) {
         //flush();
         boolean reading;
-        int result;
+        int result = lower - 1;
         do {
             reading = false;
             System.out.println(message + " (" + lower + "-" + upper + ")");
-            result = Integer.parseInt(scanner.nextLine());
+            try {
+                result = Integer.parseInt(scanner.nextLine());
+            } catch (Exception e) {
+                System.out.println("You did not enter a number.");
+            }
             reading = !(result >= lower && result <= upper);
             if (reading)
                 error("Please enter a number in the range");
