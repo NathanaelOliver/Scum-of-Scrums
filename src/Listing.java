@@ -64,7 +64,7 @@ public class Listing implements JSONable {
      * @param skills       the skills recommended for this job
      * @param employerName the name of the employer offering the job
      */
-    Listing(String title, double payRate, String location, ArrayList<String> description, Date startDate, Date endDate,
+    public Listing(String title, double payRate, String location, ArrayList<String> description, Date startDate, Date endDate,
             String siteLink, ArrayList<Skills> skills, UUID employerId) {
         this.ID = UUID.randomUUID();
         this.title = title;
@@ -93,7 +93,7 @@ public class Listing implements JSONable {
      * @param skills       the skills recommended for this job
      * @param employerName the name of the employer offering the job
      */
-    Listing(UUID id, String title, double payRate, String location, ArrayList<String> description, Date startDate,
+    public Listing(UUID id, String title, double payRate, String location, ArrayList<String> description, Date startDate,
             Date endDate, String siteLink, ArrayList<Skills> skills, UUID employerId) {
         this.ID = id;
         this.title = title;
@@ -338,7 +338,7 @@ public class Listing implements JSONable {
      * @return a displayed listing
      */
     public String toString(boolean isEmployer) {
-        String result = EMPLOYER_ID.toString();
+        String result = Database.getEmployerByID(EMPLOYER_ID).getTitle();
         if (!title.isEmpty())
             result += " - " + title;
         result += "\n********************";

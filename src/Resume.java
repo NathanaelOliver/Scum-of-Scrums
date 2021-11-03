@@ -335,7 +335,7 @@ public class Resume implements JSONable {
             for (int i = 0; i < (this.skills.size()); i++) {
                 ret += this.skills.get(i).toString() + ", ";
             }
-            ret = ret.substring(0, -2);
+            ret = ret.substring(0, ret.length()-2);
         }
         ret += "\nEducation:\n * University of South Carolina\n * Bachelors in Computer Information Systems\n * Expected Graduation: "
                 + this.year;

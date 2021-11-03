@@ -126,7 +126,7 @@ public class Database {
             default:
             }
         }
-        return listings;
+        return filteredListings;
     }
 
     /**
