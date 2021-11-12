@@ -64,13 +64,14 @@ public class Driver {
 
     /**
      * main method
+     * 
      * @param args n/a
      */
     public static void main(String[] args) {
         flush();
         scanner = new Scanner(System.in);
 
-        Database.fromJSON(DataLoader.getJSON());
+        Database.fromJSON(DataLoader.getJSON("data/Users.json"));
 
         boolean loggingIn;
         boolean newUser = false;
@@ -96,9 +97,9 @@ public class Driver {
                     "Your account must now be verified before it is activated. Thank you for signing up to our service!");
         else
             userInterface.run();
-           
+
         flush();
-        System.out.println("Thank you for using our service!");    
+        System.out.println("Thank you for using our service!");
     }
 
     /**
