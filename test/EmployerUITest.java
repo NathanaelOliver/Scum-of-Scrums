@@ -1,5 +1,6 @@
 package test;
 
+import src.EmployerUI;
 import src.Employer;
 import src.Listing;
 
@@ -11,8 +12,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class EmployerTest {
-	private Employer employer1;
+class EmployerUITest {
+	private EmployerUI employerUI;
 	
 	@BeforeClass
 	public static void oneTimeSetup() {
@@ -26,9 +27,7 @@ class EmployerTest {
 	
 	@BeforeEach
 	public void setup() {
-		this.employer1 = new Employer("berkeleylab", "12345678", 
-			"Lawrence Berkeley National Laboratory");
-		this.employer1.addListing(new Listing("BLUR Intern", this.employer1.ID));
+		
 	}
 	
 	@AfterEach
@@ -43,24 +42,22 @@ class EmployerTest {
 
 	@Test
 	public void testToJSON() {
-		
+
 	}
 
 	@Test
 	public void testToString() {
-		String var = "";
-		assertEquals(var, employer1.toString());
+		
 	}
 
 	@Test
 	public void testGetListingByID() {
-		assertNotNull(employer1.getListings().get(0).ID);
+		
 	}
 
 	@Test
 	public void testDeleteListing() {
-		employer1.deleteListing(employer1.getListingById(employer1.getListings().get(0).ID));
-		assertNull(employer1.getListingById(employer1.getListings().get(0).ID));
+		
 	}
 	
 	//assertEquals(val1,val2)

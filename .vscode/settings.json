@@ -2,9 +2,13 @@
     "java.test.config": {
         "workingDirectory": "${workspaceFolder}"
     }
+<<<<<<< HEAD
 }
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ]
 }
+=======
+}
+>>>>>>> dd432cad0421faab37b356247d11094bbe349f2d
