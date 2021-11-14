@@ -25,19 +25,19 @@ public class DataLoader {
      * 
      * @return the JSON file as a string
      */
-    public static String getJSON() {
+    public static String getJSON(String filePath) {
         String jsonText = "";
         try {
-            Scanner scan = new Scanner(new File("data/Users.json"));
+            Scanner scan = new Scanner(new File(filePath));
             while (scan.hasNextLine()) {
-                jsonText += scan.nextLine();
+                jsonText += scan.nextLine().trim();
             }
             scan.close();
         } catch (FileNotFoundException e) {
             System.out.println(e.getStackTrace());
             return null;
         }
-        return jsonText.replaceAll("[\\t\\n]", "");
+        return jsonText;
     }
 
     /**
