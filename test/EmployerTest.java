@@ -1,10 +1,9 @@
 package test;
-import src.Database;
+
 import src.Employer;
+import src.Listing;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.beans.Transient;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -13,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class EmployerTest {
+	private Employer employer1;
 	
 	@BeforeClass
 	public static void oneTimeSetup() {
@@ -26,21 +26,40 @@ class EmployerTest {
 	
 	@BeforeEach
 	public void setup() {
-		
+		this.employer1 = new Employer("berkeleylab", "12345678", 
+			"Lawrence Berkeley National Laboratory");
+		this.employer1.addListing(new Listing("BLUR Intern", this.employer1.ID));
 	}
 	
 	@AfterEach
 	public void tearDown() {
-		//runs after each test
+
 	}
 
     @Test
-    public void testGetTitle() {
-		Employer testEmployer = new Employer("berkeleylab", "12345678", 
-			"Lawrence Berkeley National Laboratory");
-		String val = testEmployer.getTitle();
-		assertEquals(val, "Lawrence Berkeley National Laboratory");
-    }
+    public void testFromJSON() {
+
+	}
+
+	@Test
+	public void testToJSON() {
+
+	}
+
+	@Test
+	public void testToString() {
+		
+	}
+
+	@Test
+	public void testGetListingByID() {
+		assertNotNull(employer1.getListings().get(0).ID);
+	}
+
+	@Test
+	public void testDeleteListing() {
+		assertNull(employer1.getListings());
+	}
 	
 	//assertEquals(val1,val2)
 	//assertFalse(val)
