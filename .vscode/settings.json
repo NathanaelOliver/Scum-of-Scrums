@@ -1,5 +1,0 @@
-{
-    "java.test.config": {
-        "workingDirectory": "${workspaceFolder}"
-    }
-}
