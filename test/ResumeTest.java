@@ -2,13 +2,7 @@ package test;
 
 import src.Database;
 import src.DataLoader;
-import src.Listing;
 import src.Resume;
-import src.Student;
-import src.StudentUI;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
