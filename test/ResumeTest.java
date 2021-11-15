@@ -67,27 +67,27 @@ class ResumeTest {
         "GPA: 3.9\n" +
         "Skills: Python, Java, JavaScript, HTML, CSS\n" +
         "Education:\n" +
-         "* University of South Carolina\n" +
-         "* Bachelors in Computer Information Systems\n" +
-         "* Expected Graduation: 0\n\n" +
+         " * University of South Carolina\n" +
+         " * Bachelors in Computer Information Systems\n" +
+         " * Expected Graduation: 0\n\n" +
         
         "Work Experiences\n" +
         "----------------------------------------\n" +
-        "JP Morgan (05/01/2019 - 08/01/2019)\n" +
-         "* Internship\n" +
-         "* Created a Python program to predict clients needs.\n" +
-         "* Managed incoming customers and future predictions\n" +
+        "JP Morgan (05/01/20 - 08/01/20)\n" +
+         " * Internship\n" +
+         " * Created a Python program to predict clients needs.\n" +
+         " * Managed incoming customers and future predictions\n" +
         "----------------------------------------\n" +
-        "Bank of America (05/01/2020 - 08/01/2020)\n" +
-         "* Internship\n" +
-         "* Created JUnit tests cases to test new features of the back end of the banks website\n" +
-         "* Executed test cases and reported issues to engineering\n\n" +
+        "Bank of America (05/01/20 - 08/01/20)\n" +
+         " * Internship\n" +
+         " * Created JUnit test cases to test new features of the back end of the banks website\n" +
+         " * Executed test cases and reported issues to engineering\n\n" +
         
         "Club Experiences\n" +
         "----------------------------------------\n" +
         "Association for Computing Machinery UofSC Branch (08/05/20 - 12/20/20)\n" +
         "Member\n" +
-         "*  Showed up regularly and ate pizza\n";
+         " *  Showed up regularly and ate pizza\n";
 
          assertEquals(res, resume.toString());
 	}

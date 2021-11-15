@@ -27,8 +27,6 @@ class StudentTest {
 
 	@BeforeEach
 	public void setup() {
-        Database.fromJSON(DataLoader.getJSON("data/Users.json"));
-        student = Database.getStudentByID(UUID.fromString("cd37b6a7-894a-4355-857c-ae582249fe6d"));
     }
 
 	@AfterEach
@@ -37,6 +35,8 @@ class StudentTest {
 
 	@Test
 	public void testToJSON() {
+		Database.fromJSON(DataLoader.getJSON("data/Users.json"));
+        student = Database.getStudentByID(UUID.fromString("cd37b6a7-894a-4355-857c-ae582249fe6d"));
 		String str = "{\"id\":\"" + "cd37b6a7-894a-4355-857c-ae582249fe6d" + "\",\"username\":\"" + "natoliver" + "\",\"password\":\"" + "g%merBoi2"
 		+ "\",\"userType\":\"" + "student" + "\",\"isVerified\":" + true + ",\"resume\":"
 		+ this.student.getResume().toJSON() + "}";
@@ -46,6 +46,8 @@ class StudentTest {
 
 	@Test
 	public void testFromJSON() {
+		Database.fromJSON(DataLoader.getJSON("data/Users.json"));
+        student = Database.getStudentByID(UUID.fromString("cd37b6a7-894a-4355-857c-ae582249fe6d"));
 		String json = "{\"id\":\"" + "cd37b6a7-894a-4355-857c-ae582249fe6d" + "\",\"username\":\"" + "natoliver" + "\",\"password\":\"" + "g%merBoi2"
 		+ "\",\"userType\":\"" + "student" + "\",\"isVerified\":" + true + ",\"resume\":"
 		+ this.student.getResume().toJSON() + "}";
@@ -58,6 +60,8 @@ class StudentTest {
 
 	@Test
 	public void testToString() {
+		Database.fromJSON(DataLoader.getJSON("data/Users.json"));
+        student = Database.getStudentByID(UUID.fromString("cd37b6a7-894a-4355-857c-ae582249fe6d"));
 		String str = "First Name: " + student.getFirstName() +
 		"\nLast Name: " + student.getLastName() +
 		"\nUsername: " + student.getUsername();

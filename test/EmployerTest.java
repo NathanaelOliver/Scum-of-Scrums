@@ -1,7 +1,6 @@
 package test;
 
 import src.Employer;
-import src.Listing;
 import src.Database;
 import src.DataLoader;
 
@@ -53,7 +52,7 @@ class EmployerTest {
 	@Test
 	public void testShortConstructor() {
 		Employer employer2 = new Employer("lbnl", "gobears12!", "Lawrence Berkeley National Laboratory");
-		assertEquals(employer2.getTitle)
+		assertEquals(employer2.getTitle(), "Lawrence Berkeley National Laboratory");
 	}
 
 	@Test

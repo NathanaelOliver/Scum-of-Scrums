@@ -76,13 +76,13 @@ public class Database {
             String attribute = filterDetails[0];
             switch (attribute) {
             case "gpa":
-                filterResumesByGPA(filterDetails[1], resumes);
+                resumes = filterResumesByGPA(filterDetails[1], resumes);
                 break;
             case "skills":
-                filterResumesBySkills(filterDetails[1], resumes);
+                resumes = filterResumesBySkills(filterDetails[1], resumes);
                 break;
             case "year":
-                filterResumesByYear(filterDetails[1], resumes);
+                resumes = filterResumesByYear(filterDetails[1], resumes);
                 break;
             }
         }
@@ -267,6 +267,20 @@ public class Database {
         for (Employer employer : employers) {
             if (employer.ID.equals(id))
                 return employer;
+        }
+        return null;
+    }
+
+     /**
+     * get student by id
+     * 
+     * @param id is id of student
+     * @return student
+     */
+    public static Student getStudentByID(UUID id) {
+        for (Student student : students) {
+            if (student.ID.equals(id))
+                return student;
         }
         return null;
     }
