@@ -121,47 +121,69 @@ public class DataLoader {
      * @return an ArrayList of elements within the brackets
      */
     public static ArrayList<String> dictFromBracket(String json) {
-        ArrayList<String> dict = new ArrayList<String>();
         if (json == null || json.length() <= 2) {
-            return dict;
+            return new ArrayList<String>();
         }
 
         json = json.trim().substring(1, json.trim().length() - 1).trim();
         switch (json.charAt(0)) {
         case '"':
-            for (String e : json.split(",")) {
-                dict.add(e.trim().substring(1, e.trim().length() - 1));
-            }
-            break;
+            return stringDictFromBracket(json);
         case '{':
-            int start = 0;
-            int count = 0, i = 0;
-            boolean flag = true;
-            do {
-                while (!(json.charAt(i) == '"' || json.charAt(i) == '{')) {
-                    i++;
-                    if (i == json.length()) {
-                        return dict;
-                    }
-                }
-                do {
-
-                    switch (json.charAt(i)) {
-                    case '"':
-                        flag = !flag;
-                        break;
-                    case '{':
-                        count += flag ? 1 : 0;
-                        break;
-                    case '}':
-                        count -= flag ? 1 : 0;
-                        break;
-                    }
-                    i++;
-                } while (count != 0);
-                dict.add(json.substring(start, i).trim());
-            } while (i != json.length());
+            return objectDictFromBracket(json);
         }
+        return new ArrayList<String>();
+    }
+
+    /**
+     * Creates an ArrayList of json objects from comma delimited json objects
+     * 
+     * @param json comma delimited json object
+     * @return an arraylist of JSON objects
+     */
+    public static ArrayList<String> stringDictFromBracket(String json) {
+        ArrayList<String> dict = new ArrayList<String>();
+        for (String e : json.split(",")) {
+            if (e.trim().length() > 0)
+                dict.add(e.trim().substring(1, e.trim().length() - 1));
+        }
+        return dict;
+    }
+
+    /**
+     * Creates an ArrayList of Strings from comma delimited JSON strings
+     * 
+     * @param json comma delimited JSON Strings
+     * @return ArrayList of Strings
+     */
+    public static ArrayList<String> objectDictFromBracket(String json) {
+        ArrayList<String> dict = new ArrayList<String>();
+        int start = 0, count = 0, i = 0;
+        boolean flag = true;
+        do {
+            while (!(json.charAt(i) == '"' || json.charAt(i) == '{')) {
+                i++;
+                if (i == json.length()) {
+                    return dict;
+                }
+            }
+            start = i;
+            do {
+                switch (json.charAt(i)) {
+                case '"':
+                    flag = !flag;
+                    break;
+                case '{':
+                    count += flag ? 1 : 0;
+                    break;
+                case '}':
+                    count -= flag ? 1 : 0;
+                    break;
+                }
+                i++;
+            } while (count != 0);
+            dict.add(json.substring(start, i).trim());
+        } while (i != json.length());
         return dict;
     }
 }

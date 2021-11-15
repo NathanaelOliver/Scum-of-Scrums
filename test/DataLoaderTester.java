@@ -4,49 +4,94 @@ import src.DataLoader;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 class DataLoaderTester {
 
-    @BeforeClass
-    public void oneTimeSetup() {
-
-    }
-
-    @AfterClass
-    public void oneTimeTearDown() {
-
-    }
-
-    @BeforeEach
-    public void setup() {
-        // runs before each test
-    }
-
-    @AfterEach
-    public void tearDown() {
-        // runs after each test
-    }
-
     @Test
     public void testGetJSON() {
-        String val = DataLoader.getJSON("data/Users.json");
+        String val = DataLoader.getJSON("data/u2.json");
         assertEquals(
-                "{\"unverifiedUsers\":[],\"students\":[ {\"id\":\"c67dd783-0f91-4a9e-b337-794768fd9ba3\",\"username\":\"wihobbs\",\"password\":\"hobbsman1\",\"userType\":\"student\",\"isVerified\":true,\"resume\":{\"id\":\"9a3d3c3e-3be5-417a-a70b-82842130394b\",\"firstName\":\"Bill\",\"lastName\":\"Hobbs\",\"gpa\":3.9,\"phoneNumber\":\"4204206969\",\"email\":\"williamhobbs@email.sc.edu\",\"skills\":[],\"workExperiences\":[ {\"id\":\"65484266-7f6f-45dd-8b6a-4156a09b1239\",\"title\":\"NERSC Lab Intern\",\"details\":[\"Serve as a Lab Intern at NERSC\",\"Work with rather large computers\"],\"startDate\":\"05/01/20\",\"endDate\":\"08/20/20\",\"references\":[ {\"firstName\":\"Jeff\",\"lastName\":\"Koons\",\"phoneNumber\":7843098073,\"email\":\"jkoons@gmail.com\"},{\"firstName\":\"Kara\",\"lastName\":\"Walker\",\"phoneNumber\":6723333333,\"email\":\"kwalker@gmail.com\"}]}],\"courseExperiences\":[ {\"id\":\"ae5d1f8c-1350-4036-b5d7-7ac693cdf0b0\",\"title\":\"Software Engineering\",\"details\":[\"Developed a software project in Java with a group of peers\",\"Employed SCRUM/Agile development to create a functioning product\"],\"startDate\":\"05/01/20\",\"grade\":4.0,\"endDate\":\"08/20/20\"},{\"id\":\"7c6ac4e2-4010-47b6-9074-f580fac6d47c\",\"title\":\"Advanced Programming Techniques\",\"details\":[\"Coded advanced C++ programs\"],\"startDate\":\"01/05/20\",\"grade\":94.3,\"endDate\":\"05/10/20\"}],\"clubExperiences\":[ {\"id\":\"741690ea-c168-4211-9b75-bcba8c6fd1ea\",\"title\":\"Association for Computing Machinery UofSC Branch\",\"details\":[\"Served as club president\"],\"startDate\":\"08/05/20\",\"endDate\":\"12/20/20\",\"role\":\"Club President\"}]}},{\"id\":\"cd37b6a7-894a-4355-857c-ae582249fe6d\",\"username\":\"natoliver\",\"password\":\"g%merBoi2\",\"userType\":\"student\",\"isVerified\":true,\"resume\":{\"id\":\"05a6c472-75cf-4e0b-96d1-b3ea2bd33819\",\"firstName\":\"Nathanael\",\"lastName\":\"Oliver\",\"gpa\":3.9,\"phoneNumber\":\"1234567890\",\"email\":\"no2@email.sc.edu\",\"skills\":[ \"Python\",\"Java\",\"JavaScript\",\"HTML\",\"CSS\"],\"workExperiences\":[ {\"id\":\"33ca5522-95bc-4758-abf4-74e42dc0e432\",\"title\":\"JP Morgan\",\"details\":[\"Internship\",\"Created a Python program to predict clients needs.\",\"Managed incoming customers and future predictions\"],\"startDate\":\"05/01/20\",\"endDate\":\"08/01/20\",\"references\":[]},{\"id\":\"6bb43228-2c90-4c82-a4d2-aad68636c455\",\"title\":\"Bank of America\",\"details\":[\"Internship\",\"Created JUnit test cases to test new features of the back end of the banks website\",\"Executed test cases and reported issues to engineering\"],\"startDate\":\"05/01/20\",\"endDate\":\"08/01/20\",\"references\":[]}],\"courseExperiences\":[],\"clubExperiences\":[ {\"id\":\"741690ea-c168-4211-9b75-bcba8c6fd1ea\",\"title\":\"Association for Computing Machinery UofSC Branch\",\"details\":[\"Showed up regularly and ate pizza\"],\"startDate\":\"08/05/20\",\"endDate\":\"12/20/20\",\"role\":\"Member\"}]}},{\"id\":\"162bcc1c-b0a2-41be-8d19-ed36bdb407ec\",\"username\":\"brideguy9\",\"password\":\"tacoB3llH$ll\",\"userType\":\"student\",\"isVerified\":true,\"resume\":{\"id\":\"98ee4b9d-9025-4c11-b712-25fd0f5a7f9e\",\"firstName\":\"Noah\",\"lastName\":\"MacBride\",\"gpa\":1.0,\"phoneNumber\":\"9287654167\",\"email\":\"macbride@email.sc.edu\",\"skills\":[],\"workExperiences\":[],\"courseExperiences\":[],\"clubExperiences\":[]}}],\"employers\":[ {\"id\":\"6dd197f1-c14d-4a22-9bf3-6435f78df24e\",\"username\":\"uofscITdept\",\"password\":\"@d@f@gplmz\",\"userType\":\"employer\",\"isVerified\":true,\"title\":\"UofSC IT Dept.\",\"description\":[],\"listings\":[ {\"id\":\"fd0ef5ac-ec60-487e-b4ee-165c5fc45680\",\"employerId\":\"6dd197f1-c14d-4a22-9bf3-6435f78df24e\",\"payRate\":11.0,\"location\":\"Columbia, South Carolina\",\"title\":\"IT Intern\",\"description\":[\"Assist the IT help desk\",\"Maintain school technology\",\"Respond to technology requests from students and staff\"],\"startDate\":\"05/01/20\",\"endDate\":\"08/20/20\",\"siteLink\":\"\",\"skills\":[ \"JavaScript\"],\"applicants\":[\"9a3d3c3e-3be5-417a-a70b-82842130394b\",\"98ee4b9d-9025-4c11-b712-25fd0f5a7f9e\",\"05a6c472-75cf-4e0b-96d1-b3ea2bd33819\"]},{\"id\":\"56c5e5a0-b788-42b1-959b-c73aa60135c5\",\"employerId\":\"6dd197f1-c14d-4a22-9bf3-6435f78df24e\",\"payRate\":38.5,\"location\":\"Columbia, South Carolina\",\"title\":\"IT Desk Manager\",\"description\":[\"Run the IT help desk\",\"Maintain school technology\",\"Respond to technology requests from students and staff\"],\"startDate\":\"11/15/20\",\"endDate\":\"12/15/20\",\"siteLink\":\"\",\"skills\":[ \"JavaScript\"],\"applicants\":[]}]},{\"id\":\"01f78a8e-21a0-40cc-8b03-6155cb92986f\",\"username\":\"publix\",\"password\":\"p9o08h80n\",\"userType\":\"employer\",\"isVerified\":true,\"title\":\"Publix Supermarkets Inc\",\"description\":[],\"listings\":[ {\"id\":\"f2c88aaa-dd37-46e4-abaf-919856ab5c4c\",\"employerId\":\"01f78a8e-21a0-40cc-8b03-6155cb92986f\",\"payRate\":18.75,\"location\":\"Greenville, South Carolina\",\"title\":\"Software Engineering Intern\",\"description\":[],\"startDate\":\"05/01/20\",\"endDate\":\"08/20/20\",\"siteLink\":\"https: //www.publix.com/\",\"skills\":[ \"Java\",\"Linux\",\"CSS\"],\"applicants\":[\"aae52f6d-08a1-4775-a2ac-ff7f631cd686\",\"6ab93632-f1c8-441f-bf57-e63384ae3c58\"]}]}],\"admins\":[ {\"id\":\"37e75b8c-532d-40fe-b23c-a8d8a68b9c78\",\"username\":\"qwertyui\",\"password\":\"aaa\",\"userType\":\"admin\",\"isVerified\":true,\"firstName\":\"Jasper\",\"lastName\":\"Johns\"},{\"id\":\"90d50390-d2b9-460c-aed4-1a606ca80ccf\",\"username\":\"aqsdfgh\",\"password\":\"5679hf45!2\",\"userType\":\"admin\",\"isVerified\":true,\"firstName\":\"Gustav\",\"lastName\":\"Klimt\"}]}",
+                "{\"unverifiedUsers\": [],\"students\": [{\"id\": \"c67dd783-0f91-4a9e-b337-794768fd9ba3\",\"username\": \"wihobbs\",\"password\": \"hobbsman1\",\"userType\": \"student\",\"isVerified\": true,\"resume\": {\"id\": \"9a3d3c3e-3be5-417a-a70b-82842130394b\",\"firstName\": \"Bill\",\"lastName\": \"Hobbs\",\"gpa\": 3.9,\"phoneNumber\": \"4204206969\",\"email\": \"williamhobbs@email.sc.edu\",\"skills\": [],\"workExperiences\": [{\"id\": \"65484266-7f6f-45dd-8b6a-4156a09b1239\",\"title\": \"NERSC Lab Intern\",\"details\": [\"Serve as a Lab Intern at NERSC\",\"Work with rather large computers\"],\"startDate\": \"05/01/20\",\"endDate\": \"08/20/20\",\"references\": [{\"firstName\": \"Jeff\",\"lastName\": \"Koons\",\"phoneNumber\": 7843098073,\"email\": \"jkoons@gmail.com\"},{\"firstName\": \"Kara\",\"lastName\": \"Walker\",\"phoneNumber\": 6723333333,\"email\": \"kwalker@gmail.com\"}]}],\"courseExperiences\": [{\"id\": \"ae5d1f8c-1350-4036-b5d7-7ac693cdf0b0\",\"title\": \"Software Engineering\",\"details\": [\"Developed a software project in Java with a group of peers\",\"Employed SCRUM/Agile development to create a functioning product\"],\"startDate\": \"05/01/20\",\"grade\": 4.0,\"endDate\": \"08/20/20\"},{\"id\": \"7c6ac4e2-4010-47b6-9074-f580fac6d47c\",\"title\": \"Advanced Programming Techniques\",\"details\": [\"Coded advanced C++ programs\"],\"startDate\": \"01/05/20\",\"grade\": 94.3,\"endDate\": \"05/10/20\"}],\"clubExperiences\": [{\"id\": \"741690ea-c168-4211-9b75-bcba8c6fd1ea\",\"title\": \"Association for Computing Machinery UofSC Branch\",\"details\": [\"Served as club president\"],\"startDate\": \"08/05/20\",\"endDate\": \"12/20/20\",\"role\": \"Club President\"}]}},{\"id\": \"cd37b6a7-894a-4355-857c-ae582249fe6d\",\"username\": \"natoliver\",\"password\": \"g%merBoi2\",\"userType\": \"student\",\"isVerified\": true,\"resume\": {\"id\": \"05a6c472-75cf-4e0b-96d1-b3ea2bd33819\",\"firstName\": \"Nathanael\",\"lastName\": \"Oliver\",\"gpa\": 3.9,\"phoneNumber\": \"1234567890\",\"email\": \"no2@email.sc.edu\",\"skills\": [\"Python\",\"Java\",\"JavaScript\",\"HTML\",\"CSS\"],\"workExperiences\": [{\"id\": \"33ca5522-95bc-4758-abf4-74e42dc0e432\",\"title\": \"JP Morgan\",\"details\": [\"Internship\",\"Created a Python program to predict clients needs.\",\"Managed incoming customers and future predictions\"],\"startDate\": \"05/01/20\",\"endDate\": \"08/01/20\",\"references\": []},{\"id\": \"6bb43228-2c90-4c82-a4d2-aad68636c455\",\"title\": \"Bank of America\",\"details\": [\"Internship\",\"Created JUnit test cases to test new features of the back end of the banks website\",\"Executed test cases and reported issues to engineering\"],\"startDate\": \"05/01/20\",\"endDate\": \"08/01/20\",\"references\": []}],\"courseExperiences\": [],\"clubExperiences\": [{\"id\": \"741690ea-c168-4211-9b75-bcba8c6fd1ea\",\"title\": \"Association for Computing Machinery UofSC Branch\",\"details\": [\"Showed up regularly and ate pizza\"],\"startDate\": \"08/05/20\",\"endDate\": \"12/20/20\",\"role\": \"Member\"}]}},{\"id\": \"162bcc1c-b0a2-41be-8d19-ed36bdb407ec\",\"username\": \"brideguy9\",\"password\": \"tacoB3llH$ll\",\"userType\": \"student\",\"isVerified\": true,\"resume\": {\"id\": \"98ee4b9d-9025-4c11-b712-25fd0f5a7f9e\",\"firstName\": \"Noah\",\"lastName\": \"MacBride\",\"gpa\": 1.0,\"phoneNumber\": \"9287654167\",\"email\": \"macbride@email.sc.edu\",\"skills\": [],\"workExperiences\": [],\"courseExperiences\": [],\"clubExperiences\": []}}],\"employers\": [{\"id\": \"6dd197f1-c14d-4a22-9bf3-6435f78df24e\",\"username\": \"uofscITdept\",\"password\": \"@d@f@gplmz\",\"userType\": \"employer\",\"isVerified\": true,\"title\": \"UofSC IT Dept.\",\"description\": [],\"listings\": [{\"id\": \"fd0ef5ac-ec60-487e-b4ee-165c5fc45680\",\"employerId\": \"6dd197f1-c14d-4a22-9bf3-6435f78df24e\",\"payRate\": 11.0,\"location\": \"Columbia, South Carolina\",\"title\": \"IT Intern\",\"description\": [\"Assist the IT help desk\",\"Maintain school technology\",\"Respond to technology requests from students and staff\"],\"startDate\": \"05/01/20\",\"endDate\": \"08/20/20\",\"siteLink\": \"\",\"skills\": [\"JavaScript\"],\"applicants\": [\"9a3d3c3e-3be5-417a-a70b-82842130394b\",\"98ee4b9d-9025-4c11-b712-25fd0f5a7f9e\",\"05a6c472-75cf-4e0b-96d1-b3ea2bd33819\"]},{\"id\": \"56c5e5a0-b788-42b1-959b-c73aa60135c5\",\"employerId\": \"6dd197f1-c14d-4a22-9bf3-6435f78df24e\",\"payRate\": 38.5,\"location\": \"Columbia, South Carolina\",\"title\": \"IT Desk Manager\",\"description\": [\"Run the IT help desk\",\"Maintain school technology\",\"Respond to technology requests from students and staff\"],\"startDate\": \"11/15/20\",\"endDate\": \"12/15/20\",\"siteLink\": \"\",\"skills\": [\"JavaScript\"],\"applicants\": []}]},{\"id\": \"01f78a8e-21a0-40cc-8b03-6155cb92986f\",\"username\": \"publix\",\"password\": \"p9o08h80n\",\"userType\": \"employer\",\"isVerified\": true,\"title\": \"Publix Supermarkets Inc\",\"description\": [],\"listings\": [{\"id\": \"f2c88aaa-dd37-46e4-abaf-919856ab5c4c\",\"employerId\": \"01f78a8e-21a0-40cc-8b03-6155cb92986f\",\"payRate\": 18.75,\"location\": \"Greenville, South Carolina\",\"title\": \"Software Engineering Intern\",\"description\": [],\"startDate\": \"05/01/20\",\"endDate\": \"08/20/20\",\"siteLink\": \"https: //www.publix.com/\",\"skills\": [\"Java\",\"Linux\",\"CSS\"],\"applicants\": [\"aae52f6d-08a1-4775-a2ac-ff7f631cd686\",\"6ab93632-f1c8-441f-bf57-e63384ae3c58\"]}]}],\"admins\": [{\"id\": \"37e75b8c-532d-40fe-b23c-a8d8a68b9c78\",\"username\": \"qwertyui\",\"password\": \"aaa\",\"userType\": \"admin\",\"isVerified\": true,\"firstName\": \"Jasper\",\"lastName\": \"Johns\"},{\"id\": \"90d50390-d2b9-460c-aed4-1a606ca80ccf\",\"username\": \"aqsdfgh\",\"password\": \"5679hf45!2\",\"userType\": \"admin\",\"isVerified\": true,\"firstName\": \"Gustav\",\"lastName\": \"Klimt\"}]}",
                 val);
 
     }
 
-    // public static String skillsToJSON(ArrayList<Skills> skills)
-    // Should test 0 element case, 1 element case and 10 element case
+    @Test
+    public void testObjectDictFromBracketInside() {
+        ArrayList<String> actual = DataLoader.objectDictFromBracket(
+                "{\n        \"id\": \"7d0b6bde-3d68-4241-8230-525f5c086a7f\",\n        \"username\": \"jamieWhistler\",\n        \"password\": \"H$mno90sd\",\n        \"userType\": \"admin\",\n        \"isVerified\": false,\n        \"firstName\": \"James\",\n        \"lastName\": \"Whistler\"\n    },\n    {\n        \"id\": \"452d4ff2-b3c3-46ad-8392-b1c6bd075123\",\n        \"username\": \"lesgoooo\",\n        \"password\": \"@d@F%gplmz\",\n        \"userType\": \"employer\",\n        \"isVerified\": false,\n        \"title\": \"Google\",\n        \"description\": \"Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.\",\n        \"listings\": []\n    },\n    {\n        \"id\": \"0f01337c-13ea-45b7-8d2c-97085402fc58\",\n        \"username\": \"joberman\",\n        \"password\": \"G#meCok7\",\n        \"userType\": \"student\",\n        \"isVerified\": false,\n        \"resume\": {\n            \"id\": \"fe272a2d-f2fe-4717-b714-888a40a43960\",\n            \"firstName\": \"Jack\",\n            \"lastName\": \"Oberman\",\n            \"phoneNumber\": \"3709012334\",\n            \"email\": \"joberman@email.sc.edu\",\n            \"gpa\": 1.0,\n            \"education\": \"BS Computer Science, BS Mathematics\",\n            \"skills\": [],\n            \"workExperiences\": [],\n            \"courseExperiences\": [],\n            \"clubExperiences\": []\n        }\n    }");
+        ArrayList<String> expected = new ArrayList<String>();
+        expected.add(
+                "{\n        \"id\": \"7d0b6bde-3d68-4241-8230-525f5c086a7f\",\n        \"username\": \"jamieWhistler\",\n        \"password\": \"H$mno90sd\",\n        \"userType\": \"admin\",\n        \"isVerified\": false,\n        \"firstName\": \"James\",\n        \"lastName\": \"Whistler\"\n    }");
+        expected.add(
+                "{\n        \"id\": \"452d4ff2-b3c3-46ad-8392-b1c6bd075123\",\n        \"username\": \"lesgoooo\",\n        \"password\": \"@d@F%gplmz\",\n        \"userType\": \"employer\",\n        \"isVerified\": false,\n        \"title\": \"Google\",\n        \"description\": \"Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.\",\n        \"listings\": []\n    }");
+        expected.add(
+                "{\n        \"id\": \"0f01337c-13ea-45b7-8d2c-97085402fc58\",\n        \"username\": \"joberman\",\n        \"password\": \"G#meCok7\",\n        \"userType\": \"student\",\n        \"isVerified\": false,\n        \"resume\": {\n            \"id\": \"fe272a2d-f2fe-4717-b714-888a40a43960\",\n            \"firstName\": \"Jack\",\n            \"lastName\": \"Oberman\",\n            \"phoneNumber\": \"3709012334\",\n            \"email\": \"joberman@email.sc.edu\",\n            \"gpa\": 1.0,\n            \"education\": \"BS Computer Science, BS Mathematics\",\n            \"skills\": [],\n            \"workExperiences\": [],\n            \"courseExperiences\": [],\n            \"clubExperiences\": []\n        }\n    }");
+        assertEquals(expected, actual);
+    }
 
-    // public static String idsToJSON(ArrayList<UUID> ids)
-    // Should test 0 element case, 1 element case and 10 element case
+    @Test
+    public void testObjectDictFromBracketEmpty() {
+        ArrayList<String> actual = DataLoader.objectDictFromBracket("  \n\n\t");
+        ArrayList<String> expected = new ArrayList<String>();
+        assertEquals(expected, actual);
+    }
 
-    // public static String stringsToJSON(ArrayList<String> strings)
-    // Should test 0 element case, 1 element case and 10 element case
+    @Test
+    public void testObjectDictFromBracketNormal() {
+        ArrayList<String> actual = DataLoader.objectDictFromBracket(
+                "{\n        \"id\": \"7d0b6bde-3d68-4241-8230-525f5c086a7f\",\n        \"username\": \"jamieWhistler\",\n        \"password\": \"H$mno90sd\",\n        \"userType\": \"admin\",\n        \"isVerified\": false,\n        \"firstName\": \"James\",\n        \"lastName\": \"Whistler\"\n    },\n    {\n        \"id\": \"452d4ff2-b3c3-46ad-8392-b1c6bd075123\",\n        \"username\": \"lesgoooo\",\n        \"password\": \"@d@F%gplmz\",\n        \"userType\": \"employer\",\n        \"isVerified\": false,\n        \"title\": \"Google\",\n        \"description\": \"Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.\",\n        \"listings\": []\n    },\n    {\n        \"id\": \"0f01337c-13ea-45b7-8d2c-97085402fc58\",\n        \"username\": \"joberman\",\n        \"password\": \"G#meCok7\",\n        \"userType\": \"student\",\n        \"isVerified\": false,\n        \"resume\": \"stuff\"    }");
+        ArrayList<String> expected = new ArrayList<String>();
+        expected.add(
+                "{\n        \"id\": \"7d0b6bde-3d68-4241-8230-525f5c086a7f\",\n        \"username\": \"jamieWhistler\",\n        \"password\": \"H$mno90sd\",\n        \"userType\": \"admin\",\n        \"isVerified\": false,\n        \"firstName\": \"James\",\n        \"lastName\": \"Whistler\"\n    }");
+        expected.add(
+                "{\n        \"id\": \"452d4ff2-b3c3-46ad-8392-b1c6bd075123\",\n        \"username\": \"lesgoooo\",\n        \"password\": \"@d@F%gplmz\",\n        \"userType\": \"employer\",\n        \"isVerified\": false,\n        \"title\": \"Google\",\n        \"description\": \"Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.\",\n        \"listings\": []\n    }");
+        expected.add(
+                "{\n        \"id\": \"0f01337c-13ea-45b7-8d2c-97085402fc58\",\n        \"username\": \"joberman\",\n        \"password\": \"G#meCok7\",\n        \"userType\": \"student\",\n        \"isVerified\": false,\n        \"resume\": \"stuff\"    }");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testStringDictFromBracket() {
+        ArrayList<String> actual = DataLoader.stringDictFromBracket("\"json\", \"java\", \"more\"");
+        ArrayList<String> expected = new ArrayList<String>();
+        expected.add("json");
+        expected.add("java");
+        expected.add("more");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testStringDictFromBracketEmpty() {
+        ArrayList<String> actual = DataLoader.stringDictFromBracket("");
+        ArrayList<String> expected = new ArrayList<String>();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testDictFromBracketObject() {
+        ArrayList<String> actual = DataLoader.objectDictFromBracket(
+                "[        {\n        \"id\": \"7d0b6bde-3d68-4241-8230-525f5c086a7f\",\n        \"username\": \"jamieWhistler\",\n        \"password\": \"H$mno90sd\",\n        \"userType\": \"admin\",\n        \"isVerified\": false,\n        \"firstName\": \"James\",\n        \"lastName\": \"Whistler\"\n    },\n    {\n        \"id\": \"452d4ff2-b3c3-46ad-8392-b1c6bd075123\",\n        \"username\": \"lesgoooo\",\n        \"password\": \"@d@F%gplmz\",\n        \"userType\": \"employer\",\n        \"isVerified\": false,\n        \"title\": \"Google\",\n        \"description\": \"Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.\",\n        \"listings\": []\n    },\n    {\n        \"id\": \"0f01337c-13ea-45b7-8d2c-97085402fc58\",\n        \"username\": \"joberman\",\n        \"password\": \"G#meCok7\",\n        \"userType\": \"student\",\n        \"isVerified\": false,\n        \"resume\": \"stuff\"    }\n     ]");
+        ArrayList<String> expected = new ArrayList<String>();
+        expected.add(
+                "{\n        \"id\": \"7d0b6bde-3d68-4241-8230-525f5c086a7f\",\n        \"username\": \"jamieWhistler\",\n        \"password\": \"H$mno90sd\",\n        \"userType\": \"admin\",\n        \"isVerified\": false,\n        \"firstName\": \"James\",\n        \"lastName\": \"Whistler\"\n    }");
+        expected.add(
+                "{\n        \"id\": \"452d4ff2-b3c3-46ad-8392-b1c6bd075123\",\n        \"username\": \"lesgoooo\",\n        \"password\": \"@d@F%gplmz\",\n        \"userType\": \"employer\",\n        \"isVerified\": false,\n        \"title\": \"Google\",\n        \"description\": \"Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.\",\n        \"listings\": []\n    }");
+        expected.add(
+                "{\n        \"id\": \"0f01337c-13ea-45b7-8d2c-97085402fc58\",\n        \"username\": \"joberman\",\n        \"password\": \"G#meCok7\",\n        \"userType\": \"student\",\n        \"isVerified\": false,\n        \"resume\": \"stuff\"    }");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testDictFromBracketString() {
+        ArrayList<String> actual = DataLoader.stringDictFromBracket("[\"json\", \"java\", \"more\"]");
+        ArrayList<String> expected = new ArrayList<String>();
+        expected.add("json");
+        expected.add("java");
+        expected.add("more");
+        assertEquals(expected, actual);
+    }
 }

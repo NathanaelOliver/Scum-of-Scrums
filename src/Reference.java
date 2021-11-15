@@ -110,8 +110,8 @@ public class Reference implements JSONable {
      * @return JSON representation of a reference
      */
     public String toJSON() {
-        return "{\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"phoneNumber\":" + phoneNumber
-                + ",\"email\":\"" + email + "\"}";
+        return "{\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"phoneNumber\":\"" + phoneNumber
+                + "\",\"email\":\"" + email + "\"}";
     }
 
     /**
@@ -123,5 +123,20 @@ public class Reference implements JSONable {
     public static Reference fromJSON(String json) {
         HashMap<String, String> dict = DataLoader.dictFromBrace(json);
         return new Reference(dict.get("firstName"), dict.get("lastName"), dict.get("phoneNumber"), dict.get("email"));
+    }
+
+    /**
+     * Checks to see if this is equal to another object
+     * 
+     * @param o the other object
+     */
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Reference))
+            return false;
+        Reference rhs = (Reference) o;
+        return this.firstName.equals(rhs.firstName) && this.lastName.equals(rhs.lastName)
+                && this.phoneNumber.equals(rhs.phoneNumber) && this.email.equals(rhs.email);
     }
 }
