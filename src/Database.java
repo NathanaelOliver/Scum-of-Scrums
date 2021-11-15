@@ -76,13 +76,13 @@ public class Database {
             String attribute = filterDetails[0];
             switch (attribute) {
             case "gpa":
-                filterResumesByGPA(filterDetails[1], resumes);
+                resumes = filterResumesByGPA(filterDetails[1], resumes);
                 break;
             case "skills":
-                filterResumesBySkills(filterDetails[1], resumes);
+                resumes = filterResumesBySkills(filterDetails[1], resumes);
                 break;
             case "year":
-                filterResumesByYear(filterDetails[1], resumes);
+                resumes = filterResumesByYear(filterDetails[1], resumes);
                 break;
             }
         }
