@@ -32,10 +32,11 @@ public class WorkExperience extends Experience {
      * @param endDate    the end date
      * @param references the reference for the work experience
      */
-    private WorkExperience(UUID id, String title, ArrayList<String> details, Date startDate, Date endDate,
+    public WorkExperience(UUID id, String title, ArrayList<String> details, Date startDate, Date endDate,
             ArrayList<Reference> references, String position) {
         super(id, title, details, startDate, endDate);
         this.references = references;
+        this.details.add(position);
     }
 
     /**
@@ -96,7 +97,7 @@ public class WorkExperience extends Experience {
                 str += "\n" + ref;
             }
         }
-        
+
         return str;
     }
 
@@ -127,5 +128,27 @@ public class WorkExperience extends Experience {
                 Date.fromString(dict.get("startDate")), Date.fromString(dict.get("endDate")), references);
     }
 
+    /**
+     * Checks if this equals another object
+     * 
+     * @param o the other object
+     */
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof WorkExperience)) {
+            return false;
+        }
+        WorkExperience rhs = (WorkExperience) o;
+        if (this.references.size() != rhs.references.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.references.size(); i++) {
+            if (!this.references.get(i).equals(rhs.references.get(i))) {
+                return false;
+            }
+        }
+        return super.equals(o);
+    }
 }
-

@@ -178,7 +178,7 @@ public abstract class Experience implements JSONable {
             if (details.get(i) != e.details.get(i))
                 return false;
         }
-        return this.ID == e.ID && this.title == e.title && this.startDate.equals(e.startDate)
+        return this.ID.equals(e.ID) && this.title.equals(e.title) && this.startDate.equals(e.startDate)
                 && this.endDate.equals(e.endDate);
     }
 }

@@ -4,33 +4,11 @@ import src.DataLoader;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 class DataLoaderTester {
-
-    @BeforeClass
-    public void oneTimeSetup() {
-
-    }
-
-    @AfterClass
-    public void oneTimeTearDown() {
-
-    }
-
-    @BeforeEach
-    public void setup() {
-        // runs before each test
-    }
-
-    @AfterEach
-    public void tearDown() {
-        // runs after each test
-    }
 
     @Test
     public void testGetJSON() {
@@ -41,12 +19,79 @@ class DataLoaderTester {
 
     }
 
-    // public static String skillsToJSON(ArrayList<Skills> skills)
-    // Should test 0 element case, 1 element case and 10 element case
+    @Test
+    public void testObjectDictFromBracketInside() {
+        ArrayList<String> actual = DataLoader.objectDictFromBracket(
+                "{\n        \"id\": \"7d0b6bde-3d68-4241-8230-525f5c086a7f\",\n        \"username\": \"jamieWhistler\",\n        \"password\": \"H$mno90sd\",\n        \"userType\": \"admin\",\n        \"isVerified\": false,\n        \"firstName\": \"James\",\n        \"lastName\": \"Whistler\"\n    },\n    {\n        \"id\": \"452d4ff2-b3c3-46ad-8392-b1c6bd075123\",\n        \"username\": \"lesgoooo\",\n        \"password\": \"@d@F%gplmz\",\n        \"userType\": \"employer\",\n        \"isVerified\": false,\n        \"title\": \"Google\",\n        \"description\": \"Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.\",\n        \"listings\": []\n    },\n    {\n        \"id\": \"0f01337c-13ea-45b7-8d2c-97085402fc58\",\n        \"username\": \"joberman\",\n        \"password\": \"G#meCok7\",\n        \"userType\": \"student\",\n        \"isVerified\": false,\n        \"resume\": {\n            \"id\": \"fe272a2d-f2fe-4717-b714-888a40a43960\",\n            \"firstName\": \"Jack\",\n            \"lastName\": \"Oberman\",\n            \"phoneNumber\": \"3709012334\",\n            \"email\": \"joberman@email.sc.edu\",\n            \"gpa\": 1.0,\n            \"education\": \"BS Computer Science, BS Mathematics\",\n            \"skills\": [],\n            \"workExperiences\": [],\n            \"courseExperiences\": [],\n            \"clubExperiences\": []\n        }\n    }");
+        ArrayList<String> expected = new ArrayList<String>();
+        expected.add(
+                "{\n        \"id\": \"7d0b6bde-3d68-4241-8230-525f5c086a7f\",\n        \"username\": \"jamieWhistler\",\n        \"password\": \"H$mno90sd\",\n        \"userType\": \"admin\",\n        \"isVerified\": false,\n        \"firstName\": \"James\",\n        \"lastName\": \"Whistler\"\n    }");
+        expected.add(
+                "{\n        \"id\": \"452d4ff2-b3c3-46ad-8392-b1c6bd075123\",\n        \"username\": \"lesgoooo\",\n        \"password\": \"@d@F%gplmz\",\n        \"userType\": \"employer\",\n        \"isVerified\": false,\n        \"title\": \"Google\",\n        \"description\": \"Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.\",\n        \"listings\": []\n    }");
+        expected.add(
+                "{\n        \"id\": \"0f01337c-13ea-45b7-8d2c-97085402fc58\",\n        \"username\": \"joberman\",\n        \"password\": \"G#meCok7\",\n        \"userType\": \"student\",\n        \"isVerified\": false,\n        \"resume\": {\n            \"id\": \"fe272a2d-f2fe-4717-b714-888a40a43960\",\n            \"firstName\": \"Jack\",\n            \"lastName\": \"Oberman\",\n            \"phoneNumber\": \"3709012334\",\n            \"email\": \"joberman@email.sc.edu\",\n            \"gpa\": 1.0,\n            \"education\": \"BS Computer Science, BS Mathematics\",\n            \"skills\": [],\n            \"workExperiences\": [],\n            \"courseExperiences\": [],\n            \"clubExperiences\": []\n        }\n    }");
+        assertEquals(expected, actual);
+    }
 
-    // public static String idsToJSON(ArrayList<UUID> ids)
-    // Should test 0 element case, 1 element case and 10 element case
+    @Test
+    public void testObjectDictFromBracketEmpty() {
+        ArrayList<String> actual = DataLoader.objectDictFromBracket("  \n\n\t");
+        ArrayList<String> expected = new ArrayList<String>();
+        assertEquals(expected, actual);
+    }
 
-    // public static String stringsToJSON(ArrayList<String> strings)
-    // Should test 0 element case, 1 element case and 10 element case
+    @Test
+    public void testObjectDictFromBracketNormal() {
+        ArrayList<String> actual = DataLoader.objectDictFromBracket(
+                "{\n        \"id\": \"7d0b6bde-3d68-4241-8230-525f5c086a7f\",\n        \"username\": \"jamieWhistler\",\n        \"password\": \"H$mno90sd\",\n        \"userType\": \"admin\",\n        \"isVerified\": false,\n        \"firstName\": \"James\",\n        \"lastName\": \"Whistler\"\n    },\n    {\n        \"id\": \"452d4ff2-b3c3-46ad-8392-b1c6bd075123\",\n        \"username\": \"lesgoooo\",\n        \"password\": \"@d@F%gplmz\",\n        \"userType\": \"employer\",\n        \"isVerified\": false,\n        \"title\": \"Google\",\n        \"description\": \"Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.\",\n        \"listings\": []\n    },\n    {\n        \"id\": \"0f01337c-13ea-45b7-8d2c-97085402fc58\",\n        \"username\": \"joberman\",\n        \"password\": \"G#meCok7\",\n        \"userType\": \"student\",\n        \"isVerified\": false,\n        \"resume\": \"stuff\"    }");
+        ArrayList<String> expected = new ArrayList<String>();
+        expected.add(
+                "{\n        \"id\": \"7d0b6bde-3d68-4241-8230-525f5c086a7f\",\n        \"username\": \"jamieWhistler\",\n        \"password\": \"H$mno90sd\",\n        \"userType\": \"admin\",\n        \"isVerified\": false,\n        \"firstName\": \"James\",\n        \"lastName\": \"Whistler\"\n    }");
+        expected.add(
+                "{\n        \"id\": \"452d4ff2-b3c3-46ad-8392-b1c6bd075123\",\n        \"username\": \"lesgoooo\",\n        \"password\": \"@d@F%gplmz\",\n        \"userType\": \"employer\",\n        \"isVerified\": false,\n        \"title\": \"Google\",\n        \"description\": \"Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.\",\n        \"listings\": []\n    }");
+        expected.add(
+                "{\n        \"id\": \"0f01337c-13ea-45b7-8d2c-97085402fc58\",\n        \"username\": \"joberman\",\n        \"password\": \"G#meCok7\",\n        \"userType\": \"student\",\n        \"isVerified\": false,\n        \"resume\": \"stuff\"    }");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testStringDictFromBracket() {
+        ArrayList<String> actual = DataLoader.stringDictFromBracket("\"json\", \"java\", \"more\"");
+        ArrayList<String> expected = new ArrayList<String>();
+        expected.add("json");
+        expected.add("java");
+        expected.add("more");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testStringDictFromBracketEmpty() {
+        ArrayList<String> actual = DataLoader.stringDictFromBracket("");
+        ArrayList<String> expected = new ArrayList<String>();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testDictFromBracketObject() {
+        ArrayList<String> actual = DataLoader.objectDictFromBracket(
+                "[        {\n        \"id\": \"7d0b6bde-3d68-4241-8230-525f5c086a7f\",\n        \"username\": \"jamieWhistler\",\n        \"password\": \"H$mno90sd\",\n        \"userType\": \"admin\",\n        \"isVerified\": false,\n        \"firstName\": \"James\",\n        \"lastName\": \"Whistler\"\n    },\n    {\n        \"id\": \"452d4ff2-b3c3-46ad-8392-b1c6bd075123\",\n        \"username\": \"lesgoooo\",\n        \"password\": \"@d@F%gplmz\",\n        \"userType\": \"employer\",\n        \"isVerified\": false,\n        \"title\": \"Google\",\n        \"description\": \"Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.\",\n        \"listings\": []\n    },\n    {\n        \"id\": \"0f01337c-13ea-45b7-8d2c-97085402fc58\",\n        \"username\": \"joberman\",\n        \"password\": \"G#meCok7\",\n        \"userType\": \"student\",\n        \"isVerified\": false,\n        \"resume\": \"stuff\"    }\n     ]");
+        ArrayList<String> expected = new ArrayList<String>();
+        expected.add(
+                "{\n        \"id\": \"7d0b6bde-3d68-4241-8230-525f5c086a7f\",\n        \"username\": \"jamieWhistler\",\n        \"password\": \"H$mno90sd\",\n        \"userType\": \"admin\",\n        \"isVerified\": false,\n        \"firstName\": \"James\",\n        \"lastName\": \"Whistler\"\n    }");
+        expected.add(
+                "{\n        \"id\": \"452d4ff2-b3c3-46ad-8392-b1c6bd075123\",\n        \"username\": \"lesgoooo\",\n        \"password\": \"@d@F%gplmz\",\n        \"userType\": \"employer\",\n        \"isVerified\": false,\n        \"title\": \"Google\",\n        \"description\": \"Google LLC is an American multinational technology company that specializes in Internet-related services and products, which include online advertising technologies, a search engine, cloud computing, software, and hardware.\",\n        \"listings\": []\n    }");
+        expected.add(
+                "{\n        \"id\": \"0f01337c-13ea-45b7-8d2c-97085402fc58\",\n        \"username\": \"joberman\",\n        \"password\": \"G#meCok7\",\n        \"userType\": \"student\",\n        \"isVerified\": false,\n        \"resume\": \"stuff\"    }");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testDictFromBracketString() {
+        ArrayList<String> actual = DataLoader.stringDictFromBracket("[\"json\", \"java\", \"more\"]");
+        ArrayList<String> expected = new ArrayList<String>();
+        expected.add("json");
+        expected.add("java");
+        expected.add("more");
+        assertEquals(expected, actual);
+    }
 }

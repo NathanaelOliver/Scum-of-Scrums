@@ -81,7 +81,7 @@ public class Date {
     public boolean equals(Object o) {
         if (o == this) {
             return true;
-        } else if (!(o instanceof Experience)) {
+        } else if (!(o instanceof Date)) {
             return false;
         }
         return this.compareTo((Date) o) == 0;

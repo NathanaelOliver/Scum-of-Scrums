@@ -128,22 +128,35 @@ public class DataLoader {
         json = json.trim().substring(1, json.trim().length() - 1).trim();
         switch (json.charAt(0)) {
         case '"':
-            return stringDictFromBrace(json);
+            return stringDictFromBracket(json);
         case '{':
-
+            return objectDictFromBracket(json);
         }
         return new ArrayList<String>();
     }
 
-    public static ArrayList<String> stringDictFromBrace(String json) {
+    /**
+     * Creates an ArrayList of json objects from comma delimited json objects
+     * 
+     * @param json comma delimited json object
+     * @return an arraylist of JSON objects
+     */
+    public static ArrayList<String> stringDictFromBracket(String json) {
         ArrayList<String> dict = new ArrayList<String>();
         for (String e : json.split(",")) {
-            dict.add(e.trim().substring(1, e.trim().length() - 1));
+            if (e.trim().length() > 0)
+                dict.add(e.trim().substring(1, e.trim().length() - 1));
         }
         return dict;
     }
 
-    public static ArrayList<String> objectDictFromBrace(String json) {
+    /**
+     * Creates an ArrayList of Strings from comma delimited JSON strings
+     * 
+     * @param json comma delimited JSON Strings
+     * @return ArrayList of Strings
+     */
+    public static ArrayList<String> objectDictFromBracket(String json) {
         ArrayList<String> dict = new ArrayList<String>();
         int start = 0, count = 0, i = 0;
         boolean flag = true;
@@ -154,6 +167,7 @@ public class DataLoader {
                     return dict;
                 }
             }
+            start = i;
             do {
                 switch (json.charAt(i)) {
                 case '"':
