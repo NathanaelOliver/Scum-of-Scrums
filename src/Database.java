@@ -271,6 +271,20 @@ public class Database {
         return null;
     }
 
+     /**
+     * get student by id
+     * 
+     * @param id is id of student
+     * @return student
+     */
+    public static Student getStudentByID(UUID id) {
+        for (Student student : students) {
+            if (student.ID.equals(id))
+                return student;
+        }
+        return null;
+    }
+
     /**
      * Gets all job listings
      * 

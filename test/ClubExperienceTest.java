@@ -1,8 +1,6 @@
 package test;
 
-import src.Database;
 import src.ClubExperience;
-import src.DataLoader;
 import src.Date;
 
 import java.util.UUID;
@@ -33,7 +31,6 @@ class ClubExperienceTest {
 	
 	@BeforeEach
 	public void setup() {
-        Database.fromJSON(DataLoader.getJSON("data/Users.json"));
         ArrayList<String> dets = new ArrayList<String>();
         dets.add("Kept the monies and bought a bunch of pizza");
         this.experience2 = new ClubExperience(UUID.randomUUID(), "ACM", dets, Date.fromString("05/09/2020"), Date.fromString("05/10/2020"), "Treasurer");
