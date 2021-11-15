@@ -121,47 +121,55 @@ public class DataLoader {
      * @return an ArrayList of elements within the brackets
      */
     public static ArrayList<String> dictFromBracket(String json) {
-        ArrayList<String> dict = new ArrayList<String>();
         if (json == null || json.length() <= 2) {
-            return dict;
+            return new ArrayList<String>();
         }
 
         json = json.trim().substring(1, json.trim().length() - 1).trim();
         switch (json.charAt(0)) {
         case '"':
-            for (String e : json.split(",")) {
-                dict.add(e.trim().substring(1, e.trim().length() - 1));
-            }
-            break;
+            return stringDictFromBrace(json);
         case '{':
-            int start = 0;
-            int count = 0, i = 0;
-            boolean flag = true;
-            do {
-                while (!(json.charAt(i) == '"' || json.charAt(i) == '{')) {
-                    i++;
-                    if (i == json.length()) {
-                        return dict;
-                    }
-                }
-                do {
 
-                    switch (json.charAt(i)) {
-                    case '"':
-                        flag = !flag;
-                        break;
-                    case '{':
-                        count += flag ? 1 : 0;
-                        break;
-                    case '}':
-                        count -= flag ? 1 : 0;
-                        break;
-                    }
-                    i++;
-                } while (count != 0);
-                dict.add(json.substring(start, i).trim());
-            } while (i != json.length());
         }
+        return new ArrayList<String>();
+    }
+
+    public static ArrayList<String> stringDictFromBrace(String json) {
+        ArrayList<String> dict = new ArrayList<String>();
+        for (String e : json.split(",")) {
+            dict.add(e.trim().substring(1, e.trim().length() - 1));
+        }
+        return dict;
+    }
+
+    public static ArrayList<String> objectDictFromBrace(String json) {
+        ArrayList<String> dict = new ArrayList<String>();
+        int start = 0, count = 0, i = 0;
+        boolean flag = true;
+        do {
+            while (!(json.charAt(i) == '"' || json.charAt(i) == '{')) {
+                i++;
+                if (i == json.length()) {
+                    return dict;
+                }
+            }
+            do {
+                switch (json.charAt(i)) {
+                case '"':
+                    flag = !flag;
+                    break;
+                case '{':
+                    count += flag ? 1 : 0;
+                    break;
+                case '}':
+                    count -= flag ? 1 : 0;
+                    break;
+                }
+                i++;
+            } while (count != 0);
+            dict.add(json.substring(start, i).trim());
+        } while (i != json.length());
         return dict;
     }
 }

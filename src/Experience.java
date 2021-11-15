@@ -28,7 +28,7 @@ public abstract class Experience implements JSONable {
     /**
      * Constructor for Experience with only title and a position
      * 
-     * @param title the title of the experience
+     * @param title    the title of the experience
      * @param position the position of the user in a company (for work experience)
      */
     public Experience(String title, String position) {
@@ -154,7 +154,31 @@ public abstract class Experience implements JSONable {
 
     /**
      * Returns a string representation of an experience
+     * 
      * @return string representation
      */
     public abstract String toString();
+
+    /**
+     * Checks if two Experiences are equal to each other
+     * 
+     * @param o the object that is being checked to make sure they are equal
+     */
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof Experience)) {
+            return false;
+        }
+        Experience e = (Experience) o;
+        if (details.size() != e.details.size()) {
+            return false;
+        }
+        for (int i = 0; i < details.size(); i++) {
+            if (details.get(i) != e.details.get(i))
+                return false;
+        }
+        return this.ID == e.ID && this.title == e.title && this.startDate.equals(e.startDate)
+                && this.endDate.equals(e.endDate);
+    }
 }

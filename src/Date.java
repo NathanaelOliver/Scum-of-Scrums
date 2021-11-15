@@ -48,21 +48,42 @@ public class Date {
 
     /**
      * compare two dates
+     * 
      * @param date is the date to compare with
-     * @return -1 if this date is less than the date being compared with
-     * 1 if this date is greater than the date being compared with
-     * 0 if the dates are equal
+     * @return -1 if this date is less than the date being compared with 1 if this
+     *         date is greater than the date being compared with 0 if the dates are
+     *         equal
      */
     public int compareTo(Date date) {
-        if (year < date.year) return -1;
-        else if (year > date.year) return 1;
+        if (year < date.year)
+            return -1;
+        else if (year > date.year)
+            return 1;
 
-        if (month < date.month) return -1;
-        else if (month > date.month) return 1;
+        if (month < date.month)
+            return -1;
+        else if (month > date.month)
+            return 1;
 
-        if (day < date.day) return -1;
-        else if (day > date.day) return 1;
+        if (day < date.day)
+            return -1;
+        else if (day > date.day)
+            return 1;
 
         return 0;
+    }
+
+    /**
+     * Checks if two Experiences are equal to each other
+     * 
+     * @param o the object that is being checked to make sure they are equal
+     */
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof Experience)) {
+            return false;
+        }
+        return this.compareTo((Date) o) == 0;
     }
 }
