@@ -31,7 +31,7 @@ class EmployerTest {
 	@BeforeEach
 	public void setup() {
 		Database.fromJSON(DataLoader.getJSON("data/Users.json"));
-		employer1 = Database.getEmployerByID(UUID.fromString("01f78a8e-21a0-40cc-8b03-6155cb92986f"));
+		this.employer1 = Database.getEmployerByID(UUID.fromString("01f78a8e-21a0-40cc-8b03-6155cb92986f"));
 	}
 	
 	@AfterEach
@@ -46,18 +46,18 @@ class EmployerTest {
 
 	@Test
 	public void testToJSON() {
-		assertEquals(employer1.toJSON(), "");
+		assertEquals(employer1.toJSON(), "{\"id\":\"01f78a8e-21a0-40cc-8b03-6155cb92986f\",\"username\":\"publix\",\"password\":\"p9o08h80n\",\"userType\":\"employer\",\"isVerified\":true,\"title\":\"Publix Supermarkets Inc\",\"description\":[],\"listings\":[ {\"id\":\"f2c88aaa-dd37-46e4-abaf-919856ab5c4c\",\"employerId\":\"01f78a8e-21a0-40cc-8b03-6155cb92986f\",\"payRate\":18.75,\"location\":\"Greenville, South Carolina\",\"title\":\"Software Engineering Intern\",\"description\":[],\"startDate\":\"05/01/20\",\"endDate\":\"08/20/20\",\"siteLink\":\"https: //www.publix.com/\",\"skills\":[ \"Java\",\"Linux\",\"CSS\"],\"applicants\":[\"aae52f6d-08a1-4775-a2ac-ff7f631cd686\",\"6ab93632-f1c8-441f-bf57-e63384ae3c58\"]}]}");
 	}
 
 	@Test
 	public void testToString() {
-		String var = "";
+		String var = "Title: Publix Supermarkets Inc";
 		assertEquals(var, employer1.toString());
 	}
 
 	@Test
 	public void testGetListingByID() {
-		assertNotNull(new Listing(employer1.getListingById(UUID.fromString("f2c88aaa-dd37-46e4-abaf-919856ab5c4c"))));
+		assertNotNull(employer1.getListingById(UUID.fromString("f2c88aaa-dd37-46e4-abaf-919856ab5c4c")));
 	}
 
 	@Test
