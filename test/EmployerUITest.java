@@ -36,27 +36,27 @@ class EmployerUITest {
 	}
 
     @Test
-    public void testFromJSON() {
+    public void testAddDescription() {
 
 	}
 
 	@Test
-	public void testToJSON() {
+	public void testAddListing() {
 
-	}
-
-	@Test
-	public void testToString() {
-		
-	}
-
-	@Test
-	public void testGetListingByID() {
-		
 	}
 
 	@Test
 	public void testDeleteListing() {
+		
+	}
+
+	@Test
+	public void testViewListing() {
+		
+	}
+
+	@Test
+	public void testEditListing() {
 		
 	}
 	

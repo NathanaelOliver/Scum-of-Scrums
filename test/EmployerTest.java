@@ -2,8 +2,12 @@ package test;
 
 import src.Employer;
 import src.Listing;
+import src.Database;
+import src.DataLoader;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.UUID;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -26,9 +30,8 @@ class EmployerTest {
 	
 	@BeforeEach
 	public void setup() {
-		this.employer1 = new Employer("berkeleylab", "12345678", 
-			"Lawrence Berkeley National Laboratory");
-		this.employer1.addListing(new Listing("BLUR Intern", this.employer1.ID));
+		Database.fromJSON(DataLoader.getJSON("data/Users.json"));
+		employer1 = Database.getEmployerByID(UUID.fromString("01f78a8e-21a0-40cc-8b03-6155cb92986f"));
 	}
 	
 	@AfterEach
@@ -38,12 +41,12 @@ class EmployerTest {
 
     @Test
     public void testFromJSON() {
-
+		
 	}
 
 	@Test
 	public void testToJSON() {
-		
+		assertEquals(employer1.toJSON(), "");
 	}
 
 	@Test
@@ -54,13 +57,13 @@ class EmployerTest {
 
 	@Test
 	public void testGetListingByID() {
-		assertNotNull(employer1.getListings().get(0).ID);
+		assertNotNull(new Listing(employer1.getListingById(UUID.fromString("f2c88aaa-dd37-46e4-abaf-919856ab5c4c"))));
 	}
 
 	@Test
 	public void testDeleteListing() {
-		employer1.deleteListing(employer1.getListingById(employer1.getListings().get(0).ID));
-		assertNull(employer1.getListingById(employer1.getListings().get(0).ID));
+		employer1.deleteListing(employer1.getListingById(UUID.fromString("f2c88aaa-dd37-46e4-abaf-919856ab5c4c")));
+		assertNull(employer1.getListingById(UUID.fromString("f2c88aaa-dd37-46e4-abaf-919856ab5c4c")));
 	}
 	
 	//assertEquals(val1,val2)
